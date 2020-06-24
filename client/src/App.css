@@ -1,0 +1,117 @@
+.left {
+  width: 65%;
+}
+
+@media screen and (max-width: 1100px) {
+  .left {
+    margin: auto;
+    width: auto;
+  }
+}
+
+.left .top {
+  width: 100%;
+  margin: 40px 0;
+  margin-bottom: 0;
+}
+
+@media screen and (max-width: 670px) {
+  .left .top h1 {
+    font-size: 30px;
+  }
+}
+
+.left .top p {
+  color: gray;
+  padding: 0 100px;
+}
+
+@media screen and (max-width: 800px) {
+  .left .top p {
+    padding: 0 50px;
+  }
+}
+
+@media screen and (max-width: 670px) {
+  .left .top p {
+    padding: 0 30px;
+    font-size: 15px;
+  }
+}
+
+.left .top h2 {
+  margin: 20px 10px;
+}
+
+.left .sign-up-form {
+  width: 100%;
+}
+
+.left .sign-up-form .name-inp {
+  border-bottom: 1px solid #353535;
+  display: inline-block;
+  width: 330px;
+  margin: 10px 0;
+}
+
+.left .sign-up-form .name-inp .user-cont {
+  width: 32px;
+  margin-right: 10px;
+  margin-left: 5px;
+}
+
+.left .sign-up-form .name-inp .user-cont i {
+  font-size: 28px;
+  color: gray;
+}
+
+.left .sign-up-form .name-inp input {
+  border: none;
+  width: 270px;
+  height: 40px;
+}
+
+.left .sign-up-form .name-inp input:focus {
+  outline: none;
+}
+
+.left .sign-up-form .name-inp:hover {
+  border-bottom: 1px solid #0066FF;
+}
+
+.left .sign-up-form .btn-dark {
+  width: 330px;
+  margin-top: 20px;
+}
+
+.left .sign-up-form .btn-dark button {
+  width: 330px;
+  color: white;
+}
+
+.right {
+  width: 35%;
+}
+
+@media screen and (max-width: 1100px) {
+  .right {
+    display: none;
+  }
+}
+
+.right img {
+  width: 100%;
+  height: 100vh;
+}
+
+.wrong-pg {
+  margin: 15px 0;
+}
+
+.container-fluid {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0;
+}
+/*# sourceMappingURL=App.css.map */
