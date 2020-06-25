@@ -14,6 +14,7 @@ import Routes from './Routes';
 // Import Utilities
 import setAuthToken from './utils/setAuthToken';
 import { loadUser } from './actions/authAction';
+import Navbar from './components/navbar/Navbar';
 
 if (localStorage.getItem('token')) {
     setAuthToken(localStorage.getItem('token'));
@@ -26,6 +27,7 @@ function App() {
     return (
         <Provider store={store}>
             <Router>
+                <Navbar />
                 <div className='container-fluid'>
                     <Switch>
                         <Routes />

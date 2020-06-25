@@ -2,12 +2,24 @@ import React, { useState, useEffect, Fragment } from 'react';
 import '../../App.css';
 import { connect } from 'react-redux';
 import { register } from '../../actions/authAction';
+import { removeNav } from '../../actions/navAction';
+
 import Alert from '../alerts/Alert';
 
 // Assets import
 import auth from '../../assets/auth.jpg';
 
-const Register = ({ auth: { isAuthenticated }, alert, register, history }) => {
+const Register = ({
+    auth: { isAuthenticated },
+    alert,
+    register,
+    removeNav,
+    history,
+}) => {
+    useEffect(() => {
+        removeNav();
+    }, []);
+
     const [user, setUser] = useState({
         name: '',
         email: '',
@@ -126,4 +138,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, { register })(Register);
+export default connect(mapStateToProps, { register, removeNav })(Register);

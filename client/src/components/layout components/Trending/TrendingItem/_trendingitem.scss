@@ -1,0 +1,39 @@
+.trending-item {
+    width: 280px;
+    height: 220px;
+    padding: 10px;
+    margin: 0 15px;
+
+
+    .img-container {
+        width: 100%;
+        height: 120px;
+        background-color: indianred;
+        cursor: pointer;
+    }
+
+    .bottom-section {
+        h3 {
+            font-size: 18px;
+            margin: 5px 0;
+            cursor: pointer;
+        }
+
+        p {
+            font-size: 14px;
+            margin-top: auto;
+            margin-bottom: auto;
+            user-select: none;
+        }
+
+        .user {
+            span {
+                width: 5px;
+                height: 5px;
+                border-radius: 100%;
+                background-color: gray;
+                margin: 0 5px;
+            }
+        }
+    }
+}

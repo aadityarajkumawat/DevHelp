@@ -1,0 +1,100 @@
+.nav-container {
+    margin: 0;
+    max-width: 100%;
+    width: 100%;
+    padding: 0;
+
+    .bd-navbar {
+        background-color: #fff !important;
+    }
+
+    nav {
+        width: 100%;
+
+        .utils {
+
+            .icons {
+                span {
+                    margin: 5px 20px 5px 0px;
+
+                    i {
+                        font-size: 20px;
+                        color: rgb(139, 139, 139);
+
+                        &:hover {
+                            color: rgb(98, 98, 98);
+                        }
+                    }
+                }
+            }
+
+            .user-icon {
+                position: relative;
+
+                .img {
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 100%;
+                    background-color: grey;
+                }
+
+                .drop-down-container {
+                    display: none;
+                    position: absolute;
+                    list-style: none;
+                    left: -130px;
+                    top: 37px;
+                    width: 150px;
+                    padding: 8px;
+                    background-color: rgb(49, 49, 49);
+
+                    &::before {
+                        content: '';
+                        width: 15px;
+                        height: 15px;
+                        background-color: rgb(49, 49, 49);
+                        position: absolute;
+                        transform: rotate(45deg);
+                        right: 4px;
+                        top: -6px;
+                    }
+
+                    li {
+                        color: white;
+                        font-size: 14px;
+                        user-select: none;
+                    }
+                }
+
+
+
+                .toggle-drop-down {
+                    display: flex;
+                    z-index: 3;
+                }
+            }
+
+
+
+            .upgrade {
+                button {
+                    height: 30px;
+                    padding: 2px 10px;
+                    font-size: 14px;
+                    border-width: 2px;
+                }
+
+                margin-right: 20px;
+            }
+        }
+    }
+
+    .drop-closer {
+        display: none;
+        width: 100vw;
+        height: 100vh;
+        position: absolute;
+        background-color: rgba(0, 0, 0, 0);
+        z-index: 1;
+    }
+}

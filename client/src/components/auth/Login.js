@@ -2,12 +2,24 @@ import React, { useState, useEffect, Fragment } from 'react';
 import '../../App.css';
 import { connect } from 'react-redux';
 import { login } from '../../actions/authAction';
+import { removeNav } from '../../actions/navAction';
 
 // Assets import
 import auth from '../../assets/auth.jpg';
 import Alert from '../alerts/Alert';
 
-const Login = ({ auth: { isAuthenticated }, login, alert, history }) => {
+const Login = ({
+    auth: { isAuthenticated },
+    login,
+    alert,
+    removeNav,
+    history,
+}) => {
+    useEffect(() => {
+        removeNav();
+        console.log('called');
+    }, []);
+
     const [user, setUser] = useState({
         email: '',
         password: '',
@@ -92,7 +104,7 @@ const Login = ({ auth: { isAuthenticated }, login, alert, history }) => {
                 </form>
                 <p className='wrong-pg'>
                     New user?{'  '}
-                    <a href='/'>Sign Up</a>
+                    <a href='/sign-up'>Sign Up</a>
                 </p>
             </div>
             <div className='right'>
@@ -109,4 +121,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, { login })(Login);
+export default connect(mapStateToProps, { login, removeNav })(Login);
