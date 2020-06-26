@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { getTrendingPosts } from '../../../actions/trendingAction';
 import TrendingItem from './TrendingItem/TrendingItem';
@@ -23,9 +23,18 @@ const Trending = ({
 
     return (
         <div className='container trending d-flex justify-content-around'>
-            {posts.map((post) => (
-                <TrendingItem post={post} routing={routing} />
-            ))}
+            {posts.length > 0 ? (
+                posts.map((post) => (
+                    <TrendingItem post={post} routing={routing} />
+                ))
+            ) : (
+                <Fragment>
+                    <TrendingItem />
+                    <TrendingItem />
+                    <TrendingItem />
+                    <TrendingItem />
+                </Fragment>
+            )}
         </div>
     );
 };

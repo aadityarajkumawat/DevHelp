@@ -1,6 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { getPost } from '../../../actions/getPostAction';
+
+// Parse HTML string to HTML
+import HTMLReactParser from 'html-react-parser';
 
 const Post = ({ post: { currentPost, openedPost }, getPost }) => {
     const [post, setPost] = useState({});
@@ -11,16 +14,12 @@ const Post = ({ post: { currentPost, openedPost }, getPost }) => {
             } else {
                 getPost(currentPost);
             }
-            console.log(1);
         }
         if (isEmpty(post)) {
-            console.log(2);
             setPost(openedPost);
         }
-        console.log(3);
-        console.log(currentPost);
         // eslint-disable-next-line
-    }, [currentPost]);
+    }, [currentPost, openedPost]);
 
     const isEmpty = (obj) => {
         for (var key in obj) {
@@ -28,10 +27,19 @@ const Post = ({ post: { currentPost, openedPost }, getPost }) => {
         }
         return true;
     };
+
     return (
-        <div>
-            <h1>{openedPost.heading}</h1>
-            <p>{openedPost.content}</p>
+        <div className='post-container-one'>
+            <h1 className='post-heading'>{post.heading}</h1>
+            <div className='user-p d-flex align-items-center'>
+                <span>{post.name}</span>
+                <div className='dot-i'></div>
+                <span>null time</span>
+            </div>
+            <div className='img-post-container'></div>
+            <p className='nn-new'>
+                {post.content !== undefined && HTMLReactParser(post.content)}
+            </p>
         </div>
     );
 };

@@ -16,13 +16,13 @@ const Navbar = ({ navbar }) => {
     };
 
     return navbar ? (
-        <div class='container nav-container'>
+        <div className='container nav-container'>
             <div
                 ref={dropCloser}
                 className='drop-closer'
                 onClick={closeDrop}></div>
-            <nav class='navbar navbar-expand-lg navbar-light bg-light bd-navbar d-flex justify-content-between'>
-                <a class='navbar-brand' href='#'>
+            <nav className='navbar navbar-expand-lg navbar-light bg-light bd-navbar d-flex justify-content-between'>
+                <a className='navbar-brand' href='/'>
                     DevHelp
                 </a>
                 <div className='utils d-flex align-items-center'>

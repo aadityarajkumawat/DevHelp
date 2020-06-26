@@ -1,8 +1,10 @@
 @import './components/auth/auth';
 @import './components/navbar/navbar';
+@import './components/pages/Home';
 @import './components/layout components/Trending/trending';
 @import './components/layout components/Trending/TrendingItem/trendingitem';
 @import './components/layout components/Post/post';
+@import './components/layout components/General posts/popularposts';
 
 .container-fluid {
     display: flex;
