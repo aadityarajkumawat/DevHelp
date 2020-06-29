@@ -13,3 +13,4 @@ export const GET_TRENDING_POSTS = 'GET_TRENDING_POSTS';
 export const GET_POST = 'GET_POST';
 export const SET_CURRENT_POST = 'SET_CURRENT_POST';
 export const CLEAR_POST = 'CLEAR_POST';
+export const UPLOAD_POST = 'UPLOAD_POST';

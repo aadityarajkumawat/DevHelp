@@ -28,7 +28,7 @@ function App() {
         <Provider store={store}>
             <Router>
                 <Navbar />
-                <div className='container-fluid'>
+                <div className='d-flex justify-content-center container-fluid'>
                     <Switch>
                         <Routes />
                     </Switch>

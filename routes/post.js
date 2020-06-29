@@ -100,7 +100,7 @@ router.put(
             return res.status(400).json({ errors: errors.array() });
         }
 
-        const { heading, content } = req.body;
+        const { heading, desc, content } = req.body;
         const post_id = req.params.post_id;
         const updatedPost = {
             heading,
@@ -163,8 +163,6 @@ router.put('/like/:post_id', auth, async (req, res) => {
 // @DESC    Delete a post
 // @ACCESS  Private
 router.delete('/:post_id', auth, async (req, res) => {
-    const post_id = req.params.post_id;
-
     try {
         const post = await Post.findById(req.params.post_id);
 

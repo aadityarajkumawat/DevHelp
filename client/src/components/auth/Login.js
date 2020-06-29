@@ -43,7 +43,7 @@ const Login = ({
 
     useEffect(() => {
         if (isAuthenticated) {
-            history.push('/auth-success');
+            history.push('/');
             setLoading(false);
         }
         setLoading(false);
@@ -93,7 +93,7 @@ const Login = ({
                     <button className='btn btn-dark' type='submit'>
                         {loading && alert.length === 0 && (
                             <span
-                                class='spinner-border spinner-border-sm'
+                                className='spinner-border spinner-border-sm'
                                 aria-hidden='true'></span>
                         )}
 

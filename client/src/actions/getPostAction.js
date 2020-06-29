@@ -1,5 +1,11 @@
-import { GET_POST, SET_CURRENT_POST, CLEAR_POST } from '../actions/types';
+import {
+    GET_POST,
+    SET_CURRENT_POST,
+    CLEAR_POST,
+    UPLOAD_POST,
+} from '../actions/types';
 import axios from 'axios';
+import { loadUser } from './authAction';
 
 export const getPost = (post_id) => async (dispatch) => {
     try {
@@ -16,4 +22,21 @@ export const setCurrentPost = (post_id) => (dispatch) => {
 
 export const clearPost = () => (dispatch) => {
     dispatch({ type: CLEAR_POST }); //just clear out the post which it showed just previously
+};
+
+export const uploadPost = (post) => async (dispatch) => {
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    };
+    console.log(post);
+    try {
+        const res = await axios.post('/api/post', post, config);
+        dispatch({ type: UPLOAD_POST, payload: res.data });
+
+        dispatch(loadUser());
+    } catch (err) {
+        console.log(err);
+    }
 };
