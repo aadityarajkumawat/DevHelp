@@ -45,15 +45,23 @@ router.post(
     }
 );
 
-// @REQ     GET api/post/:user_id
+// @REQ     GET api/post/:user_id/:number
 // @DESC    get all my posts
 // @ACCESS  Public
-router.get('/:user_id', async (req, res) => {
+router.get('/:user_id/:number', async (req, res) => {
     const user_id = req.params.user_id;
+    const number = req.params.number;
     try {
         const user = await User.findOne({ _id: req.params.user_id });
         if (user) {
-            const posts = await Post.find({ user: user_id });
+            let posts;
+            if (number) {
+                posts = await Post.find({ user: user_id }).limit(
+                    Number(number)
+                );
+            } else {
+                posts = await Post.find({ user: user_id });
+            }
             return res.status(200).json(posts);
         } else {
             res.status(404).json({ errors: [{ msg: 'No user Found' }] });
@@ -100,7 +108,7 @@ router.put(
             return res.status(400).json({ errors: errors.array() });
         }
 
-        const { heading, desc, content } = req.body;
+        const { heading, content } = req.body;
         const post_id = req.params.post_id;
         const updatedPost = {
             heading,
