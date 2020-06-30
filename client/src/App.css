@@ -218,8 +218,9 @@
 .trending-item {
   width: 280px;
   height: 220px;
-  padding: 10px;
-  margin: 0 15px;
+  padding: 0px;
+  margin: 0;
+  margin-right: 28px;
 }
 
 .trending-item .img-container {
@@ -229,13 +230,40 @@
   cursor: pointer;
 }
 
-.trending-item .bottom-section h3 {
+.trending-item .bottom-section {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  height: 75px;
+}
+
+.trending-item .bottom-section .post-info--ss {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.trending-item .bottom-section .post-info--ss h3 {
   font-size: 18px;
   margin: 5px 0;
   cursor: pointer;
 }
 
-.trending-item .bottom-section p {
+.trending-item .bottom-section .post-info--ss .user {
+  position: relative;
+}
+
+.trending-item .bottom-section .post-info--ss .user p {
   font-size: 14px;
   margin-top: auto;
   margin-bottom: auto;
@@ -245,11 +273,7 @@
           user-select: none;
 }
 
-.trending-item .bottom-section .user {
-  position: relative;
-}
-
-.trending-item .bottom-section .user span {
+.trending-item .bottom-section .post-info--ss .user span {
   width: 5px;
   height: 5px;
   border-radius: 100%;
@@ -257,12 +281,23 @@
   margin: 0 5px;
 }
 
-.trending-item .bottom-section .user i {
-  -ms-flex-item-align: end;
-      align-self: flex-end;
+.trending-item .bottom-section .post-options--s {
+  padding: 10px 0;
+}
+
+.trending-item .bottom-section .post-options--s .admin-options {
+  cursor: pointer;
+}
+
+.trending-item .bottom-section .post-options--s .exit-option-mode {
   position: absolute;
+  width: 100vw;
+  height: 100vh;
+  z-index: 3;
+  top: 0;
+  left: 0;
   right: 0;
-  color: #999999;
+  bottom: 0;
 }
 
 .moving {
@@ -333,6 +368,14 @@
 
 .trending-placeholder .content2 .aad2 {
   height: 18px;
+}
+
+i {
+  cursor: pointer;
+}
+
+i:hover {
+  color: #004dc0;
 }
 
 .post-container-one {
@@ -482,6 +525,63 @@ pre * {
 .ce-inline-toolbar .ce-inline-toolbar__buttons .ce-inline-tool--last {
   width: 40px;
   margin: 10px 0;
+}
+
+.dashboard-container {
+  width: 100%;
+}
+
+.dashboard-container .options-bar {
+  width: 230px;
+  height: 100vh;
+  background-color: #ccc;
+  padding: 10px 15px;
+}
+
+.dashboard-container .options-bar .div-icon {
+  width: 25px;
+  height: 25px;
+  background-color: grey;
+  margin: 25px 0;
+  margin-bottom: 30px;
+}
+
+.dashboard-container .options-bar a {
+  margin: 13px 20px;
+  color: #414141;
+  font-size: 20px;
+}
+
+.dashboard-container .options-bar a:hover {
+  text-decoration: none;
+  color: #181818;
+}
+
+.dashboard-container .user-data-dash {
+  padding: 30px 0 0 70px;
+}
+
+.dashboard-container .user-data-dash .profile {
+  margin: 30px 0 20px 0;
+}
+
+.dashboard-container .user-data-dash .profile .img-container {
+  width: 120px;
+  height: 120px;
+  border-radius: 100%;
+  background-color: #ccc;
+}
+
+.dashboard-container .user-data-dash .profile .info p {
+  margin: 10px 0 0 0;
+}
+
+.dashboard-container .user-data-dash .profile .info .user-data {
+  padding: 0 50px 0 0;
+}
+
+.dashboard-container .user-data-dash .profile .info .user-data p {
+  margin: 0;
 }
 
 .container-fluid {

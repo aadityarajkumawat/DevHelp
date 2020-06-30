@@ -1,9 +1,16 @@
-import { GET_POST, SET_CURRENT_POST, CLEAR_POST } from '../actions/types';
+import {
+    GET_POST,
+    SET_CURRENT_POST,
+    CLEAR_POST,
+    GET_USER_POSTS,
+} from '../actions/types';
 
 const initialState = {
-    loading: true,
+    loadingPost: true,
     openedPost: {},
     currentPost: null, //this will just be a string of postID
+    userPosts: [],
+    loadingUserPosts: true,
 };
 
 const postReducer = (state = initialState, action) => {
@@ -24,6 +31,12 @@ const postReducer = (state = initialState, action) => {
                 ...state,
                 openedPost: {},
                 currentPost: null,
+            };
+        case GET_USER_POSTS:
+            return {
+                ...state,
+                userPosts: action.payload,
+                loadingUserPosts: false,
             };
         default:
             return state;

@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { connect } from 'react-redux';
 
-const Navbar = ({ navbar }) => {
+const Navbar = ({ navbar, auth: { isAuthenticated } }) => {
     const dropDown = useRef(null);
     const dropCloser = useRef(null);
 
@@ -45,9 +45,11 @@ const Navbar = ({ navbar }) => {
                             ref={dropDown}
                             className='drop-down-container flex-column text-center'>
                             <li>
-                                <a href='/login'>Login</a>
+                                {!isAuthenticated && <a href='/login'>Login</a>}
                             </li>
-                            <li>Dashboard</li>
+                            <li>
+                                <a href='/dashboard/home'>Dashboard</a>
+                            </li>
                             <li>Plans</li>
                             <li>Liked Posts</li>
                         </ul>
@@ -63,6 +65,7 @@ const Navbar = ({ navbar }) => {
 const mapStateToProps = (state) => {
     return {
         navbar: state.navbar,
+        auth: state.auth,
     };
 };
 

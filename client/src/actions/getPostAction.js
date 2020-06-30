@@ -3,6 +3,8 @@ import {
     SET_CURRENT_POST,
     CLEAR_POST,
     UPLOAD_POST,
+    GET_USER_POSTS,
+    DELETE_POST,
 } from '../actions/types';
 import axios from 'axios';
 import { loadUser } from './authAction';
@@ -36,6 +38,24 @@ export const uploadPost = (post) => async (dispatch) => {
         dispatch({ type: UPLOAD_POST, payload: res.data });
 
         dispatch(loadUser());
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+export const getUserPosts = (user_id) => async (dispatch) => {
+    try {
+        const res = await axios.get(`/api/post/${user_id}/3`);
+        dispatch({ type: GET_USER_POSTS, payload: res.data });
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+export const deletePost = (post_id) => async (dispatch) => {
+    try {
+        await axios.delete(`/api/post/${post_id}`);
+        dispatch({ type: DELETE_POST });
     } catch (err) {
         console.log(err);
     }

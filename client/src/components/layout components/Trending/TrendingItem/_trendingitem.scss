@@ -1,8 +1,9 @@
 .trending-item {
     width: 280px;
     height: 220px;
-    padding: 10px;
-    margin: 0 15px;
+    padding: 0px;
+    margin: 0;
+    margin-right: 28px;
 
 
     .img-container {
@@ -13,39 +14,62 @@
     }
 
     .bottom-section {
-        h3 {
-            font-size: 18px;
-            margin: 5px 0;
-            cursor: pointer;
-        }
+        display: flex;
+        justify-content: space-between;
+        height: 75px;
 
-        p {
-            font-size: 14px;
-            margin-top: auto;
-            margin-bottom: auto;
-            user-select: none;
-        }
+        .post-info--ss {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
 
-        .user {
-            position: relative;
-
-            span {
-                width: 5px;
-                height: 5px;
-                border-radius: 100%;
-                background-color: gray;
-                margin: 0 5px;
+            h3 {
+                font-size: 18px;
+                margin: 5px 0;
+                cursor: pointer;
             }
 
-            i {
-                align-self: flex-end;
+
+            .user {
+                position: relative;
+
+                p {
+                    font-size: 14px;
+                    margin-top: auto;
+                    margin-bottom: auto;
+                    user-select: none;
+                }
+
+                span {
+                    width: 5px;
+                    height: 5px;
+                    border-radius: 100%;
+                    background-color: gray;
+                    margin: 0 5px;
+                }
+            }
+        }
+
+        .post-options--s {
+            padding: 10px 0;
+
+            .admin-options {
+                cursor: pointer;
+
+            }
+
+            .exit-option-mode {
                 position: absolute;
+                width: 100vw;
+                height: 100vh;
+                z-index: 3;
+                top: 0;
+                left: 0;
                 right: 0;
-                color: rgb(153, 153, 153);
-
-
+                bottom: 0;
             }
         }
+
     }
 }
 
@@ -103,5 +127,15 @@
         .aad2 {
             height: 18px;
         }
+    }
+}
+
+
+// Global-icon-styles
+i {
+    cursor: pointer;
+
+    &:hover {
+        color: #004dc0;
     }
 }

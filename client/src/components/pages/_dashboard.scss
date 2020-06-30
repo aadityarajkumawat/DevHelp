@@ -1,0 +1,58 @@
+.dashboard-container {
+    width: 100%;
+
+    .options-bar {
+        width: 230px;
+        height: 100vh;
+        background-color: #ccc;
+        padding: 10px 15px;
+
+        .div-icon {
+            width: 25px;
+            height: 25px;
+            background-color: grey;
+            margin: 25px 0;
+            margin-bottom: 30px;
+        }
+
+        a {
+            margin: 13px 20px;
+            color: rgb(65, 65, 65);
+            font-size: 20px;
+
+            &:hover {
+                text-decoration: none;
+                color: rgb(24, 24, 24);
+            }
+        }
+    }
+
+    .user-data-dash {
+        padding: 30px 0 0 70px;
+
+        .profile {
+            margin: 30px 0 20px 0;
+
+            .img-container {
+                width: 120px;
+                height: 120px;
+                border-radius: 100%;
+                background-color: #ccc;
+            }
+
+            .info {
+                p {
+                    margin: 10px 0 0 0;
+                }
+
+                .user-data {
+                    padding: 0 50px 0 0;
+
+                    p {
+                        margin: 0;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -47,7 +47,7 @@ const Register = ({
 
     useEffect(() => {
         if (isAuthenticated) {
-            history.push('/auth-success');
+            history.push('/');
             setLoading(false);
         }
         setLoading(false);

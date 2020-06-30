@@ -25,7 +25,12 @@ const Trending = ({
         <div className='container trending d-flex justify-content-around'>
             {posts.length > 0 ? (
                 posts.map((post) => (
-                    <TrendingItem post={post} routing={routing} />
+                    <TrendingItem
+                        key={post._id}
+                        post={post}
+                        routing={routing}
+                        by={'home'}
+                    />
                 ))
             ) : (
                 <Fragment>

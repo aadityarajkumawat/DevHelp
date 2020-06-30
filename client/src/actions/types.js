@@ -14,3 +14,6 @@ export const GET_POST = 'GET_POST';
 export const SET_CURRENT_POST = 'SET_CURRENT_POST';
 export const CLEAR_POST = 'CLEAR_POST';
 export const UPLOAD_POST = 'UPLOAD_POST';
+export const GET_USER_POSTS = 'GET_USER_POSTS';
+export const ACCESS_POST = 'ACCESS_POST';
+export const DELETE_POST = 'DELETE_POST';
