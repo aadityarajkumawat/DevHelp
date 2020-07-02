@@ -9,7 +9,12 @@ import { connect } from 'react-redux';
 import { uploadPost } from '../../../actions/getPostAction';
 import EditorJs from 'react-editor-js';
 
-const PostEditor = ({ uploadPost, auth: { isAuthenticated } }) => {
+const PostEditor = ({
+    uploadPost,
+    auth: { isAuthenticated },
+    post,
+    history,
+}) => {
     const instanceRef = React.useRef(null);
     const [heading, setHeading] = React.useState('');
 
@@ -17,8 +22,9 @@ const PostEditor = ({ uploadPost, auth: { isAuthenticated } }) => {
         if (isAuthenticated) {
             const savedData = await instanceRef.current.save();
             const htmlToSave = parseJSON(savedData);
-            console.log(htmlToSave);
+            console.log(savedData);
             uploadPost({ heading: heading, content: htmlToSave });
+            history.push('/');
         }
     };
 
@@ -50,7 +56,12 @@ const PostEditor = ({ uploadPost, auth: { isAuthenticated } }) => {
                 tools={tools}
             />
             <button className='btn btn-primary' onClick={handleSave}>
-                Post
+                {post.uploadedStatus && (
+                    <span
+                        className='spinner-border spinner-border-sm'
+                        aria-hidden='true'></span>
+                )}
+                <span>{post.uploadedStatus ? '' : 'Post'}</span>
             </button>
         </div>
     );
@@ -59,6 +70,7 @@ const PostEditor = ({ uploadPost, auth: { isAuthenticated } }) => {
 const mapStateToProps = (state) => {
     return {
         auth: state.auth,
+        post: state.post,
     };
 };
 

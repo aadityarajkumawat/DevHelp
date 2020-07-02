@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Fragment, useRef } from 'react';
 import { connect } from 'react-redux';
-import { setCurrentPost } from '../../../../actions/getPostAction';
+import { setCurrentPost, savePost } from '../../../../actions/getPostAction';
 import PostPlaceHolder from '../../PostPlaceHolder';
 import { getAdminPrivilages } from '../../../../actions/adminPrivilagesAction';
 import OptionsMenu from '../../OptionsMenu';
@@ -14,6 +14,7 @@ const TrendingItem = ({
     postRedu: { loadingUserPosts },
     getAdminPrivilages,
     adminPrivilages,
+    savePost,
 }) => {
     const [loadingUNI, setLoadingUNI] = useState(true);
     const [openOptions, setOpenOptions] = useState(false);
@@ -27,7 +28,9 @@ const TrendingItem = ({
         routing.push('/post');
     };
 
-    const savePost = () => {};
+    const saveThisPost = () => {
+        savePost(post._id.toString());
+    };
     let styleForHeading = {};
 
     useEffect(() => {
@@ -76,7 +79,7 @@ const TrendingItem = ({
                     </div>
                     <div className='d-flex flex-column-reverse justify-content-between post-options--s'>
                         <i
-                            onClick={savePost}
+                            onClick={saveThisPost}
                             className={`fa${'r'} fa-bookmark save--post`}></i>
                         {adminPrivilages.postAccessibility && (
                             <Fragment>
@@ -116,6 +119,8 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, { setCurrentPost, getAdminPrivilages })(
-    TrendingItem
-);
+export default connect(mapStateToProps, {
+    setCurrentPost,
+    getAdminPrivilages,
+    savePost,
+})(TrendingItem);

@@ -17,3 +17,4 @@ export const UPLOAD_POST = 'UPLOAD_POST';
 export const GET_USER_POSTS = 'GET_USER_POSTS';
 export const ACCESS_POST = 'ACCESS_POST';
 export const DELETE_POST = 'DELETE_POST';
+export const LIKE_POST = 'LIKE_POST';

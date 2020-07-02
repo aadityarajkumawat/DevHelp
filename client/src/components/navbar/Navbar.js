@@ -50,6 +50,9 @@ const Navbar = ({ navbar, auth: { isAuthenticated } }) => {
                             <li>
                                 <a href='/dashboard/home'>Dashboard</a>
                             </li>
+                            <li>
+                                <a href='/compose-post'>Compose Post</a>
+                            </li>
                             <li>Plans</li>
                             <li>Liked Posts</li>
                         </ul>

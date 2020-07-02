@@ -75,18 +75,19 @@ router.get('/:user_id/:number', async (req, res) => {
 // @REQ     GET api/post/:post_id
 // @DESC    Get a post by id
 // @ACCESS  Public
-router.get('/open/:post_id', async (req, res) => {
-    const post_id = req.params.post_id;
+router.get('/:post_id', async (req, res) => {
+    const post_id = req.params.post_id.toString();
+    console.log('reached');
     try {
-        const post = await Post.findById(post_id);
+        const post = await Post.findOne({ _id: post_id });
         if (post) {
-            res.json(post);
+            return res.json(post);
         } else {
-            res.json('No Post Found!');
+            return res.json('No Post Found!');
         }
     } catch (err) {
         console.error(err.message);
-        res.send('Server Error!');
+        res.send('Server Error!-->>');
     }
 });
 

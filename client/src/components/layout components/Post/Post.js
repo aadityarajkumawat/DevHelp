@@ -1,11 +1,13 @@
 import React, { useEffect, useState, useRef, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { getPost } from '../../../actions/getPostAction';
+import { showNav } from '../../../actions/navAction';
 
 // Parse HTML string to HTML
 import HTMLReactParser from 'html-react-parser';
+import PostHolder from './Post-Placeholder/PostHolder';
 
-const Post = ({ post: { currentPost, openedPost }, getPost }) => {
+const Post = ({ post: { currentPost, openedPost, loadingPost }, getPost }) => {
     const [post, setPost] = useState({});
     useEffect(() => {
         if (isEmpty(openedPost)) {
@@ -18,6 +20,7 @@ const Post = ({ post: { currentPost, openedPost }, getPost }) => {
         if (isEmpty(post)) {
             setPost(openedPost);
         }
+        showNav();
         // eslint-disable-next-line
     }, [currentPost, openedPost]);
 
@@ -28,19 +31,25 @@ const Post = ({ post: { currentPost, openedPost }, getPost }) => {
         return true;
     };
 
+    const loadingStyles = loadingPost ? { display: 'none' } : {};
+
     return (
-        <div className='post-container-one'>
-            <h1 className='post-heading'>{post.heading}</h1>
-            <div className='user-p d-flex align-items-center'>
-                <span>{post.name}</span>
-                <div className='dot-i'></div>
-                <span>null time</span>
+        <React.Fragment>
+            {loadingPost && <PostHolder />}
+            <div className='post-container-one' style={loadingStyles}>
+                <h1 className='post-heading'>{post.heading}</h1>
+                <div className='user-p d-flex align-items-center'>
+                    <span>{post.name}</span>
+                    <div className='dot-i'></div>
+                    <span>null time</span>
+                </div>
+                <div className='img-post-container'></div>
+                <p className='nn-new'>
+                    {post.content !== undefined &&
+                        HTMLReactParser(post.content)}
+                </p>
             </div>
-            <div className='img-post-container'></div>
-            <p className='nn-new'>
-                {post.content !== undefined && HTMLReactParser(post.content)}
-            </p>
-        </div>
+        </React.Fragment>
     );
 };
 
@@ -50,4 +59,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, { getPost })(Post);
+export default connect(mapStateToProps, { getPost, showNav })(Post);

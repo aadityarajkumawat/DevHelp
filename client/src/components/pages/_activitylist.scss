@@ -1,0 +1,44 @@
+.activity-list {
+    width: 100%;
+    background-color: red;
+    margin-top: 30px;
+
+    .list-ul {
+        list-style: none;
+        margin: 0 !important;
+
+        li {
+            height: 60px;
+            background-color: rgb(168, 168, 168);
+
+            .list-item-div {
+                display: flex;
+
+                .right {
+                    display: flex;
+
+                    .post-img {
+                        width: 110px;
+                        height: 60px;
+                        background-color: #ccc;
+                    }
+
+                    h3 {
+                        color: #121212;
+                        padding: 10px 0 0 10px;
+                    }
+                }
+
+                .options-manipulate {
+                    padding: 0 20px;
+                }
+            }
+
+            &:nth-child(2n) {
+                background-color: rgb(189, 189, 189);
+            }
+        }
+
+
+    }
+}

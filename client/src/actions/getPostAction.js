@@ -5,13 +5,14 @@ import {
     UPLOAD_POST,
     GET_USER_POSTS,
     DELETE_POST,
+    LIKE_POST,
 } from '../actions/types';
 import axios from 'axios';
 import { loadUser } from './authAction';
 
 export const getPost = (post_id) => async (dispatch) => {
     try {
-        const res = await axios.get(`/api/post/open/${post_id}`);
+        const res = await axios.get(`/api/post/${post_id.toString()}`);
         dispatch({ type: GET_POST, payload: res.data }); //this will fetch a single post given the post id
     } catch (err) {
         console.log(err.message);
@@ -56,6 +57,15 @@ export const deletePost = (post_id) => async (dispatch) => {
     try {
         await axios.delete(`/api/post/${post_id}`);
         dispatch({ type: DELETE_POST });
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+export const savePost = (post_id) => async (dispatch) => {
+    try {
+        await axios.post(`/api/save/${post_id}`);
+        dispatch({ type: LIKE_POST });
     } catch (err) {
         console.log(err);
     }
