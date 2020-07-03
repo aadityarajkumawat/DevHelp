@@ -7,9 +7,19 @@ const savedSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'user',
     },
-    savedPosts: {
-        type: [String],
-    },
+    savedPosts: [
+        {
+            savedID: {
+                type: String,
+            },
+            heading: {
+                type: String,
+            },
+            content: {
+                type: String,
+            },
+        },
+    ],
 });
 
 module.exports = Saved = mongoose.model('saved', savedSchema);

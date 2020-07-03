@@ -6,6 +6,8 @@ import {
     GET_USER_POSTS,
     DELETE_POST,
     LIKE_POST,
+    TOGGLE_SAVE_POST,
+    GET_SAVED_POST,
 } from '../actions/types';
 import axios from 'axios';
 import { loadUser } from './authAction';
@@ -65,7 +67,16 @@ export const deletePost = (post_id) => async (dispatch) => {
 export const savePost = (post_id) => async (dispatch) => {
     try {
         await axios.post(`/api/save/${post_id}`);
-        dispatch({ type: LIKE_POST });
+        dispatch({ type: TOGGLE_SAVE_POST });
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+export const getSavedPosts = () => async (dispatch) => {
+    try {
+        const res = await axios.get('/api/save');
+        dispatch({ type: GET_SAVED_POST, payload: res.data });
     } catch (err) {
         console.log(err);
     }

@@ -615,6 +615,7 @@ pre * {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  width: auto;
 }
 
 .activity-list .list-ul li .list-item-div .right .post-img {

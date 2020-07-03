@@ -76,7 +76,7 @@ router.get('/:user_id/:number', async (req, res) => {
 // @DESC    Get a post by id
 // @ACCESS  Public
 router.get('/:post_id', async (req, res) => {
-    const post_id = req.params.post_id.toString();
+    const post_id = req.params.post_id;
     console.log('reached');
     try {
         const post = await Post.findOne({ _id: post_id });

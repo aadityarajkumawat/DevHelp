@@ -15,6 +15,7 @@ const TrendingItem = ({
     getAdminPrivilages,
     adminPrivilages,
     savePost,
+    auth,
 }) => {
     const [loadingUNI, setLoadingUNI] = useState(true);
     const [openOptions, setOpenOptions] = useState(false);
@@ -29,13 +30,17 @@ const TrendingItem = ({
     };
 
     const saveThisPost = () => {
-        savePost(post._id.toString());
+        if (auth.isAuthenticated) {
+            savePost(post._id.toString());
+        }
     };
     let styleForHeading = {};
 
     useEffect(() => {
         if (by === 'home') {
             getAdminPrivilages(false);
+        } else {
+            routing.push('/login');
         }
     }, []);
 
@@ -116,6 +121,7 @@ const mapStateToProps = (state) => {
         trending: state.trending,
         postRedu: state.post,
         adminPrivilages: state.adminPrivilages,
+        auth: state.auth,
     };
 };
 

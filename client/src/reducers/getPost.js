@@ -4,6 +4,8 @@ import {
     CLEAR_POST,
     GET_USER_POSTS,
     UPLOAD_POST,
+    GET_SAVED_POST,
+    SAVE_POST,
 } from '../actions/types';
 
 const initialState = {
@@ -13,10 +15,16 @@ const initialState = {
     userPosts: [],
     loadingUserPosts: true,
     uploadedStatus: false,
+    savedPosts: [], //this will get saved posts from backend
 };
 
 const postReducer = (state = initialState, action) => {
     switch (action.type) {
+        case GET_SAVED_POST:
+            return {
+                ...state,
+                savedPosts: action.payload,
+            };
         case GET_POST:
             return {
                 ...state,
