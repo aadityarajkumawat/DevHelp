@@ -1,13 +1,23 @@
-import React, { useEffect, useState, useRef, Fragment } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { getPost } from '../../../actions/getPostAction';
+import {
+    getPost,
+    likePost,
+    getLikedPosts,
+} from '../../../actions/getPostAction';
 import { showNav } from '../../../actions/navAction';
 
 // Parse HTML string to HTML
-import HTMLReactParser from 'html-react-parser';
 import PostHolder from './Post-Placeholder/PostHolder';
 
-const Post = ({ post: { currentPost, openedPost, loadingPost }, getPost }) => {
+const Post = ({
+    post: { currentPost, openedPost, loadingPost, likedStatus, likedPost },
+    getPost,
+    likePost,
+    getLikedPosts,
+    auth,
+}) => {
+    const [lik, setLik] = useState([]);
     const [post, setPost] = useState({});
     useEffect(() => {
         if (isEmpty(openedPost)) {
@@ -24,11 +34,49 @@ const Post = ({ post: { currentPost, openedPost, loadingPost }, getPost }) => {
         // eslint-disable-next-line
     }, [currentPost, openedPost]);
 
+    /*
+    * The effect will get the like info from backend upon
+    * any change in liked status when liked: -- Likes47658936478563,
+    * else Unliked834658946873, and also when the postID is recieved,
+    * the postID is required to make the req to the backend
+    ! Both dependencies are important and completly tested
+    ? The [likedPost.length] is required bcoz ->> this handels the
+    ? setLik when we actually get the filled array, else the array
+    ? is empty tough the request id already been made, the liked post
+    ? array the [lik] was still empty ;) 
+    */
+    useEffect(() => {
+        if (auth !== undefined && auth.user !== null) {
+            getLikedPosts(auth.user._id, post._id);
+            setLik(likedPost);
+        }
+    }, [likedStatus, post._id, likedPost.length]);
+
+    /*
+     * This onClick Function, request the backend to
+     * register the like by user and save it to DB
+     ? I have used the if check on post just to be sure
+     ? whether we have got the post and handel preload
+     ? events
+     */
+    const likeThisPost = () => {
+        if (post) {
+            likePost(post._id);
+        }
+    };
+
     const isEmpty = (obj) => {
         for (var key in obj) {
             if (obj.hasOwnProperty(key)) return false;
         }
         return true;
+    };
+
+    const likedBtn = () => {
+        return (
+            lik.filter((likedUser) => likedUser.user === auth.user._id).length >
+            0
+        );
     };
 
     const loadingStyles = loadingPost ? { display: 'none' } : {};
@@ -41,12 +89,17 @@ const Post = ({ post: { currentPost, openedPost, loadingPost }, getPost }) => {
                 <div className='user-p d-flex align-items-center'>
                     <span>{post.name}</span>
                     <div className='dot-i'></div>
-                    <span>null time</span>
+                    <span>{'6'} min</span>
+                    <i
+                        onClick={likeThisPost}
+                        className={`fa${likedBtn() ? 's' : 'r'} fa-heart`}
+                        style={
+                            likedBtn() ? { color: 'rgb(255, 0, 106)' } : {}
+                        }></i>
                 </div>
                 <div className='img-post-container'></div>
                 <p className='nn-new'>
-                    {post.content !== undefined &&
-                        HTMLReactParser(post.content)}
+                    {post.content !== undefined && post.content}
                 </p>
             </div>
         </React.Fragment>
@@ -56,7 +109,13 @@ const Post = ({ post: { currentPost, openedPost, loadingPost }, getPost }) => {
 const mapStateToProps = (state) => {
     return {
         post: state.post,
+        auth: state.auth,
     };
 };
 
-export default connect(mapStateToProps, { getPost, showNav })(Post);
+export default connect(mapStateToProps, {
+    getPost,
+    showNav,
+    likePost,
+    getLikedPosts,
+})(Post);

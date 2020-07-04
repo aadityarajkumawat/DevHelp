@@ -5,29 +5,42 @@ import {
     GET_USER_POSTS,
     UPLOAD_POST,
     GET_SAVED_POST,
-    SAVE_POST,
     TOGGLE_SAVE_POST,
+    LIKE_POST,
+    GET_LIKED_POST,
 } from '../actions/types';
 
 const initialState = {
     loadingPost: true,
     openedPost: {}, //this is current post which is displayed
-    currentPost: null, //this will just be a string of postID
+    currentPost: '', //this will just be a string of postID
     userPosts: [],
     loadingUserPosts: true,
     uploadedStatus: false,
     savedPosts: [], //this will get saved posts from backend
     status: '',
+    likedStatus: '',
+    likedPost: [], //this will get liked posts from backend
 };
 
 const postReducer = (state = initialState, action) => {
     switch (action.type) {
-        case TOGGLE_SAVE_POST: {
+        case GET_LIKED_POST:
+            return {
+                ...state,
+                likedPost: action.payload,
+            };
+        case LIKE_POST:
+            return {
+                ...state,
+                likedStatus: action.payload,
+            };
+        case TOGGLE_SAVE_POST:
             return {
                 ...state,
                 status: action.payload,
             };
-        }
+
         case GET_SAVED_POST:
             return {
                 ...state,

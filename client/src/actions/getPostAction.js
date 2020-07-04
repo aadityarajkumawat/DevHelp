@@ -8,6 +8,7 @@ import {
     LIKE_POST,
     TOGGLE_SAVE_POST,
     GET_SAVED_POST,
+    GET_LIKED_POST,
 } from '../actions/types';
 import axios from 'axios';
 import { loadUser } from './authAction';
@@ -48,7 +49,7 @@ export const uploadPost = (post) => async (dispatch) => {
 
 export const getUserPosts = (user_id) => async (dispatch) => {
     try {
-        const res = await axios.get(`/api/post/${user_id}/3`);
+        const res = await axios.get(`/api/post/all/${user_id}`);
         dispatch({ type: GET_USER_POSTS, payload: res.data });
     } catch (err) {
         console.log(err);
@@ -77,6 +78,27 @@ export const getSavedPosts = () => async (dispatch) => {
     try {
         const res = await axios.get('/api/save');
         dispatch({ type: GET_SAVED_POST, payload: res.data });
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+export const likePost = (post_id) => async (dispatch) => {
+    try {
+        console.log('the recieved post ID', post_id);
+        const res = await axios.put(`/api/post/like/${post_id}`);
+        dispatch({ type: LIKE_POST, payload: res.data });
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+export const getLikedPosts = (user, post_id) => async (dispatch) => {
+    try {
+        if (user !== undefined && post_id !== undefined) {
+            const res = await axios.get(`/api/post/${user}/${post_id}`);
+            dispatch({ type: GET_LIKED_POST, payload: res.data });
+        }
     } catch (err) {
         console.log(err);
     }

@@ -10,7 +10,7 @@
 }
 
 .user-p {
-    padding: 0 0 10px 0;
+    padding: 10px 10px 10px 0;
 
     .dot-i {
         width: 8px;
@@ -18,6 +18,15 @@
         border-radius: 100%;
         background-color: #ccc;
         margin: 0 10px;
+    }
+
+    i {
+        font-size: 25px;
+        margin-left: 20px;
+
+        &:hover {
+            color: rgb(255, 0, 106);
+        }
     }
 }
 

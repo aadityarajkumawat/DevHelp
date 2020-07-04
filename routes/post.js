@@ -48,20 +48,13 @@ router.post(
 // @REQ     GET api/post/:user_id/:number
 // @DESC    get all my posts
 // @ACCESS  Public
-router.get('/:user_id/:number', async (req, res) => {
+router.get('/all/:user_id', async (req, res) => {
     const user_id = req.params.user_id;
-    const number = req.params.number;
     try {
         const user = await User.findOne({ _id: req.params.user_id });
         if (user) {
-            let posts;
-            if (number) {
-                posts = await Post.find({ user: user_id }).limit(
-                    Number(number)
-                );
-            } else {
-                posts = await Post.find({ user: user_id });
-            }
+            posts = await Post.find({ user: user_id }).limit(4);
+
             return res.status(200).json(posts);
         } else {
             res.status(404).json({ errors: [{ msg: 'No user Found' }] });
@@ -77,7 +70,6 @@ router.get('/:user_id/:number', async (req, res) => {
 // @ACCESS  Public
 router.get('/:post_id', async (req, res) => {
     const post_id = req.params.post_id;
-    console.log('reached');
     try {
         const post = await Post.findOne({ _id: post_id });
         if (post) {
@@ -87,7 +79,7 @@ router.get('/:post_id', async (req, res) => {
         }
     } catch (err) {
         console.error(err.message);
-        res.send('Server Error!-->>');
+        res.send('Server Error!->');
     }
 });
 
@@ -155,13 +147,40 @@ router.put('/like/:post_id', auth, async (req, res) => {
 
             await post.save();
 
-            return res.status(200).json('Unliked');
+            return res.status(200).send('Unliked' + req.params.post_id);
+        } else {
+            post.likes.unshift({ user: req.user.id });
+            await post.save();
+            res.status(200).send('Liked' + req.params.post_id);
         }
-        post.likes.unshift({ user: req.user.id });
+    } catch (err) {
+        console.error(err.message);
+        res.send('Server Error!');
+    }
+});
 
-        await post.save();
+// @REQ     PUT api/post/like/:user_id
+// @DESC    Get array of liked posts
+// @ACCESS  Private
+router.get('/:user/:post_id', auth, async (req, res) => {
+    try {
+        const user = await User.findOne({ _id: req.params.user });
 
-        res.status(200).json('Liked');
+        if (user) {
+            const post = await Post.findOne({
+                _id: req.params.post_id,
+            });
+
+            if (post) {
+                console.log('gotsdgf');
+                const liked = post.likes;
+                return res.json(liked);
+            } else {
+                console.log('Nope!!');
+            }
+        } else {
+            console.log('User not Found!!');
+        }
     } catch (err) {
         console.error(err.message);
         res.send('Server Error!');
@@ -201,7 +220,6 @@ router.get('/', async (req, res) => {
     try {
         const posts = await Post.find({}).limit(4);
         res.status(200).json(posts);
-        console.log(posts);
     } catch (err) {
         console.error(err.message);
         res.send('Server Error!');

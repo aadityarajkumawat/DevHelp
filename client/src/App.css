@@ -390,7 +390,7 @@ i:hover {
 }
 
 .user-p {
-  padding: 0 0 10px 0;
+  padding: 10px 10px 10px 0;
 }
 
 .user-p .dot-i {
@@ -399,6 +399,15 @@ i:hover {
   border-radius: 100%;
   background-color: #ccc;
   margin: 0 10px;
+}
+
+.user-p i {
+  font-size: 25px;
+  margin-left: 20px;
+}
+
+.user-p i:hover {
+  color: #ff006a;
 }
 
 .img-post-container {

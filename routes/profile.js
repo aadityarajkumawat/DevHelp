@@ -27,7 +27,6 @@ router.post(
             let profile = await Profile.findOne({ user: req.user.id });
             if (profile) {
                 // Update profile
-                console.log('updating');
                 profile = await Profile.findOneAndUpdate(
                     { user: req.user.id },
                     { $set: profileObject },

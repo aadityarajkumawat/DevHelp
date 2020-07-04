@@ -58,7 +58,6 @@ router.post('/:post_id', auth, async (req, res) => {
             }
         } else {
             res.send('No post found');
-            // console.log('No post found');
         }
     } catch (err) {
         console.log(err.message);
