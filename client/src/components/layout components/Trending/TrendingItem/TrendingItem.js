@@ -1,6 +1,10 @@
 import React, { useState, useEffect, Fragment, useRef } from 'react';
 import { connect } from 'react-redux';
-import { setCurrentPost, savePost } from '../../../../actions/getPostAction';
+import {
+    setCurrentPost,
+    savePost,
+    getSavedPosts,
+} from '../../../../actions/getPostAction';
 import PostPlaceHolder from '../../PostPlaceHolder';
 import { getAdminPrivilages } from '../../../../actions/adminPrivilagesAction';
 import OptionsMenu from '../../OptionsMenu';
@@ -11,22 +15,33 @@ const TrendingItem = ({
     trending: { loading },
     routing,
     by,
-    postRedu: { loadingUserPosts },
+    postRedu: { loadingUserPosts, savedPosts, status },
     getAdminPrivilages,
     adminPrivilages,
     savePost,
     auth,
+    getSavedPosts,
 }) => {
     const [loadingUNI, setLoadingUNI] = useState(true);
     const [openOptions, setOpenOptions] = useState(false);
 
+    const checkSavedStatus = () => {
+        return (
+            savedPosts
+                .map((savedPostData) => savedPostData.savedID)
+                .filter((oneID) => oneID === post._id.toString()).length > 0
+        );
+    };
+
     const exitOptionsRef = useRef(null);
 
     const openPost = () => {
-        setCurrentPost(post._id.toString());
-        console.log('I set Current');
-        sessionStorage.setItem('postID', post._id.toString());
-        routing.push('/post');
+        if (post !== undefined) {
+            setCurrentPost(post._id.toString());
+            console.log('I set Current');
+            sessionStorage.setItem('postID', post._id.toString());
+            routing.push('/post');
+        }
     };
 
     const saveThisPost = () => {
@@ -37,11 +52,17 @@ const TrendingItem = ({
     let styleForHeading = {};
 
     useEffect(() => {
+        getSavedPosts();
+    }, [status]);
+
+    useEffect(() => {
+        getSavedPosts();
         if (by === 'home') {
             getAdminPrivilages(false);
         } else {
-            routing.push('/login');
+            // routing.push('/login');
         }
+        console.log('savedPosts changed');
     }, []);
 
     useEffect(() => {
@@ -66,7 +87,9 @@ const TrendingItem = ({
 
     return (
         <div className='trending-item'>
-            <div className='img-container' onClick={openPost}></div>
+            <div
+                className='img-container'
+                onClick={post !== undefined ? openPost : null}></div>
             {loadingUNI && <PostPlaceHolder />}
             {post !== undefined && (
                 <div className='d-flex bottom-section' style={styleForHeading}>
@@ -85,7 +108,9 @@ const TrendingItem = ({
                     <div className='d-flex flex-column-reverse justify-content-between post-options--s'>
                         <i
                             onClick={saveThisPost}
-                            className={`fa${'r'} fa-bookmark save--post`}></i>
+                            className={`fa${
+                                checkSavedStatus() ? 's' : 'r'
+                            } fa-bookmark save--post`}></i>
                         {adminPrivilages.postAccessibility && (
                             <Fragment>
                                 <div
@@ -129,4 +154,5 @@ export default connect(mapStateToProps, {
     setCurrentPost,
     getAdminPrivilages,
     savePost,
+    getSavedPosts,
 })(TrendingItem);

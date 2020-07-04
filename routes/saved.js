@@ -12,13 +12,10 @@ router.post('/:post_id', auth, async (req, res) => {
     try {
         let saved = await Saved.findOne({ user: req.user.id });
         const post = await Post.findOne({ _id: post_id });
-        // console.log(saved);
-        // console.log(post);
 
         // Checking posts
         if (post) {
             // Checking the saved object
-            // console.log(post);
             if (!saved) {
                 saved = new Saved({
                     user: req.user.id,
@@ -34,7 +31,7 @@ router.post('/:post_id', auth, async (req, res) => {
 
                 await saved.save();
 
-                return res.send('__saved__');
+                return res.send('__saved__' + post_id);
             } else {
                 const alreadyExist = saved.savedPosts.filter(
                     (thisID) => thisID.savedID === req.params.post_id
@@ -47,7 +44,7 @@ router.post('/:post_id', auth, async (req, res) => {
 
                     saved.savedPosts.splice(removeIndex, 1);
                     await saved.save();
-                    res.send('__unsaved__');
+                    res.send('__unsaved__' + post_id);
                 } else {
                     let savedPostObject = {};
                     savedPostObject.savedID = post._id;
@@ -56,7 +53,7 @@ router.post('/:post_id', auth, async (req, res) => {
 
                     saved.savedPosts.unshift(savedPostObject);
                     await saved.save();
-                    return res.send('__saved__');
+                    return res.send('__saved__' + post_id);
                 }
             }
         } else {
@@ -68,6 +65,13 @@ router.post('/:post_id', auth, async (req, res) => {
         res.send('Server Error!');
     }
 });
+
+/*
+ * Deprecated Method
+ ! this is a red comment
+ TODO: Add more UX features
+ ? Will this be a API method
+ */
 
 // @REQ     GET api/save
 // @DESC    Get the posts saved by user

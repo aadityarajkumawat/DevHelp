@@ -24,7 +24,7 @@ const ActivityList = ({ post, getSavedPosts, savePost }) => {
         <div className='activity-list'>
             <ul className='list-ul'>
                 {postsSaved.map((post) => (
-                    <li>
+                    <li key={post._id}>
                         <div className='list-item-div d-flex justify-content-between align-items-center'>
                             <div className='right'>
                                 <div className='post-img'></div>

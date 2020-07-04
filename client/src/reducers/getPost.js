@@ -6,6 +6,7 @@ import {
     UPLOAD_POST,
     GET_SAVED_POST,
     SAVE_POST,
+    TOGGLE_SAVE_POST,
 } from '../actions/types';
 
 const initialState = {
@@ -16,10 +17,17 @@ const initialState = {
     loadingUserPosts: true,
     uploadedStatus: false,
     savedPosts: [], //this will get saved posts from backend
+    status: '',
 };
 
 const postReducer = (state = initialState, action) => {
     switch (action.type) {
+        case TOGGLE_SAVE_POST: {
+            return {
+                ...state,
+                status: action.payload,
+            };
+        }
         case GET_SAVED_POST:
             return {
                 ...state,

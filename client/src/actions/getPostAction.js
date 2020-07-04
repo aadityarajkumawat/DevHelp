@@ -66,8 +66,8 @@ export const deletePost = (post_id) => async (dispatch) => {
 
 export const savePost = (post_id) => async (dispatch) => {
     try {
-        await axios.post(`/api/save/${post_id}`);
-        dispatch({ type: TOGGLE_SAVE_POST });
+        const res = await axios.post(`/api/save/${post_id}`);
+        dispatch({ type: TOGGLE_SAVE_POST, payload: res.data });
     } catch (err) {
         console.log(err);
     }
