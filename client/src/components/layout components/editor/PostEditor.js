@@ -6,7 +6,12 @@ import Code from '@editorjs/code';
 import InlineCode from '@editorjs/inline-code';
 import parseJSON from '../../../utils/parseJSON';
 import { connect } from 'react-redux';
-import { uploadPost } from '../../../actions/getPostAction';
+import {
+    uploadPost,
+    uploadImage,
+    clearPostID,
+    clearPost,
+} from '../../../actions/getPostAction';
 import EditorJs from 'react-editor-js';
 
 const PostEditor = ({
@@ -14,16 +19,25 @@ const PostEditor = ({
     auth: { isAuthenticated },
     post,
     history,
+    uploadImage,
+    clearPostID,
 }) => {
     const instanceRef = React.useRef(null);
     const [heading, setHeading] = React.useState('');
+    const [imgFile, setImgFile] = React.useState(null);
 
     const handleSave = async () => {
         if (isAuthenticated) {
             const savedData = await instanceRef.current.save();
             const htmlToSave = parseJSON(savedData);
-            console.log(savedData);
-            uploadPost({ heading: heading, content: htmlToSave });
+            uploadPost(
+                {
+                    heading: heading,
+                    content: htmlToSave,
+                },
+                post.postID
+            );
+            clearPostID();
             history.push('/');
         }
     };
@@ -39,8 +53,30 @@ const PostEditor = ({
         code: Code,
         inlineCode: InlineCode,
     };
+
+    const addFile = (e) => {
+        setImgFile(e.target.files[0]);
+    };
+
+    const uploadImageBtn = () => {
+        const fData = new FormData();
+        fData.append('file', imgFile);
+        uploadImage(fData);
+    };
+
     return (
         <div className='d-flex flex-column editor-container-compose'>
+            <input
+                type='file'
+                name='file'
+                id='file'
+                className='custom-file-input'
+                onChange={addFile}
+            />
+            <label htmlFor='file'>Choose File</label>
+            <button className='btn btn-primary' onClick={uploadImageBtn}>
+                Upload File
+            </button>
             <div className='d-flex justify-content-center compose-heading'>
                 <input
                     type='text'
@@ -74,4 +110,8 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, { uploadPost })(PostEditor);
+export default connect(mapStateToProps, {
+    uploadPost,
+    uploadImage,
+    clearPostID,
+})(PostEditor);

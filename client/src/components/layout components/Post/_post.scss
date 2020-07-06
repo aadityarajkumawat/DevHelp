@@ -35,6 +35,13 @@
     height: 400px;
     background-color: #ccc;
     margin: auto;
+    display: flex;
+    justify-content: center;
+
+    img {
+        width: auto;
+        height: 400px;
+    }
 }
 
 .nn-new {

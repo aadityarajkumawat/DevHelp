@@ -9,6 +9,8 @@ import {
     TOGGLE_SAVE_POST,
     GET_SAVED_POST,
     GET_LIKED_POST,
+    GET_POST_ID,
+    CLEAR_POST_ID,
 } from '../actions/types';
 import axios from 'axios';
 import { loadUser } from './authAction';
@@ -30,7 +32,7 @@ export const clearPost = () => (dispatch) => {
     dispatch({ type: CLEAR_POST }); //just clear out the post which it showed just previously
 };
 
-export const uploadPost = (post) => async (dispatch) => {
+export const uploadPost = (post, post_id) => async (dispatch) => {
     const config = {
         headers: {
             'Content-Type': 'application/json',
@@ -38,12 +40,26 @@ export const uploadPost = (post) => async (dispatch) => {
     };
     console.log(post);
     try {
-        const res = await axios.post('/api/post', post, config);
+        const res = await axios.post(
+            `/api/post/content/${post_id}`,
+            post,
+            config
+        );
         dispatch({ type: UPLOAD_POST, payload: res.data });
 
         dispatch(loadUser());
     } catch (err) {
         console.log(err);
+    }
+};
+
+// ? Extension of above
+export const uploadImage = (fData) => async (dispatch) => {
+    try {
+        const res = await axios.post('/api/post/upload', fData);
+        dispatch({ type: GET_POST_ID, payload: res.data._id });
+    } catch (err) {
+        console.log('Upload ERR: ->>', err);
     }
 };
 
@@ -102,4 +118,8 @@ export const getLikedPosts = (user, post_id) => async (dispatch) => {
     } catch (err) {
         console.log(err);
     }
+};
+
+export const clearPostID = () => (dispatch) => {
+    dispatch({ type: CLEAR_POST_ID });
 };

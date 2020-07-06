@@ -1,0 +1,9 @@
+@mixin responsive($brk) {
+    @media screen and (max-width: $brk) {
+        @content;
+    }
+}
+
+$tablet: 1245px;
+$less-tab: 950px;
+$mobile: 650px;

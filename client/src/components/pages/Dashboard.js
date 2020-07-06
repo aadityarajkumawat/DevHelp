@@ -14,7 +14,7 @@ const Dashboard = ({ removeNav, clearPost, history }) => {
     return (
         <div className='d-flex dashboard-container'>
             <DashboardSideBar />
-            <DashboardHome />
+            <DashboardHome routing={history} />
         </div>
     );
 };

@@ -25,6 +25,31 @@ const TrendingItem = ({
     const [loadingUNI, setLoadingUNI] = useState(true);
     const [openOptions, setOpenOptions] = useState(false);
 
+    /**
+     * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     */
+    useEffect(() => {
+        if (status === '') {
+            getSavedPosts();
+            console.log('savedPosts changed');
+        }
+        if (by === 'home') {
+            getAdminPrivilages(false);
+        } else {
+            // routing.push('/login');
+        }
+        console.log('hi');
+    }, []);
+
+    /**
+     * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     */
+    useEffect(() => {
+        if (status !== '') {
+            getSavedPosts();
+        }
+    }, [status]);
+
     const checkSavedStatus = () => {
         return (
             savedPosts
@@ -36,12 +61,12 @@ const TrendingItem = ({
     const exitOptionsRef = useRef(null);
 
     const openPost = () => {
-        if (post !== undefined) {
+        if (post !== undefined && routing !== undefined) {
             setCurrentPost(post._id.toString());
-            console.log('I set Current');
             sessionStorage.setItem('postID', post._id.toString());
             routing.push('/post');
         }
+        console.log(routing);
     };
 
     const saveThisPost = () => {
@@ -50,20 +75,6 @@ const TrendingItem = ({
         }
     };
     let styleForHeading = {};
-
-    useEffect(() => {
-        getSavedPosts();
-    }, [status]);
-
-    useEffect(() => {
-        getSavedPosts();
-        if (by === 'home') {
-            getAdminPrivilages(false);
-        } else {
-            // routing.push('/login');
-        }
-        console.log('savedPosts changed');
-    }, []);
 
     useEffect(() => {
         if (by === 'home') {
@@ -89,7 +100,12 @@ const TrendingItem = ({
         <div className='trending-item'>
             <div
                 className='img-container'
-                onClick={post !== undefined ? openPost : null}></div>
+                onClick={post !== undefined ? openPost : null}>
+                <img
+                    src={post !== undefined ? `/${post.postImage}` : null}
+                    alt=''
+                />
+            </div>
             {loadingUNI && <PostPlaceHolder />}
             {post !== undefined && (
                 <div className='d-flex bottom-section' style={styleForHeading}>

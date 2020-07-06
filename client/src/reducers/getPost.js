@@ -8,6 +8,9 @@ import {
     TOGGLE_SAVE_POST,
     LIKE_POST,
     GET_LIKED_POST,
+    CLEAR_LIKED_STATUS,
+    GET_POST_ID,
+    CLEAR_POST_ID,
 } from '../actions/types';
 
 const initialState = {
@@ -21,10 +24,26 @@ const initialState = {
     status: '',
     likedStatus: '',
     likedPost: [], //this will get liked posts from backend
+    postID: '',
 };
 
 const postReducer = (state = initialState, action) => {
     switch (action.type) {
+        case CLEAR_POST_ID:
+            return {
+                ...state,
+                postID: '',
+            };
+        case GET_POST_ID:
+            return {
+                ...state,
+                postID: action.payload,
+            };
+        case CLEAR_LIKED_STATUS:
+            return {
+                ...state,
+                likedStatus: action.payload,
+            };
         case GET_LIKED_POST:
             return {
                 ...state,
@@ -61,7 +80,7 @@ const postReducer = (state = initialState, action) => {
             return {
                 ...state,
                 openedPost: {},
-                currentPost: null,
+                currentPost: '',
             };
         case GET_USER_POSTS:
             return {

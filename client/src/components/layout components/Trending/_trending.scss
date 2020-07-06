@@ -1,8 +1,16 @@
+@import '../../../mixins';
+
 .trending {
     max-width: 100%;
     width: 100%;
     height: 220px;
     position: relative;
     padding: 0;
-    margin: 0
+    margin: 0;
+
+    @include responsive($mobile) {
+        height: auto !important;
+        flex-direction: column !important;
+    }
+
 }

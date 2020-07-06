@@ -1,3 +1,5 @@
+@import '../../mixins';
+
 .dashboard-container {
     width: 100%;
 
@@ -7,12 +9,31 @@
         background-color: #ccc;
         padding: 10px 15px;
 
+        @include responsive($tablet) {
+            display: none !important;
+        }
+
         .div-icon {
             width: 25px;
             height: 25px;
             background-color: grey;
             margin: 25px 0;
             margin-bottom: 30px;
+        }
+
+        span {
+            margin: 13px 20px;
+            color: rgb(65, 65, 65);
+            font-size: 20px;
+
+            &:hover {
+                text-decoration: none;
+                color: rgb(24, 24, 24);
+            }
+
+            a {
+                margin: 0;
+            }
         }
 
         a {
@@ -33,6 +54,12 @@
         .profile {
             margin: 30px 0 20px 0;
 
+            @include responsive($less-tab) {
+                display: flex !important;
+                justify-content: center !important;
+                flex-direction: column !important;
+            }
+
             .img-container {
                 width: 120px;
                 height: 120px;
@@ -41,12 +68,17 @@
             }
 
             .info {
+                width: 120px;
+                margin-top: 20px;
+
                 p {
                     margin: 10px 0 0 0;
+                    display: inline;
                 }
 
                 .user-data {
                     padding: 0 50px 0 0;
+                    display: inline;
 
                     p {
                         margin: 0;

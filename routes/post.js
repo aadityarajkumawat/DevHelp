@@ -4,12 +4,58 @@ const auth = require('../middleware/auth');
 const { check, validationResult } = require('express-validator');
 const Post = require('../models/Post');
 const User = require('../models/User');
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, './uploads/');
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + file.originalname);
+    },
+});
+
+const fileFilter = (req, file, cb) => {
+    // Reject a file
+    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+        cb(null, true);
+    } else {
+        cb(null, true);
+    }
+};
+
+const upload = multer({
+    storage,
+    limits: { fileSize: 1024 * 1024 * 5 },
+    fileFilter: fileFilter,
+});
+
+// @REQ     POST api/post
+// @DESC    upload post img
+// @ACCESS  Private
+router.post('/upload', [auth, upload.single('file')], async (req, res) => {
+    console.log(req.file);
+    try {
+        let post = new Post({
+            user: req.user.id,
+            name: 'Empty',
+            heading: 'Empty',
+            content: 'Empty',
+            postImage: req.file.path,
+        });
+        await post.save();
+        res.json(post);
+    } catch (err) {
+        console.error(err.message);
+        res.send('Server Error!');
+    }
+});
 
 // @REQ     POST api/post
 // @DESC    upload a post
 // @ACCESS  Private
 router.post(
-    '/',
+    '/content/:post_id',
     [
         auth,
         [
@@ -22,21 +68,14 @@ router.post(
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
-
         const { heading, content } = req.body;
-
         try {
             const user = await User.findOne({ _id: req.user.id });
-
-            let post = new Post({
-                user: req.user.id,
-                name: user.name,
-                heading,
-                content,
-            });
-
+            const post = await Post.findOne({ _id: req.params.post_id });
+            post.name = user.name;
+            post.heading = heading;
+            post.content = content;
             await post.save();
-
             return res.status(200).json(post);
         } catch (err) {
             console.error(err.message);

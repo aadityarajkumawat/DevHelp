@@ -215,12 +215,45 @@
   margin: 0;
 }
 
+@media screen and (max-width: 650px) {
+  .trending {
+    height: auto !important;
+    -webkit-box-orient: vertical !important;
+    -webkit-box-direction: normal !important;
+        -ms-flex-direction: column !important;
+            flex-direction: column !important;
+  }
+}
+
 .trending-item {
   width: 280px;
   height: 220px;
   padding: 0px;
   margin: 0;
-  margin-right: 28px;
+  margin-right: 14px;
+  margin-left: 14px;
+}
+
+@media screen and (max-width: 1245px) {
+  .trending-item:last-child {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 950px) {
+  .trending-item:nth-child(3) {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .trending-item {
+    margin: 0 10px;
+    width: 320px;
+  }
+  .trending-item:nth-child(1) {
+    margin-top: 30px;
+  }
 }
 
 .trending-item .img-container {
@@ -228,6 +261,11 @@
   height: 120px;
   background-color: #e6e6e6;
   cursor: pointer;
+}
+
+.trending-item .img-container img {
+  width: 100%;
+  height: 120px;
 }
 
 .trending-item .bottom-section {
@@ -415,6 +453,17 @@ i:hover {
   height: 400px;
   background-color: #ccc;
   margin: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.img-post-container img {
+  width: auto;
+  height: 400px;
 }
 
 .nn-new {
@@ -547,12 +596,33 @@ pre * {
   padding: 10px 15px;
 }
 
+@media screen and (max-width: 1245px) {
+  .dashboard-container .options-bar {
+    display: none !important;
+  }
+}
+
 .dashboard-container .options-bar .div-icon {
   width: 25px;
   height: 25px;
   background-color: grey;
   margin: 25px 0;
   margin-bottom: 30px;
+}
+
+.dashboard-container .options-bar span {
+  margin: 13px 20px;
+  color: #414141;
+  font-size: 20px;
+}
+
+.dashboard-container .options-bar span:hover {
+  text-decoration: none;
+  color: #181818;
+}
+
+.dashboard-container .options-bar span a {
+  margin: 0;
 }
 
 .dashboard-container .options-bar a {
@@ -574,6 +644,21 @@ pre * {
   margin: 30px 0 20px 0;
 }
 
+@media screen and (max-width: 950px) {
+  .dashboard-container .user-data-dash .profile {
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+    -webkit-box-pack: center !important;
+        -ms-flex-pack: center !important;
+            justify-content: center !important;
+    -webkit-box-orient: vertical !important;
+    -webkit-box-direction: normal !important;
+        -ms-flex-direction: column !important;
+            flex-direction: column !important;
+  }
+}
+
 .dashboard-container .user-data-dash .profile .img-container {
   width: 120px;
   height: 120px;
@@ -581,12 +666,19 @@ pre * {
   background-color: #ccc;
 }
 
+.dashboard-container .user-data-dash .profile .info {
+  width: 120px;
+  margin-top: 20px;
+}
+
 .dashboard-container .user-data-dash .profile .info p {
   margin: 10px 0 0 0;
+  display: inline;
 }
 
 .dashboard-container .user-data-dash .profile .info .user-data {
   padding: 0 50px 0 0;
+  display: inline;
 }
 
 .dashboard-container .user-data-dash .profile .info .user-data p {

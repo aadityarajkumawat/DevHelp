@@ -9,6 +9,7 @@ import { showNav } from '../../../actions/navAction';
 
 // Parse HTML string to HTML
 import PostHolder from './Post-Placeholder/PostHolder';
+import HTMLReactParser from 'html-react-parser';
 
 const Post = ({
     post: { currentPost, openedPost, loadingPost, likedStatus, likedPost },
@@ -21,7 +22,7 @@ const Post = ({
     const [post, setPost] = useState({});
     useEffect(() => {
         if (isEmpty(openedPost)) {
-            if (currentPost === null) {
+            if (currentPost === '') {
                 getPost(sessionStorage.getItem('postID'));
             } else {
                 getPost(currentPost);
@@ -97,9 +98,15 @@ const Post = ({
                             likedBtn() ? { color: 'rgb(255, 0, 106)' } : {}
                         }></i>
                 </div>
-                <div className='img-post-container'></div>
+                <div className='img-post-container'>
+                    <img
+                        src={post !== undefined ? `/${post.postImage}` : null}
+                        alt=''
+                    />
+                </div>
                 <p className='nn-new'>
-                    {post.content !== undefined && post.content}
+                    {post.content !== undefined &&
+                        HTMLReactParser(post.content)}
                 </p>
             </div>
         </React.Fragment>
