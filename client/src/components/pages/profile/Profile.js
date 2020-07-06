@@ -16,7 +16,7 @@ const Profile = ({ auth }) => {
         return true;
     };
     return (
-        <div className='profile'>
+        <div className='profile d-flex justify-content-center flex-column'>
             <div className='img-container'></div>
             <div className='info'>
                 <p className='name'>

@@ -21,7 +21,7 @@ const HolderWrapper = styled.div`
 
 const HeadingHolder = styled.div`
     width: 100%;
-    height: 60px;
+    height: 66px;
     background: #e9e9e9;
     overflow: hidden;
     margin-bottom: 20px;
@@ -29,34 +29,38 @@ const HeadingHolder = styled.div`
 
 const move = keyframes`
     from {
-        transform: translateX(0px);
+        transform: translateX(-1089px);
     }
     to {
-        transform: translateX(1400px);
+        transform: translateX(1089px);
     }
 `;
 
 const HeadingLoader = styled.div`
-    width: 100px;
-    height: 60px;
-    background: linear-gradient(to right, #e9e9e9, #fff, #e9e9e9);
-    transform: translate(-100px);
-    animation: ${move} 0.6s infinite ease-in-out;
+    width: 100%;
+    height: 66px;
+    background: linear-gradient(90deg, #e9e9e9 0%, #ffffff 50%, #e9e9e9 100%);
+    animation: ${move} 1s infinite ease-in-out;
 `;
 
 const ImageLoading = styled.div`
     width: 100%;
-    height: 300px;
+    height: 400px;
     background: #e9e9e9;
     margin-bottom: 20px;
+    overflow-x: hidden;
 `;
 
 const ImageLoader = styled.div`
-    width: 100px;
+    width: 100%;
     height: 100%;
-    background: linear-gradient(to right, #e9e9e9, #fff, #e9e9e9);
-    transform: translate(-100px);
-    animation: ${move} 0.6s infinite ease-in-out;
+    background: linear-gradient(
+        90deg,
+        #e9e9e9 0%,
+        #ffffff 52.08%,
+        #e9e9e9 100%
+    );
+    animation: ${move} 1s infinite ease-in-out;
 `;
 
 export default PostHolder;

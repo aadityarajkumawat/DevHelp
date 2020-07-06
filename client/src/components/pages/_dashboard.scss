@@ -49,15 +49,20 @@
     }
 
     .user-data-dash {
-        padding: 30px 0 0 70px;
+        padding: 30px 70px 0 70px;
+        width: 100%;
+
+        @include responsive($less-tab) {
+            padding: 20px 30px 0 30px;
+        }
 
         .profile {
             margin: 30px 0 20px 0;
 
             @include responsive($less-tab) {
-                display: flex !important;
-                justify-content: center !important;
-                flex-direction: column !important;
+                display: flex;
+                justify-content: center;
+                flex-direction: row;
             }
 
             .img-container {
@@ -65,11 +70,22 @@
                 height: 120px;
                 border-radius: 100%;
                 background-color: #ccc;
+
+                @include responsive($less-tab) {
+                    margin: auto;
+                }
             }
 
             .info {
                 width: 120px;
                 margin-top: 20px;
+                margin-left: 30px;
+
+                @include responsive($less-tab) {
+                    margin: auto;
+                    width: fit-content;
+                    margin-top: 20px;
+                }
 
                 p {
                     margin: 10px 0 0 0;
@@ -80,9 +96,27 @@
                     padding: 0 50px 0 0;
                     display: inline;
 
-                    p {
-                        margin: 0;
+                    @include responsive($less-tab) {
+                        display: flex;
+                        justify-content: center;
                     }
+
+                    p {
+                        margin: auto;
+
+                        @include responsive($less-tab) {
+                            padding: 0;
+                        }
+                    }
+                }
+            }
+        }
+
+        .user-posts {
+            .postss {
+                @include responsive($mobile) {
+                    flex-direction: column !important;
+                    align-items: center;
                 }
             }
         }
