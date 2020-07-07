@@ -682,7 +682,6 @@ pre * {
 .dashboard-container .user-data-dash .profile .info {
   width: 120px;
   margin-top: 20px;
-  margin-left: 30px;
 }
 
 @media screen and (max-width: 950px) {

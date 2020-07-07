@@ -31,14 +31,14 @@ const TrendingItem = ({
     useEffect(() => {
         if (status === '') {
             getSavedPosts();
-            console.log('savedPosts changed');
+            // console.log('savedPosts changed');
         }
         if (by === 'home') {
             getAdminPrivilages(false);
         } else {
             // routing.push('/login');
         }
-        console.log('hi');
+        // console.log('hi');
     }, []);
 
     /**
@@ -66,7 +66,7 @@ const TrendingItem = ({
             sessionStorage.setItem('postID', post._id.toString());
             routing.push('/post');
         }
-        console.log(routing);
+        // console.log(routing);
     };
 
     const saveThisPost = () => {

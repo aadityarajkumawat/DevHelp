@@ -79,7 +79,7 @@
             .info {
                 width: 120px;
                 margin-top: 20px;
-                margin-left: 30px;
+                // margin-left: 30px;
 
                 @include responsive($less-tab) {
                     margin: auto;

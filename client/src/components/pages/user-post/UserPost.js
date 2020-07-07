@@ -23,7 +23,7 @@ const UserPost = ({
 
     useEffect(() => {
         getAdminPrivilages(true);
-        console.log('got privilage');
+        // console.log('got privilage');
     }, []);
 
     const isEmpty = (obj) => {
@@ -47,11 +47,7 @@ const UserPost = ({
                         />
                     ))
                 ) : (
-                    <Fragment>
-                        <TrendingItem />
-                        <TrendingItem />
-                        <TrendingItem />
-                    </Fragment>
+                    <Fragment>No Posts</Fragment>
                 )}
             </div>
         </div>

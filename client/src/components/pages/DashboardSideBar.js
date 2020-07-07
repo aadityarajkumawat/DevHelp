@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { logout } from '../../actions/authAction';
 import { connect } from 'react-redux';
+import Logo from '../../assets/favicon.svg';
 const DashboardSideBar = ({ logout }) => {
     const logoutUser = () => {
         logout();
@@ -10,7 +11,9 @@ const DashboardSideBar = ({ logout }) => {
     return (
         <div className='d-flex flex-column align-items-center options-bar'>
             <Link to='/'>
-                <div className='div-icon'></div>
+                <div className='div-icon'>
+                    <img src={Logo} alt='' />
+                </div>
             </Link>
             <Link to='/dashboard/home'>Home</Link>
             <Link to='/dashboard/saved'>Saved Posts</Link>

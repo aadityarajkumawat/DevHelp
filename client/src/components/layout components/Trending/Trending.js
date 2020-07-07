@@ -17,7 +17,7 @@ const Trending = ({
         if (posts.length === 0) {
             setPosts(trendingPosts);
         }
-        console.log('The Effect ran');
+        // console.log('The Effect ran');
         // eslint-disable-next-line
     }, [trendingPosts]);
 

@@ -17,7 +17,7 @@ const Login = ({
 }) => {
     useEffect(() => {
         removeNav();
-        console.log('called');
+        // console.log('called');
     }, []);
 
     const [user, setUser] = useState({

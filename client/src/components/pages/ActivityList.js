@@ -7,13 +7,13 @@ const ActivityList = ({ post, getSavedPosts, savePost }) => {
     useEffect(() => {
         if (post.savedPosts.length === 0) {
             getSavedPosts();
-            console.log(1);
+            // console.log(1);
         }
         if (postsSaved.length === 0) {
             setPostsSaved(post.savedPosts);
-            console.log(2);
+            // console.log(2);
         }
-        console.log(3);
+        // console.log(3);
     }, [post.savedPosts.length]);
 
     const removeThisSavedPost = (id) => {

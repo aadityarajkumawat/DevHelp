@@ -77,9 +77,20 @@ router.post('/:post_id', auth, async (req, res) => {
 // @ACCESS  Private
 router.get('/', auth, async (req, res) => {
     try {
-        const saved = await Saved.findOne({ user: req.user.id });
-        const savedPosts = saved.savedPosts;
-        res.json(savedPosts);
+        let saved = await Saved.findOne({ user: req.user.id });
+        let savedPosts = null;
+        if (saved) {
+            savedPosts = saved.savedPosts;
+            res.json(savedPosts);
+        } else {
+            saved = new Saved({
+                user: req.user.id,
+                savedPosts: [],
+            });
+            await saved.save();
+            let toS = saved.savedPosts;
+            res.json(toS);
+        }
     } catch (err) {
         console.log(err.message);
         res.send('Server Error!');
