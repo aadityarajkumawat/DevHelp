@@ -66,7 +66,6 @@ const TrendingItem = ({
             sessionStorage.setItem('postID', post._id.toString());
             routing.push('/post');
         }
-        // console.log(routing);
     };
 
     const saveThisPost = () => {

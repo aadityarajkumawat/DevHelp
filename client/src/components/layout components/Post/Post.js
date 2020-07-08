@@ -17,21 +17,29 @@ const Post = ({
     likePost,
     getLikedPosts,
     auth,
+    showNav,
 }) => {
     const [lik, setLik] = useState([]);
     const [post, setPost] = useState({});
+
+    useEffect(() => {
+        showNav();
+    }, []);
+
     useEffect(() => {
         if (isEmpty(openedPost)) {
             if (currentPost === '') {
                 getPost(sessionStorage.getItem('postID'));
             } else {
+                console.log('is it so');
+                console.log('trying this', sessionStorage.getItem('postID'));
+
                 getPost(currentPost);
             }
         }
         if (isEmpty(post)) {
             setPost(openedPost);
         }
-        showNav();
         // eslint-disable-next-line
     }, [currentPost, openedPost]);
 

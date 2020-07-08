@@ -1,12 +1,31 @@
+@import '../../../mixins';
+
 .post-container-one {
     padding: 0 130px;
     width: 100%;
+
+    @include responsive($less-tab) {
+        padding: 0 70px;
+    }
+
+    @include responsive($less-tab) {
+        padding: 0 30px;
+    }
+
 }
 
 .post-heading {
     padding: 0;
     margin: 40px 0 10px 0;
     font-size: 55px;
+
+    @include responsive($less-tab) {
+        font-size: 45px;
+    }
+
+    @include responsive($mobile) {
+        font-size: 40px;
+    }
 }
 
 .user-p {
@@ -33,20 +52,39 @@
 .img-post-container {
     width: 100%;
     height: 400px;
-    background-color: #ccc;
+    background-color: #fff;
     margin: auto;
     display: flex;
     justify-content: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     img {
         width: auto;
         height: 400px;
+
+        @include responsive($mobile) {
+            height: 300px;
+            max-width: 400px;
+        }
     }
+
 }
 
 .nn-new {
     padding: 0px;
     font-size: 25px;
+    margin-top: 20px;
+    line-height: 1.1;
+
+    @include responsive($less-tab) {
+        font-size: 20px;
+    }
+
+    @include responsive($less-tab) {
+        font-size: 20px;
+    }
 }
 
 pre {

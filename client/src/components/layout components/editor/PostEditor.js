@@ -73,8 +73,9 @@ const PostEditor = ({
                 className='custom-file-input'
                 onChange={addFile}
             />
-            <label htmlFor='file'>Choose File</label>
-            <button className='btn btn-primary' onClick={uploadImageBtn}>
+            <button
+                className='btn btn-primary upload-btn'
+                onClick={uploadImageBtn}>
                 Upload File
             </button>
             <div className='d-flex justify-content-center compose-heading'>

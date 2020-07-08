@@ -11,14 +11,18 @@ import {
     GET_LIKED_POST,
     GET_POST_ID,
     CLEAR_POST_ID,
+    SET_LOADING_POST_TRUE,
 } from '../actions/types';
 import axios from 'axios';
 import { loadUser } from './authAction';
 
 export const getPost = (post_id) => async (dispatch) => {
     try {
-        const res = await axios.get(`/api/post/${post_id.toString()}`);
-        dispatch({ type: GET_POST, payload: res.data }); //this will fetch a single post given the post id
+        console.log(post_id);
+        const url = `/api/post/${post_id}`;
+        dispatch({ type: SET_LOADING_POST_TRUE });
+        const res = await axios.get(url);
+        dispatch({ type: GET_POST, payload: res.data }); // * this will fetch a single post given the post id
     } catch (err) {
         console.log(err.message);
     }

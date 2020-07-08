@@ -46,8 +46,14 @@ const UserPost = ({
                             routing={routing}
                         />
                     ))
+                ) : post.arePosts ? (
+                    <Fragment>
+                        <TrendingItem />
+                        <TrendingItem />
+                        <TrendingItem />
+                    </Fragment>
                 ) : (
-                    <Fragment>No Posts</Fragment>
+                    <div>No Posts</div>
                 )}
             </div>
         </div>

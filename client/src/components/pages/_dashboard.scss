@@ -14,6 +14,7 @@
         from {
             left: -300px;
         }
+
         to {
             left: 0;
         }
@@ -82,12 +83,12 @@
     }
 
     .user-data-dash {
-        padding: 30px 70px 0 70px;
+        padding: 30px 70px 0 70px !important;
         width: 100%;
-        overflow: hidden;
+        overflow-x: hidden;
 
         @include responsive($less-tab) {
-            padding: 20px 30px 0 30px;
+            padding: 20px 30px 0 30px !important;
         }
 
         .dashboard-heading {

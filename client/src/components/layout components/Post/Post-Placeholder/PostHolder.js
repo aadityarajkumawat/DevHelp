@@ -17,6 +17,10 @@ const PostHolder = () => {
 const HolderWrapper = styled.div`
     width: 100%;
     padding: 60px 130px 0 130px;
+
+    @media screen and (max-width: 950px) {
+        padding: 30px 30px 0 30px;
+    }
 `;
 
 const HeadingHolder = styled.div`

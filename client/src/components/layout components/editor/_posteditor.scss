@@ -1,6 +1,27 @@
+@import '../../../mixins';
+
 .editor-container-compose {
     width: 100%;
     padding: 0 130px;
+
+    .custom-file-input {
+        width: 100px;
+        border: none;
+        opacity: 1 !important;
+    }
+
+    .upload-btn {
+        margin: 10px 0;
+    }
+
+    @include responsive($tablet) {
+        padding: 0 80px;
+    }
+
+    @include responsive($mobile) {
+        width: 90%;
+        padding: 0 20px;
+    }
 
     button {
         width: 150px;
@@ -9,6 +30,7 @@
 
     .compose-heading {
         width: 100%;
+
         input {
             width: 100%;
             height: 50px;
@@ -21,6 +43,7 @@
             &:active {
                 outline: none;
             }
+
             &:focus {
                 outline: none;
             }
@@ -37,13 +60,16 @@
     .ce-block {
         .ce-block__content {
             min-width: 100%;
+
             .cdx-block {
                 padding: 0 10px;
             }
+
             .ce-code {
                 display: flex;
                 justify-content: center;
                 min-width: 70%;
+
                 textarea {
                     width: 700px;
                     font-family: 'Cutive Mono';
@@ -80,6 +106,7 @@
 
 .ce-inline-toolbar {
     .ce-inline-toolbar__buttons {
+
         .ce-inline-tool--bold,
         .ce-inline-tool--italic,
         .ce-inline-tool--link,
@@ -89,16 +116,3 @@
         }
     }
 }
-
-// #editorjs div:nth-child(2) {
-//     display: none;
-// }
-// #editorjs div:nth-child(3) {
-//     display: none;
-// }
-// #editorjs div:nth-child(4) {
-//     display: none;
-// }
-// #editorjs div:nth-child(5) {
-//     display: none;
-// }

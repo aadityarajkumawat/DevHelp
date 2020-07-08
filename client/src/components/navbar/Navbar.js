@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const Navbar = ({ navbar, auth: { isAuthenticated } }) => {
     const dropDown = useRef(null);
@@ -22,9 +23,9 @@ const Navbar = ({ navbar, auth: { isAuthenticated } }) => {
                 className='drop-closer'
                 onClick={closeDrop}></div>
             <nav className='navbar navbar-expand-lg navbar-light bg-light bd-navbar d-flex justify-content-between'>
-                <a className='navbar-brand' href='/'>
+                <Link className='navbar-brand' to='/'>
                     DevHelp
-                </a>
+                </Link>
                 <div className='utils d-flex align-items-center'>
                     <div className='icons'>
                         <span>
@@ -45,13 +46,15 @@ const Navbar = ({ navbar, auth: { isAuthenticated } }) => {
                             ref={dropDown}
                             className='drop-down-container flex-column text-center'>
                             <li>
-                                {!isAuthenticated && <a href='/login'>Login</a>}
+                                {!isAuthenticated && (
+                                    <Link to='/login'>Login</Link>
+                                )}
                             </li>
                             <li>
-                                <a href='/dashboard/home'>Dashboard</a>
+                                <Link to='/dashboard/home'>Dashboard</Link>
                             </li>
                             <li>
-                                <a href='/compose-post'>Compose Post</a>
+                                <Link to='/compose-post'>Compose Post</Link>
                             </li>
                             <li>Plans</li>
                             <li>Liked Posts</li>

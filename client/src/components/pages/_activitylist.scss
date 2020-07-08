@@ -2,35 +2,39 @@
 
 .activity-list {
     width: 100%;
-    background-color: red;
     margin-top: 30px;
 
     .list-ul {
         list-style: none;
         margin: 0 !important;
 
+        @include responsive($mobile) {
+            height: 70px;
+        }
+
         li {
-            min-height: 70px;
             background-color: rgb(180, 180, 180);
 
-            @include responsive($less-tab) {
-                min-height: 50px;
-                // height: 45px;
+            @include responsive($mobile) {
+                height: 100%;
             }
 
             .list-item-div {
                 display: flex;
-                height: 100%;
 
                 .right {
                     display: flex;
                     width: auto;
-                    height: 100%;
+                    align-items: center;
 
                     .post-img {
                         width: 130px;
-                        min-height: 70px;
                         background-color: #ccc;
+                        margin-right: 10px;
+
+                        @include responsive($mobile) {
+                            height: 70px;
+                        }
 
                         @include responsive($less-tab) {
                             width: 110px;
@@ -39,10 +43,19 @@
 
                     h3 {
                         color: #121212;
-                        padding: 10px 0 0 10px;
+
 
                         @include responsive($less-tab) {
                             font-size: 20px;
+                        }
+
+                        @include responsive($mobile) {
+                            font-size: 15px;
+                        }
+
+                        @include responsive(420px) {
+                            width: 170px;
+                            font-size: 14px;
                         }
                     }
                 }
