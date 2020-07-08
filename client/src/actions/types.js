@@ -24,3 +24,4 @@ export const GET_LIKED_POST = 'GET_LIKED_POST';
 export const CLEAR_LIKED_STATUS = 'CLEAR_LIKED_STATUS';
 export const GET_POST_ID = 'GET_POST_ID';
 export const CLEAR_POST_ID = 'CLEAR_POST_ID';
+export const TOGGLE_SLIDE_MENU = 'TOGGLE_SLIDE_MENU';

@@ -3,14 +3,47 @@
 .dashboard-container {
     width: 100%;
 
+    .open-slide-bar {
+        display: flex !important;
+        position: absolute;
+        z-index: 5;
+        animation: slideIn 0.5s ease;
+    }
+
+    @keyframes slideIn {
+        from {
+            left: -300px;
+        }
+        to {
+            left: 0;
+        }
+    }
+
+    .backdrop {
+        position: absolute;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.6);
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        z-index: 2;
+    }
+
+    .remove-backdrop {
+        display: none;
+    }
+
     .options-bar {
         width: 230px;
-        height: 100vh;
         background-color: #ccc;
         padding: 10px 15px;
+        height: 100%;
+        display: flex;
 
-        @include responsive($tablet) {
-            display: none !important;
+        @include responsive($less-tab) {
+            display: none;
         }
 
         .div-icon {
@@ -51,9 +84,42 @@
     .user-data-dash {
         padding: 30px 70px 0 70px;
         width: 100%;
+        overflow: hidden;
 
         @include responsive($less-tab) {
             padding: 20px 30px 0 30px;
+        }
+
+        .dashboard-heading {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            position: relative;
+
+            h2 {
+                display: inline;
+            }
+
+            .wrapper {
+                display: none;
+                position: absolute;
+                right: 0px;
+                top: 14px;
+
+                span {
+                    width: 35px;
+                    height: 2px;
+                    margin: 2px;
+                    background-color: #000;
+                }
+
+                @include responsive($less-tab) {
+                    display: inline-flex;
+                    justify-content: center;
+                    flex-direction: column;
+                    z-index: 5;
+                }
+            }
         }
 
         .profile {
@@ -70,6 +136,11 @@
                 height: 120px;
                 border-radius: 100%;
                 background-color: #ccc;
+
+                @include responsive($less-tab) {
+                    width: 90px;
+                    height: 90px;
+                }
 
                 @include responsive($less-tab) {
                     margin: auto;
@@ -113,7 +184,21 @@
         }
 
         .user-posts {
+            @include responsive($less-tab) {
+                justify-content: center;
+
+                h2 {
+                    width: fit-content;
+                    margin: auto;
+                    margin-bottom: 20px;
+                }
+            }
+
             .postss {
+                @include responsive($less-tab) {
+                    justify-content: center;
+                }
+
                 @include responsive($mobile) {
                     flex-direction: column !important;
                     align-items: center;
