@@ -44,6 +44,7 @@ const UserPost = ({
                             post={post}
                             by={'dashboard'}
                             routing={routing}
+                            forComp='user-post'
                         />
                     ))
                 ) : post.arePosts ? (

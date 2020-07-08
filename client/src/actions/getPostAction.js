@@ -12,6 +12,7 @@ import {
     GET_POST_ID,
     CLEAR_POST_ID,
     SET_LOADING_POST_TRUE,
+    RESET_IMAGE_UPLOAD,
 } from '../actions/types';
 import axios from 'axios';
 import { loadUser } from './authAction';
@@ -60,6 +61,7 @@ export const uploadPost = (post, post_id) => async (dispatch) => {
 // ? Extension of above
 export const uploadImage = (fData) => async (dispatch) => {
     try {
+        dispatch({ type: RESET_IMAGE_UPLOAD });
         const res = await axios.post('/api/post/upload', fData);
         dispatch({ type: GET_POST_ID, payload: res.data._id });
     } catch (err) {

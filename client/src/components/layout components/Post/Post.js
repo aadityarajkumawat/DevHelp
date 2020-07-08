@@ -10,6 +10,7 @@ import { showNav } from '../../../actions/navAction';
 // Parse HTML string to HTML
 import PostHolder from './Post-Placeholder/PostHolder';
 import HTMLReactParser from 'html-react-parser';
+import { Redirect } from 'react-router-dom';
 
 const Post = ({
     post: { currentPost, openedPost, loadingPost, likedStatus, likedPost },
@@ -18,6 +19,7 @@ const Post = ({
     getLikedPosts,
     auth,
     showNav,
+    history,
 }) => {
     const [lik, setLik] = useState([]);
     const [post, setPost] = useState({});
@@ -69,8 +71,10 @@ const Post = ({
      ? events
      */
     const likeThisPost = () => {
-        if (post) {
+        if (post && auth.isAuthenticated) {
             likePost(post._id);
+        } else if (!auth.isAuthenticated) {
+            history.push('/login');
         }
     };
 

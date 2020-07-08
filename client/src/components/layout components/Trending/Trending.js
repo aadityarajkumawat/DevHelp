@@ -30,6 +30,7 @@ const Trending = ({
                         post={post}
                         routing={routing}
                         by={'home'}
+                        forComp='home-trend'
                     />
                 ))
             ) : (

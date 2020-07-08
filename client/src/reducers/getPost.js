@@ -12,6 +12,7 @@ import {
     GET_POST_ID,
     CLEAR_POST_ID,
     SET_LOADING_POST_TRUE,
+    RESET_IMAGE_UPLOAD,
 } from '../actions/types';
 
 const initialState = {
@@ -26,11 +27,17 @@ const initialState = {
     likedStatus: '',
     likedPost: [], //this will get liked posts from backend
     postID: '',
+    imageUploaded: false,
     arePosts: true, //check weather are there some posts
 };
 
 const postReducer = (state = initialState, action) => {
     switch (action.type) {
+        case RESET_IMAGE_UPLOAD:
+            return {
+                ...state,
+                imageUploaded: false,
+            };
         case SET_LOADING_POST_TRUE: {
             return {
                 ...state,
@@ -46,6 +53,7 @@ const postReducer = (state = initialState, action) => {
             return {
                 ...state,
                 postID: action.payload,
+                imageUploaded: true,
             };
         case CLEAR_LIKED_STATUS:
             return {

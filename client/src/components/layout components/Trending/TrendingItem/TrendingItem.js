@@ -21,6 +21,7 @@ const TrendingItem = ({
     savePost,
     auth,
     getSavedPosts,
+    forComp,
 }) => {
     const [loadingUNI, setLoadingUNI] = useState(true);
     const [openOptions, setOpenOptions] = useState(false);
@@ -71,6 +72,8 @@ const TrendingItem = ({
     const saveThisPost = () => {
         if (auth.isAuthenticated) {
             savePost(post._id.toString());
+        } else {
+            routing.push('/login');
         }
     };
     let styleForHeading = {};
@@ -96,7 +99,12 @@ const TrendingItem = ({
     };
 
     return (
-        <div className='trending-item'>
+        <div
+            className={
+                forComp !== 'home-trend'
+                    ? 'trending-item user-trending'
+                    : 'trending-item'
+            }>
             <div
                 className='img-container'
                 onClick={post !== undefined ? openPost : null}>

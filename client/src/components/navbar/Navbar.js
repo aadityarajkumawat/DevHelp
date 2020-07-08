@@ -1,8 +1,9 @@
 import React, { useRef } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { logout } from '../../actions/authAction';
 
-const Navbar = ({ navbar, auth: { isAuthenticated } }) => {
+const Navbar = ({ navbar, auth: { isAuthenticated }, logout }) => {
     const dropDown = useRef(null);
     const dropCloser = useRef(null);
 
@@ -14,6 +15,10 @@ const Navbar = ({ navbar, auth: { isAuthenticated } }) => {
     const closeDrop = () => {
         dropCloser.current.style.display = 'none';
         dropDown.current.classList.remove('toggle-drop-down');
+    };
+
+    const logMeOut = () => {
+        logout();
     };
 
     return navbar ? (
@@ -58,6 +63,9 @@ const Navbar = ({ navbar, auth: { isAuthenticated } }) => {
                             </li>
                             <li>Plans</li>
                             <li>Liked Posts</li>
+                            <li onClick={logMeOut}>
+                                <Link to='/'>Logout</Link>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -75,4 +83,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, null)(Navbar);
+export default connect(mapStateToProps, { logout })(Navbar);

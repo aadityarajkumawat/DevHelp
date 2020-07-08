@@ -25,6 +25,14 @@ const PostEditor = ({
     const instanceRef = React.useRef(null);
     const [heading, setHeading] = React.useState('');
     const [imgFile, setImgFile] = React.useState(null);
+    const [upload, setUpload] = React.useState('');
+
+    React.useEffect(() => {
+        setUpload('');
+        if (post.imageUploaded) {
+            setUpload('Uploaded!');
+        }
+    }, [post.imageUploaded]);
 
     const handleSave = async () => {
         if (isAuthenticated) {
@@ -62,6 +70,7 @@ const PostEditor = ({
         const fData = new FormData();
         fData.append('file', imgFile);
         uploadImage(fData);
+        setUpload('Uploading...');
     };
 
     return (
@@ -78,6 +87,7 @@ const PostEditor = ({
                 onClick={uploadImageBtn}>
                 Upload File
             </button>
+            <span>{upload}</span>
             <div className='d-flex justify-content-center compose-heading'>
                 <input
                     type='text'
