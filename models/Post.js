@@ -27,6 +27,12 @@ const postSchema = new Schema({
     postImage: {
         type: String,
     },
+    image: {
+        type: String,
+    },
+    imageId: {
+        type: String,
+    },
 });
 
 module.exports = Post = mongoose.model('post', postSchema);
