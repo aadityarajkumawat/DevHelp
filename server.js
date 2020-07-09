@@ -18,6 +18,7 @@ app.use('/api/auth', require('./routes/auth'));
 app.use('/api/profile', require('./routes/profile'));
 app.use('/api/post', require('./routes/post'));
 app.use('/api/save', require('./routes/saved'));
+app.use('/api/upload', require('./routes/upload'));
 
 // Server static assets
 if (process.env.NODE_ENV === 'production') {

@@ -32,6 +32,11 @@
                         background-color: #ccc;
                         margin-right: 10px;
 
+                        img {
+                            width: 100%;
+                            height: 100%;
+                        }
+
                         @include responsive($mobile) {
                             height: 70px;
                         }

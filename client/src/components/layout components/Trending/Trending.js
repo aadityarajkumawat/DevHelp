@@ -17,9 +17,16 @@ const Trending = ({
         if (posts.length === 0) {
             setPosts(trendingPosts);
         }
-        // console.log('The Effect ran');
-        // eslint-disable-next-line
-    }, [trendingPosts]);
+    }, []);
+
+    useEffect(() => {
+        if (trendingPosts.length === 0) {
+            getTrendingPosts();
+        }
+        if (posts.length === 0) {
+            setPosts(trendingPosts);
+        }
+    }, [trendingPosts.length]);
 
     return (
         <div className='container trending d-flex justify-content-around'>

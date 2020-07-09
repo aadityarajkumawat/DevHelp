@@ -43,7 +43,16 @@ const ActivityList = ({
                     <li key={post._id}>
                         <div className='list-item-div d-flex justify-content-between align-items-center'>
                             <div className='right'>
-                                <div className='post-img'></div>
+                                <div className='post-img'>
+                                    <img
+                                        src={
+                                            post !== undefined
+                                                ? `/${post.postImage}`
+                                                : ''
+                                        }
+                                        alt=''
+                                    />
+                                </div>
                                 <h3 onClick={() => openThisPost(post.savedID)}>
                                     {post.heading}
                                 </h3>

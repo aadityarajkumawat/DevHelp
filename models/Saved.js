@@ -18,6 +18,9 @@ const savedSchema = new Schema({
             content: {
                 type: String,
             },
+            postImage: {
+                type: String,
+            },
         },
     ],
 });

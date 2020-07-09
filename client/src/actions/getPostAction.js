@@ -60,9 +60,9 @@ export const uploadPost = (post, post_id) => async (dispatch) => {
 
 // ? Extension of above
 export const uploadImage = (fData) => async (dispatch) => {
+    dispatch({ type: RESET_IMAGE_UPLOAD });
     try {
-        dispatch({ type: RESET_IMAGE_UPLOAD });
-        const res = await axios.post('/api/post/upload', fData);
+        const res = await axios.post('/api/upload', fData);
         dispatch({ type: GET_POST_ID, payload: res.data._id });
     } catch (err) {
         console.log('Upload ERR: ->>', err);

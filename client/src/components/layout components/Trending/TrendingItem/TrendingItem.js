@@ -30,33 +30,32 @@ const TrendingItem = ({
      * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
      */
     useEffect(() => {
-        if (status === '') {
+        if (status === '' && auth.isAuthenticated) {
             getSavedPosts();
-            // console.log('savedPosts changed');
         }
         if (by === 'home') {
             getAdminPrivilages(false);
         } else {
-            // routing.push('/login');
         }
-        // console.log('hi');
     }, []);
 
     /**
      * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
      */
     useEffect(() => {
-        if (status !== '') {
+        if (status !== '' && auth.isAuthenticated) {
             getSavedPosts();
         }
     }, [status]);
 
     const checkSavedStatus = () => {
-        return (
-            savedPosts
-                .map((savedPostData) => savedPostData.savedID)
-                .filter((oneID) => oneID === post._id.toString()).length > 0
-        );
+        if (auth.isAuthenticated) {
+            return (
+                savedPosts
+                    .map((savedPostData) => savedPostData.savedID)
+                    .filter((oneID) => oneID === post._id.toString()).length > 0
+            );
+        }
     };
 
     const exitOptionsRef = useRef(null);

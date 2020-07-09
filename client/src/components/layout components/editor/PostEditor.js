@@ -24,7 +24,7 @@ const PostEditor = ({
 }) => {
     const instanceRef = React.useRef(null);
     const [heading, setHeading] = React.useState('');
-    const [imgFile, setImgFile] = React.useState(null);
+    // const [imgFile, setImgFile] = React.useState(null);
     const [upload, setUpload] = React.useState('');
 
     React.useEffect(() => {
@@ -38,13 +38,19 @@ const PostEditor = ({
         if (isAuthenticated) {
             const savedData = await instanceRef.current.save();
             const htmlToSave = parseJSON(savedData);
-            uploadPost(
-                {
-                    heading: heading,
-                    content: htmlToSave,
-                },
-                post.postID
-            );
+            if (
+                heading !== '' &&
+                htmlToSave !== '' &&
+                post.postID !== undefined
+            ) {
+                uploadPost(
+                    {
+                        heading: heading,
+                        content: htmlToSave,
+                    },
+                    post.postID
+                );
+            }
             clearPostID();
             history.push('/');
         }
@@ -63,15 +69,16 @@ const PostEditor = ({
     };
 
     const addFile = (e) => {
-        setImgFile(e.target.files[0]);
-    };
-
-    const uploadImageBtn = () => {
+        // setImgFile(e.target.files[0]);
         const fData = new FormData();
-        fData.append('file', imgFile);
+        fData.append('file', e.target.files[0]);
         uploadImage(fData);
+        console.log('fData ->>', fData);
         setUpload('Uploading...');
     };
+
+    const uploadingStyles =
+        upload === 'Uploading...' ? { color: 'orange' } : { color: 'green' };
 
     return (
         <div className='d-flex flex-column editor-container-compose'>
@@ -82,10 +89,7 @@ const PostEditor = ({
                 className='custom-file-input'
                 onChange={addFile}
             />
-            <button className='upload-btn' onClick={uploadImageBtn}>
-                Upload File
-            </button>
-            <span>{upload}</span>
+            <span style={uploadingStyles}>{upload}</span>
             <div className='d-flex justify-content-center compose-heading'>
                 <input
                     type='text'
