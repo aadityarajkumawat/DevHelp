@@ -10,7 +10,7 @@ connectDB();
 
 // Initialize Express middleware
 app.use(express.json({ extended: false }));
-app.use('/uploads', express.static(__dirname + '/uploads'));
+app.use('/uploads', express.static('uploads'));
 
 // Routes
 app.use('/api/user', require('./routes/user'));
