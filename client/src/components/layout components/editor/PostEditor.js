@@ -82,9 +82,7 @@ const PostEditor = ({
                 className='custom-file-input'
                 onChange={addFile}
             />
-            <button
-                className='btn btn-primary upload-btn'
-                onClick={uploadImageBtn}>
+            <button className='upload-btn' onClick={uploadImageBtn}>
                 Upload File
             </button>
             <span>{upload}</span>
@@ -102,7 +100,7 @@ const PostEditor = ({
                 instanceRef={(instance) => (instanceRef.current = instance)}
                 tools={tools}
             />
-            <button className='btn btn-primary' onClick={handleSave}>
+            <button className='' onClick={handleSave}>
                 {post.uploadedStatus && (
                     <span
                         className='spinner-border spinner-border-sm'
