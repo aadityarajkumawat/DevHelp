@@ -48,6 +48,7 @@ const upload = multer({
 // @DESC    upload post img
 // @ACCESS  Private
 router.post('/', [auth, upload.single('file')], async (req, res) => {
+    console.log('Execution Started', '>');
     console.log(req.file);
     cloudinary.v2.uploader.upload(
         req.file.path,

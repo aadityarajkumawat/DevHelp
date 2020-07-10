@@ -62,6 +62,7 @@ export const uploadPost = (post, post_id) => async (dispatch) => {
 export const uploadImage = (fData) => async (dispatch) => {
     dispatch({ type: RESET_IMAGE_UPLOAD });
     try {
+        console.log('start');
         const res = await axios.post('/api/upload', fData);
         dispatch({ type: GET_POST_ID, payload: res.data._id });
     } catch (err) {

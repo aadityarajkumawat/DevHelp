@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '@editorjs/header/dist/bundle';
 import Header from '@editorjs/header';
 import SimpleImage from '@editorjs/simple-image';
@@ -13,6 +13,7 @@ import {
     clearPost,
 } from '../../../actions/getPostAction';
 import EditorJs from 'react-editor-js';
+import { useEffect } from 'react';
 
 const PostEditor = ({
     uploadPost,
@@ -68,14 +69,25 @@ const PostEditor = ({
         inlineCode: InlineCode,
     };
 
+    const [file, setFile] = useState({});
+
     const addFile = (e) => {
-        // setImgFile(e.target.files[0]);
-        const fData = new FormData();
-        fData.append('file', e.target.files[0]);
-        uploadImage(fData);
-        console.log('fData ->>', fData);
-        setUpload('Uploading...');
+        // console.log(e.target.files[0]);
+        const fd = new FormData();
+        fd.append('file', e.target.files[0]);
+        console.log('ADDED FILE FD', fd);
+        // setFile(e.target.files[0]);
+        // console.log('sec ->> ', file);
     };
+
+    // const justUploadFile = () => {
+    //     // const fData = new FormData();
+    //     // fData.append('file', e.target.files[0]);
+    //     // console.log('The Fdata ->>>>>', file);
+    //     // uploadImage(fData);
+    //     // console.log('fData ->>', fData);
+    //     // setUpload('Uploading...');
+    // };
 
     const uploadingStyles =
         upload === 'Uploading...' ? { color: 'orange' } : { color: 'green' };
@@ -90,6 +102,7 @@ const PostEditor = ({
                 onChange={addFile}
             />
             <span style={uploadingStyles}>{upload}</span>
+            {/* <button onClick={justUploadFile}></button> */}
             <div className='d-flex justify-content-center compose-heading'>
                 <input
                     type='text'
