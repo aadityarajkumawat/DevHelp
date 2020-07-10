@@ -10,7 +10,6 @@ import { showNav } from '../../../actions/navAction';
 // Parse HTML string to HTML
 import PostHolder from './Post-Placeholder/PostHolder';
 import HTMLReactParser from 'html-react-parser';
-import { Redirect } from 'react-router-dom';
 
 const Post = ({
     post: { currentPost, openedPost, loadingPost, likedStatus, likedPost },
