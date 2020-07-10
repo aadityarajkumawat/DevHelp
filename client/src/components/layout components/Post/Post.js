@@ -112,7 +112,7 @@ const Post = ({
                 </div>
                 <div className='img-post-container'>
                     <img
-                        src={post !== undefined ? `/${post.postImage}` : null}
+                        src={post !== undefined ? `${post.image}` : null}
                         alt=''
                     />
                 </div>

@@ -107,10 +107,7 @@ const TrendingItem = ({
             <div
                 className='img-container'
                 onClick={post !== undefined ? openPost : null}>
-                <img
-                    src={post !== undefined ? `/${post.postImage}` : null}
-                    alt=''
-                />
+                <img src={post !== undefined ? `${post.image}` : null} alt='' />
             </div>
             {loadingUNI && <PostPlaceHolder />}
             {post !== undefined && (

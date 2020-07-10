@@ -4,7 +4,7 @@ const multer = require('multer');
 const Post = require('../models/Post');
 const auth = require('../middleware/auth');
 const cloudinary = require('cloudinary');
-const { CloudinaryStorage } = require('multer-storage-cloudinary');
+const config = require('config');
 
 cloudinary.config({
     cloud_name: 'devhelp',
@@ -12,49 +12,33 @@ cloudinary.config({
     api_secret: 'vFF7WZWOqo7G3Ohu45faGrUHNSE',
 });
 
-// const storage = multer.diskStorage({
-//     destination: (req, file, cb) => {
-//         cb(null, './uploads/');
-//     },
-//     filename: (req, file, cb) => {
-//         cb(null, Date.now() + file.originalname);
-//     },
-// });
-
-const storage = new CloudinaryStorage({
-    cloudinary,
-    params: {
-        folder: 'upload-images',
-        allowedFormats: ['jpg', 'png'],
+const storage = multer.diskStorage({
+    filename: function (req, file, callback) {
+        callback(null, Date.now() + file.originalname);
     },
 });
 
-const fileFilter = (req, file, cb) => {
-    // Reject a file
-    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-        cb(null, true);
-    } else {
-        cb(null, true);
+const imageFilter = function (req, file, cb) {
+    // accept image files only
+    if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
+        return cb(new Error('Only image files are allowed!'), false);
     }
+    cb(null, true);
 };
 
 const upload = multer({
     storage,
-    limits: { fileSize: 1024 * 1024 * 5 },
-    fileFilter: fileFilter,
+    fileFilter: imageFilter,
 });
 
 // @REQ     POST api/post
 // @DESC    upload post img
 // @ACCESS  Private
-router.post('/', [auth, upload.single('file')], async (req, res) => {
-    console.log('Execution Started', '>');
+router.post('/', [auth, upload.single('file')], (req, res) => {
     console.log(req.file);
     cloudinary.v2.uploader.upload(
         req.file.path,
         {
-            width: 1000,
-            height: 1000,
             gravity: 'center',
             crop: 'fill',
         },
@@ -82,40 +66,5 @@ router.post('/', [auth, upload.single('file')], async (req, res) => {
         }
     );
 });
-
-// router.post('/posts', upload.single('file'), (req, res) => {
-//     cloudinary.v2.uploader.upload(
-//         req.file.path,
-//         { width: 1000, height: 1000, gravity: 'center', crop: 'fill' },
-//         async (err, result) => {
-//             let user = await User.findOne({ _id: req.user._id });
-//             if (err) {
-//                 return res.json(err);
-//             }
-//             const { caption } = req.body;
-//             const public_id = result.public_id;
-//             const secure_url = result.secure_url;
-//             const newPost = {
-//                 image: secure_url,
-//                 imageId: public_id,
-//                 description: caption ? caption : '',
-//                 author: {
-//                     id: user._id,
-//                     username: user.username,
-//                     avatar: user.avatar,
-//                 },
-//             };
-//             Post.create(newPost)
-//                 .then((post) => {
-//                     res.json(post);
-//                 })
-//                 .catch((err) => {
-//                     res.json({
-//                         message: 'An error occured when creating your post.',
-//                     });
-//                 });
-//         }
-//     );
-// });
 
 module.exports = router;

@@ -6,6 +6,7 @@ import Code from '@editorjs/code';
 import InlineCode from '@editorjs/inline-code';
 import parseJSON from '../../../utils/parseJSON';
 import { connect } from 'react-redux';
+import axios from 'axios';
 import {
     uploadPost,
     uploadImage,
@@ -69,25 +70,12 @@ const PostEditor = ({
         inlineCode: InlineCode,
     };
 
-    const [file, setFile] = useState({});
-
-    const addFile = (e) => {
-        // console.log(e.target.files[0]);
+    const addFile = async (e) => {
         const fd = new FormData();
         fd.append('file', e.target.files[0]);
-        console.log('ADDED FILE FD', fd);
-        // setFile(e.target.files[0]);
-        // console.log('sec ->> ', file);
+        uploadImage(fd);
+        setUpload('Uploading...');
     };
-
-    // const justUploadFile = () => {
-    //     // const fData = new FormData();
-    //     // fData.append('file', e.target.files[0]);
-    //     // console.log('The Fdata ->>>>>', file);
-    //     // uploadImage(fData);
-    //     // console.log('fData ->>', fData);
-    //     // setUpload('Uploading...');
-    // };
 
     const uploadingStyles =
         upload === 'Uploading...' ? { color: 'orange' } : { color: 'green' };
@@ -102,7 +90,7 @@ const PostEditor = ({
                 onChange={addFile}
             />
             <span style={uploadingStyles}>{upload}</span>
-            {/* <button onClick={justUploadFile}></button> */}
+            {/* <button onClick={justUploadFile}>Upload Image</button> */}
             <div className='d-flex justify-content-center compose-heading'>
                 <input
                     type='text'
