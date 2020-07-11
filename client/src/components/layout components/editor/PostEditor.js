@@ -90,7 +90,6 @@ const PostEditor = ({
                 onChange={addFile}
             />
             <span style={uploadingStyles}>{upload}</span>
-            {/* <button onClick={justUploadFile}>Upload Image</button> */}
             <div className='d-flex justify-content-center compose-heading'>
                 <input
                     type='text'

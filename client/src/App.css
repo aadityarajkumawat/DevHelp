@@ -890,13 +890,23 @@ pre * {
 }
 
 .dashboard-container .user-data-dash .profile .info p {
-  margin: 10px 0 0 0;
+  margin: 0 0 0 0;
   display: inline;
 }
 
 .dashboard-container .user-data-dash .profile .info .user-data {
   padding: 0 50px 0 0;
-  display: inline;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  min-width: 280px;
 }
 
 @media screen and (max-width: 950px) {
@@ -908,10 +918,6 @@ pre * {
         -ms-flex-pack: center;
             justify-content: center;
   }
-}
-
-.dashboard-container .user-data-dash .profile .info .user-data p {
-  margin: auto;
 }
 
 @media screen and (max-width: 950px) {
@@ -1060,14 +1066,131 @@ pre * {
   position: relative;
 }
 
+.img-container .profile-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+}
+
 .img-container .change-profile-photo {
   position: absolute;
-  background-color: #0066ff;
+  background-color: #ffffff;
   width: 25px;
   height: 25px;
   border-radius: 100%;
   bottom: 8px;
   right: 8px;
+}
+
+.img-container .change-profile-photo i {
+  position: absolute;
+  margin: auto;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.img-container .change-profile-photo i:hover {
+  color: #000;
+}
+
+.img-container .change-profile-photo input {
+  opacity: 0;
+  width: 25px;
+  height: 25px;
+  border-radius: 100%;
+}
+
+.edit-profile {
+  width: 700px;
+  height: 300px;
+  z-index: 4;
+  padding: 30px 20px;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #d4d4d4;
+}
+
+.edit-profile form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 100%;
+}
+
+.edit-profile form .input-wrapper {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.edit-profile form .input-wrapper input {
+  width: 100%;
+  border: none;
+  margin: 10px 0;
+  padding: 3px 10px;
+}
+
+.edit-profile form .buttons-ss {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  margin-top: 40px;
+}
+
+.edit-profile form .buttons-ss button {
+  padding: 10px;
+  border: none;
+  margin-left: 20px;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+.edit-profile form .buttons-ss button:hover {
+  color: white;
+  background-color: #4d4d4d;
+}
+
+.back-rmm {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.39);
+  z-index: 3;
+  top: 0;
+  left: 0;
 }
 
 .container-fluid {

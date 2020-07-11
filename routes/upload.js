@@ -5,6 +5,7 @@ const Post = require('../models/Post');
 const auth = require('../middleware/auth');
 const cloudinary = require('cloudinary');
 const config = require('config');
+const Profile = require('../models/Profile');
 
 cloudinary.config({
     cloud_name: config.get('cloudName'),
@@ -60,6 +61,55 @@ router.post('/', [auth, upload.single('file')], (req, res) => {
                     res.json(post);
                 } catch (err) {
                     console.error(err.message);
+                    res.send('Server Error!');
+                }
+            }
+        }
+    );
+});
+
+// @REQ     POST api/upload/proile
+// @DESC    upload profile picture
+// @ACCESS  Private
+router.post('/profile', [auth, upload.single('profile')], (req, res) => {
+    console.log(req.file);
+    // res.json(req.file);
+    cloudinary.v2.uploader.upload(
+        req.file.path,
+        {
+            gravity: 'center',
+            crop: 'fill',
+        },
+        async (err, result) => {
+            if (err) {
+                res.json(err);
+                console.log(err);
+            } else {
+                let profile;
+                try {
+                    profile = await Profile.findOne({
+                        user: req.user.id,
+                    });
+                    if (profile) {
+                        profile.image = result.secure_url;
+                        profile.imageId = result.public_id;
+
+                        await profile.save();
+                        res.json(profile);
+                    } else {
+                        profile = new Profile({
+                            user: req.user.id,
+                            country: '',
+                            bio: '',
+                            image: result.secure_url,
+                            imageId: result.public_id,
+                        });
+
+                        await profile.save();
+                        res.json(profile);
+                    }
+                } catch (err) {
+                    console.log(err.message);
                     res.send('Server Error!');
                 }
             }

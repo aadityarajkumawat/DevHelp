@@ -160,13 +160,16 @@
                 }
 
                 p {
-                    margin: 10px 0 0 0;
+                    margin: 0 0 0 0;
                     display: inline;
                 }
 
                 .user-data {
                     padding: 0 50px 0 0;
-                    display: inline;
+                    display: flex;
+                    flex-direction: column;
+                    width: fit-content;
+                    min-width: 280px;
 
                     @include responsive($less-tab) {
                         display: flex;
@@ -174,7 +177,7 @@
                     }
 
                     p {
-                        margin: auto;
+                        // margin: auto;
 
                         @include responsive($less-tab) {
                             padding: 0;

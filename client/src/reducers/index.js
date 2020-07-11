@@ -6,6 +6,7 @@ import trendingReducer from './trending';
 import postReducer from './getPost';
 import adminPrivilagesReducer from './adminPrivilage';
 import slideMenuReducer from './slideMenu';
+import profileReducer from './profile';
 
 const rootReducer = combineReducers({
     auth: authReducer,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
     post: postReducer,
     adminPrivilages: adminPrivilagesReducer,
     slideMenu: slideMenuReducer,
+    profile: profileReducer,
 });
 
 export default rootReducer;
