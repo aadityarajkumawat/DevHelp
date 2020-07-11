@@ -9,9 +9,14 @@ const profileSchema = new Schema({
     },
     country: {
         type: String,
-        required: true,
     },
     bio: {
+        type: String,
+    },
+    image: {
+        type: String,
+    },
+    imageId: {
         type: String,
     },
 });

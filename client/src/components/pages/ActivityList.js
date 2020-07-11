@@ -47,7 +47,7 @@ const ActivityList = ({
                                     <img
                                         src={
                                             post !== undefined
-                                                ? `/${post.postImage}`
+                                                ? `${post.image}`
                                                 : ''
                                         }
                                         alt=''

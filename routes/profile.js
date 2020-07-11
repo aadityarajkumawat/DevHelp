@@ -2,49 +2,38 @@ const express = require('express');
 const router = express.Router();
 const auth = require('../middleware/auth');
 const Profile = require('../models/Profile');
-const { check, validationResult } = require('express-validator');
 
 // @REQ     POST api/profile
 // @DESC    save profile data to DB
 // @ACCESS  Private
-router.post(
-    '/',
-    [auth, [check('country', 'Please enter a country').not().isEmpty()]],
-    async (req, res) => {
-        const errors = validationResult(req);
+router.post('/', auth, async (req, res) => {
+    const { country, bio } = req.body;
+    // make an empty profile
+    const profileObject = {};
+    profileObject.user = req.user.id;
+    if (country) profileObject.country = country;
+    if (bio) profileObject.bio = bio;
+    try {
+        let profile = await Profile.findOne({ user: req.user.id });
+        if (profile) {
+            // Update profile
+            profile = await Profile.findOneAndUpdate(
+                { user: req.user.id },
+                { $set: profileObject },
+                { new: true }
+            );
 
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
+            return res.json(profile);
+        } else {
+            profile = new Profile(profileObject);
+            await profile.save();
+            return res.json(profile);
         }
-
-        const { country, bio } = req.body;
-        // make an empty profile
-        const profileObject = {};
-        profileObject.user = req.user.id;
-        if (country) profileObject.country = country;
-        if (bio) profileObject.bio = bio;
-        try {
-            let profile = await Profile.findOne({ user: req.user.id });
-            if (profile) {
-                // Update profile
-                profile = await Profile.findOneAndUpdate(
-                    { user: req.user.id },
-                    { $set: profileObject },
-                    { new: true }
-                );
-
-                return res.json(profile);
-            } else {
-                profile = new Profile(profileObject);
-                await profile.save();
-                return res.json(profile);
-            }
-        } catch (err) {
-            console.error(err.message);
-            res.send('Server Error!');
-        }
+    } catch (err) {
+        console.error(err.message);
+        res.send('Server Error!');
     }
-);
+});
 
 // @REQ     GET api/profile
 // @DESC    get the user's profile
