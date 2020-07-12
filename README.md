@@ -1,17 +1,52 @@
-Mern Authentication
+# DevHelp
 
-This is a simple project demonstrating a basic authentication system made in MERN stack, the backend is made in NodeJS which is a restful API, the Backend
-and in the front-end the state is managed by redux.
+DevHelp is a open-source project, similar to medium, more precisely a clone of medium.
 
-Contribution
+## Getting Started
 
-Feel free to contribute to the project by adding your expert knowledge to it, making it much better. Also you may use it into your projects,
-as a placeholder for authentication system, and even modify it to add to to your project as main authentication.
+To get the project setup on your local machine make sure to have node installed version 8 of above, and install dependencies by running
 
-Usage
+```
+npm install
+```
 
-Just clone this repo and run
+and this will install all the backend dependencies like express, mongoose, bcryptJS, config etc.., to setup the client side navigate to client folder and run the following command,
 
-npm install 
+ ```
+ npm install
+ ```
 
-in the root folder.
+### Prerequisites
+
+All you need have installed is NodeJS on your local system
+
+## Running the tests
+
+Once the dependencies are installed you can run the project by navigation to root directory and run:
+
+```
+npm run dev
+```
+
+this will run both the Node Server and the client server simultaneously using a utility called concurrently.
+
+## Built With
+
+-   [ReactJS]  The FrontEnd framework used
+-   [NPM] - Dependency Management
+-   [NodeJS] - Backend Server
+-   [MongoDB] - Database
+-   [Cloudinary] - Hoisting Image files
+
+## Authors
+
+-   **Aaditya Raj Kumawat** - _Initial work_
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
+## Acknowledgments
+
+-   Saw some instagram clone projects to get to know about cloudinary service and how to use it
+-   I made this project just to get better at skills.
