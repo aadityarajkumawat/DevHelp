@@ -19,11 +19,14 @@ const UserPost = ({
         if (post.userPosts.length >= 1) {
             setPosts(post.userPosts);
         }
+
+        // eslint-disable-next-line
     }, [auth.user, post.userPosts.length, auth.isAuthenticated]);
 
     useEffect(() => {
         getAdminPrivilages(true);
-        // console.log('got privilage');
+
+        // eslint-disable-next-line
     }, []);
 
     const isEmpty = (obj) => {

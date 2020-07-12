@@ -18,7 +18,7 @@ const savedSchema = new Schema({
             content: {
                 type: String,
             },
-            postImage: {
+            image: {
                 type: String,
             },
         },

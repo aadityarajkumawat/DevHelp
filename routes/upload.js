@@ -73,7 +73,6 @@ router.post('/', [auth, upload.single('file')], (req, res) => {
 // @ACCESS  Private
 router.post('/profile', [auth, upload.single('profile')], (req, res) => {
     console.log(req.file);
-    // res.json(req.file);
     cloudinary.v2.uploader.upload(
         req.file.path,
         {

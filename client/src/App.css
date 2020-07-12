@@ -266,19 +266,20 @@
   }
   .trending-item:nth-child(1), .trending-item:nth-child(2), .trending-item:nth-child(3), .trending-item:nth-child(4) {
     display: block;
+    margin: 20px 0;
   }
 }
 
 .trending-item .img-container {
   width: 100%;
-  height: 120px;
+  height: 150px;
   background-color: #e6e6e6;
   cursor: pointer;
 }
 
 .trending-item .img-container img {
   width: 100%;
-  height: 120px;
+  height: 150px;
 }
 
 .trending-item .bottom-section {
@@ -556,6 +557,7 @@ pre * {
   width: 100%;
   max-width: 100%;
   min-height: 10px;
+  margin-top: 40px;
 }
 
 .editor-container-compose {
@@ -863,8 +865,8 @@ pre * {
 
 @media screen and (max-width: 950px) {
   .dashboard-container .user-data-dash .profile .img-container {
-    width: 90px;
-    height: 90px;
+    width: 100px;
+    height: 100px;
   }
 }
 
@@ -886,12 +888,33 @@ pre * {
     width: -moz-fit-content;
     width: fit-content;
     margin-top: 20px;
+    text-align: center;
   }
 }
 
 .dashboard-container .user-data-dash .profile .info p {
   margin: 0 0 0 0;
   display: inline;
+}
+
+.dashboard-container .user-data-dash .profile .info .in-same-line {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+
+@media screen and (max-width: 950px) {
+  .dashboard-container .user-data-dash .profile .info .in-same-line {
+    margin: auto;
+  }
+}
+
+.dashboard-container .user-data-dash .profile .info .in-same-line p {
+  margin-right: 20px;
+}
+
+.dashboard-container .user-data-dash .profile .info .in-same-line span {
+  font-size: 13px;
 }
 
 .dashboard-container .user-data-dash .profile .info .user-data {
@@ -917,6 +940,7 @@ pre * {
     -webkit-box-pack: center;
         -ms-flex-pack: center;
             justify-content: center;
+    padding: 0;
   }
 }
 
@@ -1015,13 +1039,21 @@ pre * {
 }
 
 .activity-list .list-ul li .list-item-div .right .post-img img {
-  width: 100%;
-  height: 100%;
+  width: 130px;
+  height: 60px;
+}
+
+@media screen and (max-width: 650px) {
+  .activity-list .list-ul li .list-item-div .right .post-img img {
+    height: 70px;
+    width: 110px;
+  }
 }
 
 @media screen and (max-width: 650px) {
   .activity-list .list-ul li .list-item-div .right .post-img {
     height: 70px;
+    width: 110px;
   }
 }
 
@@ -1033,6 +1065,7 @@ pre * {
 
 .activity-list .list-ul li .list-item-div .right h3 {
   color: #121212;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 950px) {
@@ -1080,6 +1113,16 @@ pre * {
   border-radius: 100%;
   bottom: 8px;
   right: 8px;
+}
+
+@media screen and (max-width: 950px) {
+  .img-container .change-profile-photo {
+    width: 22px;
+    height: 22px;
+    right: 5px;
+    bottom: 5px;
+    font-size: 13px;
+  }
 }
 
 .img-container .change-profile-photo i {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import '@editorjs/header/dist/bundle';
 import Header from '@editorjs/header';
 import SimpleImage from '@editorjs/simple-image';
@@ -6,15 +6,12 @@ import Code from '@editorjs/code';
 import InlineCode from '@editorjs/inline-code';
 import parseJSON from '../../../utils/parseJSON';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import {
     uploadPost,
     uploadImage,
     clearPostID,
-    clearPost,
 } from '../../../actions/getPostAction';
 import EditorJs from 'react-editor-js';
-import { useEffect } from 'react';
 
 const PostEditor = ({
     uploadPost,
@@ -26,7 +23,6 @@ const PostEditor = ({
 }) => {
     const instanceRef = React.useRef(null);
     const [heading, setHeading] = React.useState('');
-    // const [imgFile, setImgFile] = React.useState(null);
     const [upload, setUpload] = React.useState('');
 
     React.useEffect(() => {

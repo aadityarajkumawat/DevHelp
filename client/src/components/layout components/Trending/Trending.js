@@ -17,6 +17,8 @@ const Trending = ({
         if (posts.length === 0) {
             setPosts(trendingPosts);
         }
+
+        // eslint-disable-next-line
     }, []);
 
     useEffect(() => {
@@ -26,6 +28,8 @@ const Trending = ({
         if (posts.length === 0) {
             setPosts(trendingPosts);
         }
+
+        // eslint-disable-next-line
     }, [trendingPosts.length]);
 
     return (

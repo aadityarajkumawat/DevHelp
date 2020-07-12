@@ -25,6 +25,7 @@ const TrendingItem = ({
 }) => {
     const [loadingUNI, setLoadingUNI] = useState(true);
     const [openOptions, setOpenOptions] = useState(false);
+    const [styleForHeading, setStyleForHeading] = useState({});
 
     /**
      * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -35,8 +36,9 @@ const TrendingItem = ({
         }
         if (by === 'home') {
             getAdminPrivilages(false);
-        } else {
         }
+
+        // eslint-disable-next-line
     }, []);
 
     /**
@@ -46,6 +48,8 @@ const TrendingItem = ({
         if (status !== '' && auth.isAuthenticated) {
             getSavedPosts();
         }
+
+        // eslint-disable-next-line
     }, [status]);
 
     const checkSavedStatus = () => {
@@ -75,18 +79,19 @@ const TrendingItem = ({
             routing.push('/login');
         }
     };
-    let styleForHeading = {};
 
     useEffect(() => {
         if (by === 'home') {
-            styleForHeading = loading ? { display: 'none' } : {};
+            setStyleForHeading(loading ? { display: 'none' } : {});
             setLoadingUNI(loading);
         } else if (by === 'dashboard') {
-            styleForHeading = loadingUserPosts ? { display: 'none' } : {};
+            setStyleForHeading(loadingUserPosts ? { display: 'none' } : {});
             setLoadingUNI(loadingUserPosts);
         } else {
-            styleForHeading = {};
+            setStyleForHeading({});
         }
+
+        // eslint-disable-next-line
     }, [loadingUNI, loadingUserPosts, loading]);
 
     const openOptionsMenu = () => {

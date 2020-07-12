@@ -18,6 +18,8 @@ const Register = ({
 }) => {
     useEffect(() => {
         removeNav();
+
+        // eslint-disable-next-line
     }, []);
 
     const [user, setUser] = useState({
@@ -51,6 +53,8 @@ const Register = ({
             setLoading(false);
         }
         setLoading(false);
+
+        // eslint-disable-next-line
     }, [isAuthenticated, history, alert.length]);
 
     return (

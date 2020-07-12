@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import isEmpty from '../../../utils/isEmpty';
 import {
     uploadProfilePhoto,
     loadProfile,
@@ -15,24 +14,24 @@ const Profile = ({
     loadProfile,
     toggleBackdrop,
 }) => {
-    const [user, setUser] = useState({});
     const [uploaded, setUploaded] = useState('');
 
     useEffect(() => {
         loadProfile();
+
+        // eslint-disable-next-line
     }, []);
 
     useEffect(() => {
         if (profile.recievedProfile) {
             setUploaded('Uploaded!');
+            setTimeout(() => {
+                setUploaded('');
+            }, 2000);
         }
-    }, [profile.recievedProfile]);
 
-    useEffect(() => {
-        if (!isEmpty(auth.user)) {
-            setUser(auth.user);
-        }
-    }, [auth.user]);
+        // eslint-disable-next-line
+    }, [profile.recievedProfile]);
 
     const editMyProfile = () => {
         if (profile.backdrop) {
@@ -49,6 +48,8 @@ const Profile = ({
         setUploaded('Uploading...');
     };
 
+    const uploadStyles = uploaded === 'Uploading...' ? 'orange' : 'green';
+
     return (
         <React.Fragment>
             <EditProfile sta={profile.backdrop} />
@@ -56,8 +57,9 @@ const Profile = ({
                 <div className='img-container'>
                     <img
                         src={
-                            profile.profile.image !== undefined &&
-                            `${profile.profile.image}`
+                            profile.profile.image !== undefined
+                                ? `${profile.profile.image}`
+                                : ''
                         }
                         className='profile-img'
                         alt=''
@@ -72,18 +74,20 @@ const Profile = ({
                         />
                     </span>
                 </div>
-                <span>{uploaded}</span>
+                <span style={{ color: uploadStyles }}>{uploaded}</span>
                 <div className='info'>
-                    <p className='name'>
-                        <strong>
-                            {profile.profile.user !== undefined
-                                ? profile.profile.user.name
-                                : ''}
-                        </strong>
-                    </p>
-                    <button className='btn btn-primary' onClick={editMyProfile}>
-                        Edit Profile
-                    </button>
+                    <div className='in-same-line d-flex'>
+                        <p className='name'>
+                            <strong>
+                                {profile.profile.user !== undefined
+                                    ? profile.profile.user.name
+                                    : ''}
+                            </strong>
+                        </p>
+                        <span className='' onClick={editMyProfile}>
+                            <i className='fas fa-pen'></i>
+                        </span>
+                    </div>
                     <div className='user-data'>
                         <p>
                             {profile.profile !== undefined

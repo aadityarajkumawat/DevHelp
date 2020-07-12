@@ -9,6 +9,8 @@ const SavedPost = ({ removeNav, history, clearPost }) => {
     useEffect(() => {
         removeNav();
         clearPost();
+
+        // eslint-disable-next-line
     }, []);
     return (
         <div className='d-flex dashboard-container'>

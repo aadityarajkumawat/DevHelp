@@ -19,11 +19,12 @@ import { loadUser } from './authAction';
 
 export const getPost = (post_id) => async (dispatch) => {
     try {
-        console.log(post_id);
-        const url = `/api/post/${post_id}`;
-        dispatch({ type: SET_LOADING_POST_TRUE });
-        const res = await axios.get(url);
-        dispatch({ type: GET_POST, payload: res.data }); // * this will fetch a single post given the post id
+        if (post_id !== undefined) {
+            const url = `/api/post/${post_id}`;
+            dispatch({ type: SET_LOADING_POST_TRUE });
+            const res = await axios.get(url);
+            dispatch({ type: GET_POST, payload: res.data }); // * this will fetch a single post given the post id
+        }
     } catch (err) {
         console.log(err.message);
     }
@@ -45,14 +46,15 @@ export const uploadPost = (post, post_id) => async (dispatch) => {
     };
     console.log(post);
     try {
-        const res = await axios.post(
-            `/api/post/content/${post_id}`,
-            post,
-            config
-        );
-        dispatch({ type: UPLOAD_POST, payload: res.data });
-
-        dispatch(loadUser());
+        if (post_id !== undefined) {
+            const res = await axios.post(
+                `/api/post/content/${post_id}`,
+                post,
+                config
+            );
+            dispatch({ type: UPLOAD_POST, payload: res.data });
+            dispatch(loadUser());
+        }
     } catch (err) {
         console.log(err);
     }
@@ -72,8 +74,10 @@ export const uploadImage = (fData) => async (dispatch) => {
 
 export const getUserPosts = (user_id) => async (dispatch) => {
     try {
-        const res = await axios.get(`/api/post/all/${user_id}`);
-        dispatch({ type: GET_USER_POSTS, payload: res.data });
+        if (user_id !== undefined) {
+            const res = await axios.get(`/api/post/all/${user_id}`);
+            dispatch({ type: GET_USER_POSTS, payload: res.data });
+        }
     } catch (err) {
         console.log(err);
     }
@@ -81,8 +85,10 @@ export const getUserPosts = (user_id) => async (dispatch) => {
 
 export const deletePost = (post_id) => async (dispatch) => {
     try {
-        await axios.delete(`/api/post/${post_id}`);
-        dispatch({ type: DELETE_POST });
+        if (post_id !== undefined) {
+            await axios.delete(`/api/post/${post_id}`);
+            dispatch({ type: DELETE_POST });
+        }
     } catch (err) {
         console.log(err);
     }
@@ -90,8 +96,10 @@ export const deletePost = (post_id) => async (dispatch) => {
 
 export const savePost = (post_id) => async (dispatch) => {
     try {
-        const res = await axios.post(`/api/save/${post_id}`);
-        dispatch({ type: TOGGLE_SAVE_POST, payload: res.data });
+        if (post_id !== undefined) {
+            const res = await axios.post(`/api/save/${post_id}`);
+            dispatch({ type: TOGGLE_SAVE_POST, payload: res.data });
+        }
     } catch (err) {
         console.log(err);
     }
@@ -108,9 +116,11 @@ export const getSavedPosts = () => async (dispatch) => {
 
 export const likePost = (post_id) => async (dispatch) => {
     try {
-        console.log('the recieved post ID', post_id);
-        const res = await axios.put(`/api/post/like/${post_id}`);
-        dispatch({ type: LIKE_POST, payload: res.data });
+        if (post_id !== undefined) {
+            console.log('the recieved post ID', post_id);
+            const res = await axios.put(`/api/post/like/${post_id}`);
+            dispatch({ type: LIKE_POST, payload: res.data });
+        }
     } catch (err) {
         console.log(err);
     }

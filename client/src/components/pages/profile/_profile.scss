@@ -1,3 +1,5 @@
+@import '../../../mixins';
+
 .img-container {
     position: relative;
 
@@ -15,6 +17,14 @@
         border-radius: 100%;
         bottom: 8px;
         right: 8px;
+
+        @include responsive($less-tab) {
+            width: 22px;
+            height: 22px;
+            right: 5px;
+            bottom: 5px;
+            font-size: 13px;
+        }
 
         i {
             position: absolute;

@@ -26,7 +26,7 @@ router.post('/:post_id', auth, async (req, res) => {
                 savedPostObject.savedID = post._id;
                 if (post.heading) savedPostObject.heading = post.heading;
                 if (post.content) savedPostObject.content = post.content;
-                if (post.postImage) savedPostObject.postImage = post.postImage;
+                if (post.image) savedPostObject.image = post.image;
 
                 saved.savedPosts.unshift(savedPostObject);
 
@@ -51,8 +51,7 @@ router.post('/:post_id', auth, async (req, res) => {
                     savedPostObject.savedID = post._id;
                     if (post.heading) savedPostObject.heading = post.heading;
                     if (post.content) savedPostObject.content = post.content;
-                    if (post.postImage)
-                        savedPostObject.postImage = post.postImage;
+                    if (post.image) savedPostObject.image = post.image;
 
                     saved.savedPosts.unshift(savedPostObject);
                     await saved.save();

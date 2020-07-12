@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { showNav } from '../../actions/navAction';
 import { clearPost } from '../../actions/getPostAction';
@@ -9,6 +9,8 @@ const Home = ({ showNav, clearPost, history }) => {
     useEffect(() => {
         showNav();
         clearPost();
+
+        // eslint-disable-next-line
     }, []);
     return (
         <div className='home d-flex flex-column'>

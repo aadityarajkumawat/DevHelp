@@ -25,6 +25,8 @@ const Post = ({
 
     useEffect(() => {
         showNav();
+
+        // eslint-disable-next-line
     }, []);
 
     useEffect(() => {
@@ -41,6 +43,7 @@ const Post = ({
         if (isEmpty(post)) {
             setPost(openedPost);
         }
+
         // eslint-disable-next-line
     }, [currentPost, openedPost]);
 
@@ -60,6 +63,8 @@ const Post = ({
             getLikedPosts(auth.user._id, post._id);
             setLik(likedPost);
         }
+
+        // eslint-disable-next-line
     }, [likedStatus, post._id, likedPost.length]);
 
     /*

@@ -1,11 +1,14 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { logout } from '../../actions/authAction';
 import { connect } from 'react-redux';
 import Logo from '../../assets/favicon.svg';
 import { toggleSlideMenu } from '../../actions/slideMenu';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const DashboardSideBar = ({ logout, slideMenu, toggleSlideMenu }) => {
+    const matches = useMediaQuery('(max-width: 950px)');
+
     const logoutUser = () => {
         logout();
     };
@@ -14,20 +17,29 @@ const DashboardSideBar = ({ logout, slideMenu, toggleSlideMenu }) => {
     const backdrop = React.useRef(null);
 
     React.useEffect(() => {
-        toggleMenu.current.classList.toggle('open-slide-bar');
-        backdrop.current.classList.toggle('remove-backdrop');
-    }, [slideMenu]);
+        if (matches && slideMenu) {
+            toggleMenu.current.classList.add('open-slide-bar');
+            backdrop.current.classList.remove('remove-backdrop');
+        } else {
+            toggleMenu.current.classList.remove('open-slide-bar');
+            backdrop.current.classList.add('remove-backdrop');
+        }
+    }, [slideMenu, matches]);
 
     const removeMenu = () => {
-        toggleSlideMenu(false);
-        backdrop.current.classList.remove('remove-backdrop');
+        if (matches) {
+            toggleSlideMenu(false);
+            backdrop.current.classList.add('remove-backdrop');
+        } else {
+            backdrop.current.classList.add('remove-backdrop');
+        }
     };
 
     return (
         <Fragment>
             <div
                 ref={toggleMenu}
-                className='options-bar flex-column align-items-center open-slide-bar'>
+                className='options-bar flex-column align-items-center'>
                 <Link to='/' onClick={removeMenu}>
                     <div className='div-icon'>
                         <img src={Logo} alt='' />

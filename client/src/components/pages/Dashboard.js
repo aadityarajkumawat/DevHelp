@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { removeNav } from '../../actions/navAction';
 import { clearPost } from '../../actions/getPostAction';
@@ -9,6 +9,8 @@ const Dashboard = ({ removeNav, clearPost, history }) => {
     useEffect(() => {
         removeNav();
         clearPost();
+
+        // eslint-disable-next-line
     }, []);
 
     return (

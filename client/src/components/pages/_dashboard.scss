@@ -139,8 +139,8 @@
                 background-color: #ccc;
 
                 @include responsive($less-tab) {
-                    width: 90px;
-                    height: 90px;
+                    width: 100px;
+                    height: 100px;
                 }
 
                 @include responsive($less-tab) {
@@ -157,11 +157,28 @@
                     margin: auto;
                     width: fit-content;
                     margin-top: 20px;
+                    text-align: center;
                 }
 
                 p {
                     margin: 0 0 0 0;
                     display: inline;
+                }
+
+                .in-same-line {
+                    width: max-content;
+
+                    @include responsive($less-tab) {
+                        margin: auto;
+                    }
+
+                    p {
+                        margin-right: 20px;
+                    }
+
+                    span {
+                        font-size: 13px;
+                    }
                 }
 
                 .user-data {
@@ -174,11 +191,10 @@
                     @include responsive($less-tab) {
                         display: flex;
                         justify-content: center;
+                        padding: 0;
                     }
 
                     p {
-                        // margin: auto;
-
                         @include responsive($less-tab) {
                             padding: 0;
                         }

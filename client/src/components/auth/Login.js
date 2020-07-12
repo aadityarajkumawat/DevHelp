@@ -17,7 +17,8 @@ const Login = ({
 }) => {
     useEffect(() => {
         removeNav();
-        // console.log('called');
+
+        // eslint-disable-next-line
     }, []);
 
     const [user, setUser] = useState({
@@ -47,6 +48,8 @@ const Login = ({
             setLoading(false);
         }
         setLoading(false);
+
+        // eslint-disable-next-line
     }, [isAuthenticated, history, alert.length]);
 
     return (

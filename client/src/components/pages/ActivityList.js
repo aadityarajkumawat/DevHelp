@@ -21,6 +21,8 @@ const ActivityList = ({
         if (postsSaved.length === 0) {
             setPostsSaved(post.savedPosts);
         }
+
+        // eslint-disable-next-line
     }, [post.savedPosts.length]);
 
     const removeThisSavedPost = (id) => {
