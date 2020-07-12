@@ -147,6 +147,12 @@
   background-color: grey;
 }
 
+.nav-container nav .utils .user-icon .img img {
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+}
+
 .nav-container nav .utils .user-icon .drop-down-container {
   display: none;
   position: absolute;

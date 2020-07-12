@@ -1,11 +1,22 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logout } from '../../actions/authAction';
+import { loadProfile } from '../../actions/profileAction';
 
-const Navbar = ({ navbar, auth: { isAuthenticated }, logout }) => {
+const Navbar = ({
+    navbar,
+    auth: { isAuthenticated },
+    logout,
+    profile,
+    loadProfile,
+}) => {
     const dropDown = useRef(null);
     const dropCloser = useRef(null);
+
+    useEffect(() => {
+        loadProfile();
+    }, []);
 
     const openDropDown = () => {
         dropDown.current.classList.toggle('toggle-drop-down');
@@ -46,7 +57,16 @@ const Navbar = ({ navbar, auth: { isAuthenticated }, logout }) => {
                         </button>
                     </div>
                     <div className='user-icon' onClick={openDropDown}>
-                        <div className='img'></div>
+                        <div className='img'>
+                            <img
+                                src={
+                                    profile.profile.image !== undefined
+                                        ? profile.profile.image
+                                        : ''
+                                }
+                                alt=''
+                            />
+                        </div>
                         <ul
                             ref={dropDown}
                             className='drop-down-container flex-column text-center'>
@@ -61,8 +81,8 @@ const Navbar = ({ navbar, auth: { isAuthenticated }, logout }) => {
                             <li>
                                 <Link to='/compose-post'>Compose Post</Link>
                             </li>
-                            <li>Plans</li>
-                            <li>Liked Posts</li>
+                            {/* <li>Plans</li> */}
+                            {/* <li>Liked Posts</li> */}
                             <li onClick={logMeOut}>
                                 <Link to='/'>Logout</Link>
                             </li>
@@ -80,7 +100,8 @@ const mapStateToProps = (state) => {
     return {
         navbar: state.navbar,
         auth: state.auth,
+        profile: state.profile,
     };
 };
 
-export default connect(mapStateToProps, { logout })(Navbar);
+export default connect(mapStateToProps, { logout, loadProfile })(Navbar);
