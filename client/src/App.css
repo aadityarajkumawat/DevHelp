@@ -123,6 +123,10 @@
   width: 100%;
 }
 
+.nav-container nav .navbar-brand {
+  cursor: pointer;
+}
+
 .nav-container nav .utils .icons span {
   margin: 5px 20px 5px 0px;
 }
@@ -165,7 +169,7 @@
 }
 
 .nav-container nav .utils .user-icon .drop-down-container::before {
-  content: '';
+  content: "";
   width: 15px;
   height: 15px;
   background-color: #313131;
@@ -183,6 +187,16 @@
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
+}
+
+.nav-container nav .utils .user-icon .drop-down-container li a {
+  color: white;
+  font-size: 14px;
+}
+
+.nav-container nav .utils .user-icon .drop-down-container li a:hover {
+  text-decoration: none;
+  color: #0066ff;
 }
 
 .nav-container nav .utils .user-icon .toggle-drop-down {
@@ -205,7 +219,7 @@
 
 .nav-container .drop-closer {
   display: none;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   position: absolute;
   background-color: rgba(0, 0, 0, 0);

@@ -18,7 +18,6 @@ const Profile = ({
 
     useEffect(() => {
         loadProfile();
-
         // eslint-disable-next-line
     }, []);
 
@@ -29,7 +28,6 @@ const Profile = ({
                 setUploaded('');
             }, 2000);
         }
-
         // eslint-disable-next-line
     }, [profile.recievedProfile]);
 
