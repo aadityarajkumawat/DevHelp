@@ -1188,6 +1188,19 @@ pre * {
   background-color: #d4d4d4;
 }
 
+@media (max-width: 750px) {
+  .edit-profile {
+    width: 480px;
+    height: 280px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .edit-profile {
+    width: 300px;
+  }
+}
+
 .edit-profile form {
   display: -webkit-box;
   display: -ms-flexbox;
