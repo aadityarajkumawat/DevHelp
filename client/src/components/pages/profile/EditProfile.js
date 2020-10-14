@@ -5,12 +5,14 @@ import {
   editProfile,
   setSavingStatus,
 } from "../../../actions/profileAction";
+import { motion } from "framer-motion";
 
 const EditProfile = ({
   toggleBackdrop,
   profile,
   editProfile,
   setSavingStatus,
+  framerAnim,
 }) => {
   const [profileL, setProfileL] = useState({
     country: "",
@@ -43,7 +45,18 @@ const EditProfile = ({
 
   return (
     <React.Fragment>
-      <div className="edit-profile" style={{ display: tyle }}>
+      <motion.div
+        animate={{
+          opacity: framerAnim.editProfileContainer.opacity,
+          y: framerAnim.editProfileContainer.y,
+        }}
+        transition={{
+          duration: framerAnim.editProfileContainer.duration,
+          ease: "easeIn",
+        }}
+        className="edit-profile"
+        style={{ display: tyle }}
+      >
         <h2>Edit Profile</h2>
         <form onSubmit={handelSubmit}>
           <div className="input-wrapper">
@@ -76,7 +89,7 @@ const EditProfile = ({
             <button onClick={removeEditMode}>Cancel</button>
           </div>
         </form>
-      </div>
+      </motion.div>
       <div
         className="back-rmm"
         style={{ display: tyle }}
@@ -89,6 +102,7 @@ const EditProfile = ({
 const mapStateToProps = (state) => {
   return {
     profile: state.profile,
+    framerAnim: state.framerAnim,
   };
 };
 

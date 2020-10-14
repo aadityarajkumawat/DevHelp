@@ -7,6 +7,8 @@ import { cleanProfile } from "../../actions/profileAction";
 import { logout } from "../../actions/authAction";
 import { loadProfile } from "../../actions/profileAction";
 import isEmpty from "../../utils/isEmpty";
+import { motion } from "framer-motion";
+import { initDropAnim, resetDropAnim } from "../../actions/framerAction";
 
 const Navbar = ({
   navbar,
@@ -17,6 +19,9 @@ const Navbar = ({
   cleanAdminPrivilages,
   cleanGetPostAction,
   cleanProfile,
+  initDropAnim,
+  resetDropAnim,
+  framerAnim,
 }) => {
   const dropDown = useRef(null);
   const dropCloser = useRef(null);
@@ -28,11 +33,13 @@ const Navbar = ({
   }, [profile.profile.image]);
 
   const openDropDown = () => {
+    initDropAnim();
     dropDown.current.classList.toggle("toggle-drop-down");
     dropCloser.current.style.display = "block";
   };
 
   const closeDrop = () => {
+    resetDropAnim();
     dropCloser.current.style.display = "none";
     dropDown.current.classList.remove("toggle-drop-down");
   };
@@ -73,7 +80,12 @@ const Navbar = ({
                 />
               )}
             </div>
-            <ul
+            <motion.ul
+              animate={{ scale: framerAnim.dropDown.scale }}
+              transition={{
+                duration: framerAnim.dropDown.duration,
+                ease: "easeIn",
+              }}
               ref={dropDown}
               className="drop-down-container flex-column text-center"
             >
@@ -87,7 +99,7 @@ const Navbar = ({
               <li onClick={logMeOut}>
                 <Link to="/">Logout</Link>
               </li>
-            </ul>
+            </motion.ul>
           </div>
         </div>
       </nav>
@@ -102,6 +114,7 @@ const mapStateToProps = (state) => {
     navbar: state.navbar,
     auth: state.auth,
     profile: state.profile,
+    framerAnim: state.framerAnim,
   };
 };
 
@@ -111,4 +124,6 @@ export default connect(mapStateToProps, {
   cleanAdminPrivilages,
   cleanGetPostAction,
   cleanProfile,
+  resetDropAnim,
+  initDropAnim,
 })(Navbar);
