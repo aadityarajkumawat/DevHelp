@@ -55,12 +55,12 @@ const PostEditor = ({
     setHeading(value);
   };
 
-//   const tools = {
-//     header: Header,
-//     simpleImage: SimpleImage,
-//     code: Code,
-//     inlineCode: InlineCode,
-//   };
+  //   const tools = {
+  //     header: Header,
+  //     simpleImage: SimpleImage,
+  //     code: Code,
+  //     inlineCode: InlineCode,
+  //   };
 
   const addFile = async (e) => {
     const fd = new FormData();
@@ -96,6 +96,7 @@ const PostEditor = ({
         instanceRef={(instance) => (instanceRef.current = instance)}
         tools={tools}
       /> */}
+      CHANGED
       <button className="" onClick={handleSave}>
         {post.uploadedStatus && (
           <span
