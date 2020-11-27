@@ -1,9 +1,4 @@
 import React from "react";
-// import '@editorjs/header/dist/bundle';
-// import Header from '@editorjs/header';
-// import SimpleImage from '@editorjs/simple-image';
-// import Code from '@editorjs/code';
-// import InlineCode from '@editorjs/inline-code';
 import parseJSON from "../../../utils/parseJSON";
 import { connect } from "react-redux";
 import {
@@ -11,7 +6,13 @@ import {
   uploadImage,
   clearPostID,
 } from "../../../actions/getPostAction";
-import EditorJs from "react-editor-js";
+import {
+  ContentState,
+  convertToRaw,
+  Editor,
+  EditorState,
+  RichUtils,
+} from "draft-js";
 
 const PostEditor = ({
   uploadPost,
@@ -24,6 +25,9 @@ const PostEditor = ({
   const instanceRef = React.useRef(null);
   const [heading, setHeading] = React.useState("");
   const [upload, setUpload] = React.useState("");
+  const [editorState, setEditorState] = React.useState(() =>
+    EditorState.createEmpty()
+  );
 
   React.useEffect(() => {
     setUpload("");
@@ -34,19 +38,20 @@ const PostEditor = ({
 
   const handleSave = async () => {
     if (isAuthenticated) {
-      const savedData = await instanceRef.current.save();
-      const htmlToSave = parseJSON(savedData);
-      if (heading !== "" && htmlToSave !== "" && post.postID !== undefined) {
+      const postRawContent = convertToRaw(editorState.getCurrentContent())
+        .blocks;
+      if (heading !== "" && post.postID !== undefined) {
         uploadPost(
           {
             heading: heading,
-            content: htmlToSave,
+            content: JSON.stringify(postRawContent),
           },
           post.postID
         );
       }
       clearPostID();
       history.push("/");
+      console.log(JSON.stringify(postRawContent));
     }
   };
 
@@ -54,13 +59,6 @@ const PostEditor = ({
     const value = e.target.value;
     setHeading(value);
   };
-
-  //   const tools = {
-  //     header: Header,
-  //     simpleImage: SimpleImage,
-  //     code: Code,
-  //     inlineCode: InlineCode,
-  //   };
 
   const addFile = async (e) => {
     const fd = new FormData();
@@ -71,6 +69,17 @@ const PostEditor = ({
 
   const uploadingStyles =
     upload === "Uploading..." ? { color: "orange" } : { color: "green" };
+
+  const handleKeyCommand = (command, editorState) => {
+    const newState = RichUtils.handleKeyCommand(editorState, command);
+
+    if (newState) {
+      setEditorState(newState);
+      return "handled";
+    }
+
+    return "not-handled";
+  };
 
   return (
     <div className="d-flex flex-column editor-container-compose">
@@ -92,11 +101,11 @@ const PostEditor = ({
           onChange={handleHeadingChange}
         />
       </div>
-      {/* <EditorJs
-        instanceRef={(instance) => (instanceRef.current = instance)}
-        tools={tools}
-      /> */}
-      CHANGED
+      <Editor
+        editorState={editorState}
+        onChange={setEditorState}
+        handleKeyCommand={handleKeyCommand}
+      />
       <button className="" onClick={handleSave}>
         {post.uploadedStatus && (
           <span
