@@ -6,7 +6,7 @@ const Post = require("../models/Post");
 const User = require("../models/User");
 
 // @REQ     POST api/post
-// @DESC    upload a post
+// @DESC    upload a post --> after image is uploaded
 // @ACCESS  Private
 router.post(
   "/content/:post_id",
