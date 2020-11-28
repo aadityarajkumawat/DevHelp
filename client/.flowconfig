@@ -1,0 +1,4 @@
+[options]
+react.runtime=automatic
+[lints]
+all=off

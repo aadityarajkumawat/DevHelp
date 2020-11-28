@@ -28,6 +28,7 @@
     "draftjs-to-html": "^0.9.1",
     "express": "^4.17.1",
     "express-validator": "^6.6.0",
+    "flow": "^0.2.3",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.19",
     "multer": "^1.4.2",
