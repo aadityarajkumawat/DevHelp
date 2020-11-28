@@ -6,8 +6,6 @@ import {
   getLikedPosts,
 } from "../../../actions/getPostAction";
 import { showNav } from "../../../actions/navAction";
-
-// Parse HTML string to HTML
 import PostHolder from "./Post-Placeholder/PostHolder";
 import { parseJsonStringToContent } from "../../../utils/parseJsonStringToContent";
 
@@ -72,7 +70,7 @@ const Post = ({
      ? I have used the if check on post just to be sure
      ? whether we have got the post and handel preload
      ? events
-     */
+  */
   const likeThisPost = () => {
     if (post && auth.isAuthenticated) {
       likePost(post._id);
@@ -104,7 +102,7 @@ const Post = ({
         <div className="user-p d-flex align-items-center">
           <span>{post.name}</span>
           <div className="dot-i"></div>
-          <span>{"6"} min</span>
+          <span>6 min</span>
           <i
             onClick={likeThisPost}
             className={`fa${likedBtn() ? "s" : "r"} fa-heart`}
@@ -112,11 +110,14 @@ const Post = ({
           ></i>
         </div>
         <div className="img-post-container">
-          <img src={post !== undefined ? `${post.image}` : null} alt="" />
+          <img
+            src={post !== undefined ? `${post.image}` : null}
+            alt="post image"
+          />
         </div>
-        <p className="nn-new">
+        <div className="nn-new">
           {post.content && parseJsonStringToContent(post.content.toString())}
-        </p>
+        </div>
       </div>
     </React.Fragment>
   );
