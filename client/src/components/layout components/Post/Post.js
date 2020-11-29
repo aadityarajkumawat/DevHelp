@@ -112,7 +112,7 @@ const Post = ({
         <div className="img-post-container">
           <img
             src={post !== undefined ? `${post.image}` : null}
-            alt="post image"
+            alt="post"
           />
         </div>
         <div className="nn-new">
