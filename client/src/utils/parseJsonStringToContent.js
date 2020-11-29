@@ -1,81 +1,118 @@
-import React from "react";
+import React, { Fragment } from "react";
 
 export const parseJsonStringToContent = (contentString) => {
   const contentArray = JSON.parse(contentString);
   let finalContent = [];
 
+  let stringifiedStyles = [];
+  let finalStylesArray = [];
+
+  // Combining Inline Styles
+  for (let i = 0; i < contentArray.length; i++) {
+    const { inlineStyleRanges } = contentArray[i];
+    if (inlineStyleRanges.length === 0) {
+      stringifiedStyles.push({ lineNumber: i, content: "no-styles" });
+    } else {
+      for (let j = 0; j < inlineStyleRanges.length; j++) {
+        stringifiedStyles.push({
+          lineNumber: i,
+          content: JSON.stringify(inlineStyleRanges[j]).substring(
+            1,
+            JSON.stringify(inlineStyleRanges[j]).indexOf("style") - 2
+          ),
+          styleI: inlineStyleRanges[j].style,
+          originalStyles: inlineStyleRanges[j],
+        });
+      }
+    }
+  }
+
+  console.log({ stringifiedStyles });
+
+  if (finalStylesArray.length === 0 && stringifiedStyles.length > 0) {
+    finalStylesArray.push(stringifiedStyles[0]);
+  }
+
+  for (let i = 0; i < stringifiedStyles.length; i++) {
+    let sty = stringifiedStyles[i];
+    for (let j = 0; j < finalStylesArray.length; j++) {
+      if (
+        finalStylesArray[j].lineNumber !== sty.lineNumber &&
+        finalStylesArray[j].content !== sty.content
+      ) {
+        finalStylesArray.push(sty);
+      }
+    }
+  }
+
+  console.log({ finalStylesArray });
+
   for (let i = 0; i < contentArray.length; i++) {
     let { text, inlineStyleRanges, key } = contentArray[i];
-    if (text !== "" || text !== " ") {
+    if (text.length !== 0) {
       let finalLine = [];
       if (inlineStyleRanges.length > 0) {
         for (let j = 0; j < inlineStyleRanges.length; j++) {
-          if (
-            inlineStyleRanges[i] !== undefined &&
-            inlineStyleRanges[i].style === "BOLD"
-          ) {
-            if (i === 0) {
+          if (inlineStyleRanges[j].style === "BOLD") {
+            if (j === 0) {
               finalLine.push(
-                <span>{text.substring(0, inlineStyleRanges[i].offset)}</span>
+                <span>{text.substring(j, inlineStyleRanges[j].offset)}</span>
               );
               finalLine.push(
                 <strong>
                   {text.substring(
-                    inlineStyleRanges[i].offset,
-                    inlineStyleRanges[i].offset + inlineStyleRanges[i].length
-                  )}
+                    inlineStyleRanges[j].offset,
+                    inlineStyleRanges[j].offset + inlineStyleRanges[j].length
+                  ) + " "}
                 </strong>
               );
             } else {
               finalLine.push(
                 <span>
                   {text.substring(
-                    inlineStyleRanges[i - 1].offset +
-                      inlineStyleRanges[i - 1].length,
-                    inlineStyleRanges[i].offset
+                    inlineStyleRanges[j - 1].offset +
+                      inlineStyleRanges[j - 1].length,
+                    inlineStyleRanges[j].offset
                   )}
                 </span>
               );
               finalLine.push(
                 <strong>
                   {text.substring(
-                    inlineStyleRanges[i].offset,
-                    inlineStyleRanges[i].offset + inlineStyleRanges[i].length
+                    inlineStyleRanges[j].offset,
+                    inlineStyleRanges[j].offset + inlineStyleRanges[j].length
                   )}
                 </strong>
               );
             }
-          } else if (
-            inlineStyleRanges[i] !== undefined &&
-            inlineStyleRanges[i].style === "ITALIC"
-          ) {
-            if (i === 0) {
+          } else if (inlineStyleRanges[j].style === "ITALIC") {
+            if (j === 0) {
               finalLine.push(
-                <span>{text.substring(0, inlineStyleRanges[i].offset)}</span>
+                <span>{text.substring(0, inlineStyleRanges[j].offset)}</span>
               );
               finalLine.push(
                 <i>
                   {text.substring(
-                    inlineStyleRanges[i].offset,
-                    inlineStyleRanges[i].offset + inlineStyleRanges[i].length
+                    inlineStyleRanges[j].offset,
+                    inlineStyleRanges[j].offset + inlineStyleRanges[j].length
                   )}
                 </i>
               );
-            } else {
+            } else if (inlineStyleRanges[j - 1] !== undefined) {
               finalLine.push(
                 <span>
                   {text.substring(
-                    inlineStyleRanges[i - 1].offset +
-                      inlineStyleRanges[i - 1].length,
-                    inlineStyleRanges[i].offset
+                    inlineStyleRanges[j - 1].offset +
+                      inlineStyleRanges[j - 1].length,
+                    inlineStyleRanges[j].offset
                   )}
                 </span>
               );
               finalLine.push(
                 <i>
                   {text.substring(
-                    inlineStyleRanges[i].offset,
-                    inlineStyleRanges[i].offset + inlineStyleRanges[i].length
+                    inlineStyleRanges[j].offset,
+                    inlineStyleRanges[j].offset + inlineStyleRanges[j].length
                   )}
                 </i>
               );
@@ -88,7 +125,12 @@ export const parseJsonStringToContent = (contentString) => {
 
       finalContent.push(<span key={key}>{finalLine}</span>);
     } else {
-      finalContent.push(<br />);
+      finalContent.push(
+        <Fragment>
+          <br />
+          <br />
+        </Fragment>
+      );
     }
   }
 
