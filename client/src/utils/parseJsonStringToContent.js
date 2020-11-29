@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 
 export const parseJsonStringToContent = (contentString) => {
   const contentArray = JSON.parse(contentString);
+  console.log(contentArray);
 
   let finalContent = [];
 
@@ -58,17 +59,35 @@ export const parseJsonStringToContent = (contentString) => {
 
   for (let i = 0; i < contentArray.length; i++) {
     let { text, inlineStyleRanges, key } = contentArray[i];
+
     if (text.length !== 0) {
       let finalLine = [];
+
       if (finalStylesArray.length > 0) {
         console.log(finalStylesArray);
+
         for (let j = 0; j < finalStylesArray.length; j++) {
           if (finalStylesArray[j].content === "no-styles") {
+            finalLine.push(
+              <span>
+                {contentArray[i].text.substring(
+                  contentArray[i].inlineStyleRanges[
+                    inlineStyleRanges.length - 1
+                  ].offset +
+                    contentArray[i].inlineStyleRanges[
+                      inlineStyleRanges.length - 1
+                    ].length
+                )}
+              </span>
+            );
           } else {
-            if (finalStylesArray[j].count === 0) {
+            if (
+              finalStylesArray[j].count === 0 &&
+              finalStylesArray[j].lineNumber === i
+            ) {
               if (finalStylesArray[j].styleI === "BOLD") {
                 if (
-                  i > 0 &&
+                  j > 0 &&
                   inlineStyleRanges[j - 1] !== undefined &&
                   inlineStyleRanges[j] !== undefined
                 ) {
@@ -103,7 +122,7 @@ export const parseJsonStringToContent = (contentString) => {
                 }
               } else if (finalStylesArray[j].styleI === "ITALIC") {
                 if (
-                  i > 0 &&
+                  j > 0 &&
                   inlineStyleRanges[j - 1] !== undefined &&
                   inlineStyleRanges[j] !== undefined
                 ) {
@@ -137,16 +156,20 @@ export const parseJsonStringToContent = (contentString) => {
                   );
                 }
               }
-            } else if (finalStylesArray[j].count === 1) {
+            } else if (
+              finalStylesArray[j].count === 1 &&
+              finalStylesArray[j].lineNumber === i
+            ) {
               if (
-                i > 0 &&
+                j > 0 &&
                 inlineStyleRanges[j] !== undefined &&
                 inlineStyleRanges[j - 1] !== undefined
               ) {
                 finalLine.push(
                   <span>
                     {text.substring(
-                      inlineStyleRanges[j - 1].offset,
+                      inlineStyleRanges[j - 1].offset +
+                        inlineStyleRanges[j - 1].length,
                       inlineStyleRanges[j].offset
                     )}
                     <strong>
@@ -160,10 +183,16 @@ export const parseJsonStringToContent = (contentString) => {
                     </strong>
                   </span>
                 );
-              } else if (inlineStyleRanges[j] !== undefined) {
+              } else if (
+                inlineStyleRanges[j] !== undefined &&
+                inlineStyleRanges[j - 1] !== undefined
+              ) {
                 finalLine.push(
                   <span>
-                    {text.substring(0, inlineStyleRanges[j].offset)}
+                    {text.substring(
+                      inlineStyleRanges[j - 1].offset,
+                      inlineStyleRanges[j].offset
+                    )}
                     <strong>
                       <i>
                         {text.substring(
