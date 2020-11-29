@@ -22,6 +22,7 @@ export const parseJsonStringToContent = (contentString) => {
           ),
           styleI: inlineStyleRanges[j].style,
           originalStyles: inlineStyleRanges[j],
+          count: 0
         });
       }
     }
@@ -35,13 +36,25 @@ export const parseJsonStringToContent = (contentString) => {
 
   for (let i = 0; i < stringifiedStyles.length; i++) {
     let sty = stringifiedStyles[i];
+    let found = false;
     for (let j = 0; j < finalStylesArray.length; j++) {
       if (
-        finalStylesArray[j].lineNumber !== sty.lineNumber &&
-        finalStylesArray[j].content !== sty.content
+        finalStylesArray[j].content === sty.content &&
+        finalStylesArray[j].lineNumber === sty.lineNumber
       ) {
-        finalStylesArray.push(sty);
+        found = true;
       }
+      if (
+        finalStylesArray[j].content === sty.content &&
+        finalStylesArray[j].lineNumber === sty.lineNumber &&
+        finalStylesArray[j].styleI !== sty.styleI
+      ) {
+        finalStylesArray[j].count++;
+      }
+    }
+
+    if (!found) {
+      finalStylesArray.push(sty);
     }
   }
 
