@@ -3,7 +3,6 @@ import React, { Fragment } from "react";
 export const parseJsonStringToContent = (contentString) => {
   const contentArray = JSON.parse(contentString);
 
-  console.log(contentArray);
   let finalContent = [];
 
   let stringifiedStyles = [];
@@ -28,8 +27,6 @@ export const parseJsonStringToContent = (contentString) => {
       }
     }
   }
-
-  console.log({ stringifiedStyles });
 
   if (finalStylesArray.length === 0 && stringifiedStyles.length > 0) {
     finalStylesArray.push(stringifiedStyles[0]);
@@ -59,54 +56,92 @@ export const parseJsonStringToContent = (contentString) => {
     }
   }
 
-  // console.log({ finalStylesArray });
-
   for (let i = 0; i < contentArray.length; i++) {
     let { text, inlineStyleRanges, key } = contentArray[i];
     if (text.length !== 0) {
       let finalLine = [];
       if (finalStylesArray.length > 0) {
+        console.log(finalStylesArray);
         for (let j = 0; j < finalStylesArray.length; j++) {
-          if (finalStylesArray[j].count === 0) {
-            if (finalStylesArray[j].styleI === "BOLD") {
-              if (j > 0) {
-                /**
-                 * #######-(offet)-****-(offset + length)-########
-                 */
-                finalLine.push(
-                  <span>
-                    {text.substring(
-                      inlineStyleRanges[j - 1].offset,
-                      inlineStyleRanges[j].offset
-                    )}
-                    <strong>
+          if (finalStylesArray[j].content === "no-styles") {
+          } else {
+            if (finalStylesArray[j].count === 0) {
+              if (finalStylesArray[j].styleI === "BOLD") {
+                if (
+                  i > 0 &&
+                  inlineStyleRanges[j - 1] !== undefined &&
+                  inlineStyleRanges[j] !== undefined
+                ) {
+                  finalLine.push(
+                    <span>
                       {text.substring(
-                        inlineStyleRanges[j].offset,
-                        inlineStyleRanges[j].offset +
-                          inlineStyleRanges[j].length
+                        inlineStyleRanges[j - 1].offset,
+                        inlineStyleRanges[j].offset
                       )}
-                    </strong>
-                  </span>
-                );
-              } else {
-                finalLine.push(
-                  <span>
-                    {text.substring(0, inlineStyleRanges[j].offset)}
-                    <strong>
+                      <strong>
+                        {text.substring(
+                          inlineStyleRanges[j].offset,
+                          inlineStyleRanges[j].offset +
+                            inlineStyleRanges[j].length
+                        )}
+                      </strong>
+                    </span>
+                  );
+                } else {
+                  finalLine.push(
+                    <span>
+                      {text.substring(0, inlineStyleRanges[j].offset)}
+                      <strong>
+                        {text.substring(
+                          inlineStyleRanges[j].offset,
+                          inlineStyleRanges[j].offset +
+                            inlineStyleRanges[j].length
+                        )}
+                      </strong>
+                    </span>
+                  );
+                }
+              } else if (finalStylesArray[j].styleI === "ITALIC") {
+                if (
+                  i > 0 &&
+                  inlineStyleRanges[j - 1] !== undefined &&
+                  inlineStyleRanges[j] !== undefined
+                ) {
+                  finalLine.push(
+                    <span>
                       {text.substring(
-                        inlineStyleRanges[j].offset,
-                        inlineStyleRanges[j].offset +
-                          inlineStyleRanges[j].length
+                        inlineStyleRanges[j - 1].offset,
+                        inlineStyleRanges[j].offset
                       )}
-                    </strong>
-                  </span>
-                );
+                      <i>
+                        {text.substring(
+                          inlineStyleRanges[j].offset,
+                          inlineStyleRanges[j].offset +
+                            inlineStyleRanges[j].length
+                        )}
+                      </i>
+                    </span>
+                  );
+                } else if (inlineStyleRanges[j] !== undefined) {
+                  finalLine.push(
+                    <span>
+                      {text.substring(0, inlineStyleRanges[j].offset)}
+                      <i>
+                        {text.substring(
+                          inlineStyleRanges[j].offset,
+                          inlineStyleRanges[j].offset +
+                            inlineStyleRanges[j].length
+                        )}
+                      </i>
+                    </span>
+                  );
+                }
               }
-            } else if (finalStylesArray[j].styleI === "ITALIC") {
+            } else if (finalStylesArray[j].count === 1) {
               if (
-                j > 0 &&
-                inlineStyleRanges[j - 1] !== undefined &&
-                inlineStyleRanges[j] !== undefined
+                i > 0 &&
+                inlineStyleRanges[j] !== undefined &&
+                inlineStyleRanges[j - 1] !== undefined
               ) {
                 finalLine.push(
                   <span>
@@ -114,68 +149,33 @@ export const parseJsonStringToContent = (contentString) => {
                       inlineStyleRanges[j - 1].offset,
                       inlineStyleRanges[j].offset
                     )}
-                    <i>
-                      {text.substring(
-                        inlineStyleRanges[j].offset,
-                        inlineStyleRanges[j].offset +
-                          inlineStyleRanges[j].length
-                      )}
-                    </i>
+                    <strong>
+                      <i>
+                        {text.substring(
+                          inlineStyleRanges[j].offset,
+                          inlineStyleRanges[j].offset +
+                            inlineStyleRanges[j].length
+                        )}
+                      </i>
+                    </strong>
                   </span>
                 );
-              } else if (inlineStyleRanges[j].offset !== undefined) {
+              } else if (inlineStyleRanges[j] !== undefined) {
                 finalLine.push(
                   <span>
                     {text.substring(0, inlineStyleRanges[j].offset)}
-                    <i>
-                      {text.substring(
-                        inlineStyleRanges[j].offset,
-                        inlineStyleRanges[j].offset +
-                          inlineStyleRanges[j].length
-                      )}
-                    </i>
+                    <strong>
+                      <i>
+                        {text.substring(
+                          inlineStyleRanges[j].offset,
+                          inlineStyleRanges[j].offset +
+                            inlineStyleRanges[j].length
+                        )}
+                      </i>
+                    </strong>
                   </span>
                 );
               }
-            }
-          } else if (finalStylesArray[j].count === 1) {
-            if (
-              j > 0 &&
-              inlineStyleRanges[j] !== undefined &&
-              inlineStyleRanges[j - 1] !== undefined
-            ) {
-              finalLine.push(
-                <span>
-                  {text.substring(
-                    inlineStyleRanges[j - 1].offset,
-                    inlineStyleRanges[j].offset
-                  )}
-                  <strong>
-                    <i>
-                      {text.substring(
-                        inlineStyleRanges[j].offset,
-                        inlineStyleRanges[j].offset +
-                          inlineStyleRanges[j].length
-                      )}
-                    </i>
-                  </strong>
-                </span>
-              );
-            } else if (inlineStyleRanges[j] !== undefined) {
-              finalLine.push(
-                <span>
-                  {text.substring(0, inlineStyleRanges[j].offset)}
-                  <strong>
-                    <i>
-                      {text.substring(
-                        inlineStyleRanges[j].offset,
-                        inlineStyleRanges[j].offset +
-                          inlineStyleRanges[j].length
-                      )}
-                    </i>
-                  </strong>
-                </span>
-              );
             }
           }
         }
