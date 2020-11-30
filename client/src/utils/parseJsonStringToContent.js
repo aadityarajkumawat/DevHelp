@@ -125,7 +125,7 @@ export const parseJsonStringToContent = (contentString) => {
                       </span>
                     );
 
-                    if (!inlineStyleRanges[j + 1]) {
+                    if (finalStylesArray[j + 1]) {
                       finalLine.push(
                         <span>
                           {text.substring(
@@ -142,6 +142,7 @@ export const parseJsonStringToContent = (contentString) => {
                     finalStylesArray[j - 1] === undefined &&
                     finalStylesArray[j] !== undefined
                   ) {
+                    console.log("df");
                     finalLine.push(
                       <span>
                         {text.substring(
@@ -157,7 +158,7 @@ export const parseJsonStringToContent = (contentString) => {
                         </i>
                       </span>
                     );
-                    if (finalStylesArray[j + 1] === undefined) {
+                    if (finalStylesArray[j + 1]) {
                       finalLine.push(
                         <span>
                           {text.substring(
@@ -169,6 +170,7 @@ export const parseJsonStringToContent = (contentString) => {
                       );
                     }
                   } else if (finalStylesArray[j - 1] !== undefined) {
+                    console.log("df");
                     finalLine.push(
                       <span>
                         {text.substring(
@@ -187,12 +189,12 @@ export const parseJsonStringToContent = (contentString) => {
                         </i>
                       </span>
                     );
-                    if (finalStylesArray[j + 1] === undefined) {
+                    if (!finalStylesArray[j + 1]) {
                       finalLine.push(
                         <span>
                           {text.substring(
-                            finalStylesArray[j].originalStyles.offset +
-                              finalStylesArray[j].originalStyles.length,
+                            finalStylesArray[j - 1].originalStyles.offset +
+                              finalStylesArray[j - 1].originalStyles.length,
                             text.length
                           )}
                         </span>
@@ -220,7 +222,6 @@ export const parseJsonStringToContent = (contentString) => {
                     </span>
                   );
                 } else {
-                  console.log("this is j", finalStylesArray[j - 1]);
                   finalLine.push(
                     <span>
                       {text.substring(
