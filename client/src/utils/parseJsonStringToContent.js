@@ -76,21 +76,20 @@ export const parseJsonStringToContent = (contentString) => {
               if (finalStylesArray[j].count === 0) {
                 if (finalStylesArray[j].styleI === "BOLD") {
                   if (
-                    inlineStyleRanges[j - 1] !== undefined &&
-                    inlineStyleRanges[j] !== undefined &&
-                    finalStylesArray[j].lineNumber === i
+                    finalStylesArray[j - 1] === undefined &&
+                    finalStylesArray[j] !== undefined
                   ) {
                     finalLine.push(
                       <span>
                         {text.substring(
-                          inlineStyleRanges[j - 1].offset,
-                          inlineStyleRanges[j].offset
+                          0,
+                          finalStylesArray[j].originalStyles.offset
                         )}
                         <strong>
                           {text.substring(
-                            inlineStyleRanges[j].offset,
-                            inlineStyleRanges[j].offset +
-                              inlineStyleRanges[j].length
+                            finalStylesArray[j].originalStyles.offset,
+                            finalStylesArray[j].originalStyles.offset +
+                              finalStylesArray[j].originalStyles.length
                           )}
                         </strong>
                       </span>
@@ -100,8 +99,8 @@ export const parseJsonStringToContent = (contentString) => {
                       finalLine.push(
                         <span>
                           {text.substring(
-                            inlineStyleRanges[j].offset +
-                              inlineStyleRanges[j].length,
+                            finalStylesArray[j].originalStyles.offset +
+                              finalStylesArray[j].originalStyles.length,
                             text.length
                           )}
                         </span>
@@ -110,12 +109,17 @@ export const parseJsonStringToContent = (contentString) => {
                   } else {
                     finalLine.push(
                       <span>
-                        {text.substring(0, inlineStyleRanges[j].offset)}
+                        {text.substring(
+                          finalStylesArray[j - 1].content === "no-styles"
+                            ? 0
+                            : finalStylesArray[j - 1].originalStyles.offset,
+                          finalStylesArray[j].originalStyles.offset
+                        )}
                         <strong>
                           {text.substring(
-                            inlineStyleRanges[j].offset,
-                            inlineStyleRanges[j].offset +
-                              inlineStyleRanges[j].length
+                            finalStylesArray[j].originalStyles.offset,
+                            finalStylesArray[j].originalStyles.offset +
+                              finalStylesArray[j].originalStyles.length
                           )}
                         </strong>
                       </span>
@@ -125,8 +129,8 @@ export const parseJsonStringToContent = (contentString) => {
                       finalLine.push(
                         <span>
                           {text.substring(
-                            inlineStyleRanges[j].offset +
-                              inlineStyleRanges[j].length,
+                            finalStylesArray[j].originalStyles.offset +
+                              finalStylesArray[j].originalStyles.length,
                             text.length
                           )}
                         </span>
@@ -135,42 +139,69 @@ export const parseJsonStringToContent = (contentString) => {
                   }
                 } else if (finalStylesArray[j].styleI === "ITALIC") {
                   if (
-                    inlineStyleRanges[j - 1] !== undefined &&
-                    inlineStyleRanges[j] !== undefined
+                    finalStylesArray[j - 1] === undefined &&
+                    finalStylesArray[j] !== undefined
                   ) {
-                    console.log(j, "tt");
                     finalLine.push(
                       <span>
                         {text.substring(
-                          inlineStyleRanges[j - 1].offset,
-                          inlineStyleRanges[j].offset
+                          0,
+                          finalStylesArray[j].originalStyles.offset
                         )}
                         <i>
                           {text.substring(
-                            inlineStyleRanges[j].offset,
-                            inlineStyleRanges[j].offset +
-                              inlineStyleRanges[j].length
+                            finalStylesArray[j].originalStyles.offset,
+                            finalStylesArray[j].originalStyles.offset +
+                              finalStylesArray[j].originalStyles.length
                           )}
                         </i>
                       </span>
                     );
-                  } else if (inlineStyleRanges[j] !== undefined) {
+                    if (finalStylesArray[j + 1] === undefined) {
+                      finalLine.push(
+                        <span>
+                          {text.substring(
+                            finalStylesArray[j].originalStyles.offset +
+                              finalStylesArray[j].originalStyles.length,
+                            text.length
+                          )}
+                        </span>
+                      );
+                    }
+                  } else if (finalStylesArray[j - 1] !== undefined) {
                     finalLine.push(
                       <span>
-                        {text.substring(0, inlineStyleRanges[j].offset)}
+                        {text.substring(
+                          finalStylesArray[j - 1].content === "no-styles"
+                            ? 0
+                            : finalStylesArray[j - 1].originalStyles.offset +
+                                finalStylesArray[j - 1].originalStyles.length,
+                          finalStylesArray[j].originalStyles.offset
+                        )}
                         <i>
                           {text.substring(
-                            inlineStyleRanges[j].offset,
-                            inlineStyleRanges[j].offset +
-                              inlineStyleRanges[j].length
+                            finalStylesArray[j].originalStyles.offset,
+                            finalStylesArray[j].originalStyles.offset +
+                              finalStylesArray[j].originalStyles.length
                           )}
                         </i>
                       </span>
                     );
+                    if (finalStylesArray[j + 1] === undefined) {
+                      finalLine.push(
+                        <span>
+                          {text.substring(
+                            finalStylesArray[j].originalStyles.offset +
+                              finalStylesArray[j].originalStyles.length,
+                            text.length
+                          )}
+                        </span>
+                      );
+                    }
                   }
                 }
               } else if (finalStylesArray[j].count === 1) {
-                if (j > 0) {
+                if (j === 0) {
                   finalLine.push(
                     <span>
                       {text.substring(
@@ -189,10 +220,13 @@ export const parseJsonStringToContent = (contentString) => {
                     </span>
                   );
                 } else {
+                  console.log("this is j", finalStylesArray[j - 1]);
                   finalLine.push(
                     <span>
                       {text.substring(
-                        finalStylesArray[j - 1].originalStyles.offset,
+                        finalStylesArray[j - 1].content === "no-styles"
+                          ? 0
+                          : finalStylesArray[j - 1].originalStyles.offset,
                         finalStylesArray[j].originalStyles.offset
                       )}
                       <strong>
