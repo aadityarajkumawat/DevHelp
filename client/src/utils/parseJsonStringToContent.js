@@ -4,14 +4,15 @@ export const parseJsonStringToContent = (contentString) => {
   const contentArray = JSON.parse(contentString);
 
   let finalContent = [];
-
   let stringifiedStyles = [];
   let finalStylesArray = [];
 
   for (let i = 0; i < contentArray.length; i++) {
-    const { inlineStyleRanges } = contentArray[i];
-    if (inlineStyleRanges.length === 0) {
+    const { inlineStyleRanges, text } = contentArray[i];
+    if (inlineStyleRanges.length === 0 && text !== "") {
       stringifiedStyles.push({ lineNumber: i, content: "no-styles" });
+    } else if (text === "") {
+      stringifiedStyles.push({ lineNumber: i, content: "empty" });
     } else {
       for (let j = 0; j < inlineStyleRanges.length; j++) {
         stringifiedStyles.push({
@@ -48,6 +49,7 @@ export const parseJsonStringToContent = (contentString) => {
         finalStylesArray[j].styleI !== sty.styleI
       ) {
         finalStylesArray[j].count++;
+        finalStylesArray[j].styleI = "BOLD+ITALIC";
       }
     }
 
@@ -56,208 +58,91 @@ export const parseJsonStringToContent = (contentString) => {
     }
   }
 
-  /**
-   * i --> number of line
-   * j --> number of style
-   */
+  console.log({ finalStylesArray, contentArray });
+
   for (let i = 0; i < contentArray.length; i++) {
     let { text, inlineStyleRanges, key } = contentArray[i];
-
-    if (text.length !== 0) {
-      let finalLine = [];
-      console.log({ finalStylesArray });
-      console.log({ contentArray });
-      if (finalStylesArray.length > 0) {
-        for (let j = 0; j < finalStylesArray.length; j++) {
-          if (finalStylesArray[j].lineNumber === i) {
-            if (finalStylesArray[j].content === "no-styles") {
-              finalLine.push(<span>{text}</span>);
-            } else {
-              if (finalStylesArray[j].count === 0) {
-                if (finalStylesArray[j].styleI === "BOLD") {
-                  if (
-                    finalStylesArray[j - 1] === undefined &&
-                    finalStylesArray[j] !== undefined
-                  ) {
-                    finalLine.push(
-                      <span>
-                        {text.substring(
-                          0,
-                          finalStylesArray[j].originalStyles.offset
-                        )}
-                        <strong>
-                          {text.substring(
-                            finalStylesArray[j].originalStyles.offset,
-                            finalStylesArray[j].originalStyles.offset +
-                              finalStylesArray[j].originalStyles.length
-                          )}
-                        </strong>
-                      </span>
-                    );
-
-                    if (!inlineStyleRanges[j + 1]) {
-                      finalLine.push(
-                        <span>
-                          {text.substring(
-                            finalStylesArray[j].originalStyles.offset +
-                              finalStylesArray[j].originalStyles.length,
-                            text.length
-                          )}
-                        </span>
-                      );
-                    }
-                  } else {
-                    finalLine.push(
-                      <span>
-                        {text.substring(
-                          finalStylesArray[j - 1].content === "no-styles"
-                            ? 0
-                            : finalStylesArray[j - 1].originalStyles.offset,
-                          finalStylesArray[j].originalStyles.offset
-                        )}
-                        <strong>
-                          {text.substring(
-                            finalStylesArray[j].originalStyles.offset,
-                            finalStylesArray[j].originalStyles.offset +
-                              finalStylesArray[j].originalStyles.length
-                          )}
-                        </strong>
-                      </span>
-                    );
-
-                    if (finalStylesArray[j + 1]) {
-                      finalLine.push(
-                        <span>
-                          {text.substring(
-                            finalStylesArray[j].originalStyles.offset +
-                              finalStylesArray[j].originalStyles.length,
-                            text.length
-                          )}
-                        </span>
-                      );
-                    }
-                  }
-                } else if (finalStylesArray[j].styleI === "ITALIC") {
-                  if (
-                    finalStylesArray[j - 1] === undefined &&
-                    finalStylesArray[j] !== undefined
-                  ) {
-                    console.log("df");
-                    finalLine.push(
-                      <span>
-                        {text.substring(
-                          0,
-                          finalStylesArray[j].originalStyles.offset
-                        )}
-                        <i>
-                          {text.substring(
-                            finalStylesArray[j].originalStyles.offset,
-                            finalStylesArray[j].originalStyles.offset +
-                              finalStylesArray[j].originalStyles.length
-                          )}
-                        </i>
-                      </span>
-                    );
-                    if (finalStylesArray[j + 1]) {
-                      finalLine.push(
-                        <span>
-                          {text.substring(
-                            finalStylesArray[j].originalStyles.offset +
-                              finalStylesArray[j].originalStyles.length,
-                            text.length
-                          )}
-                        </span>
-                      );
-                    }
-                  } else if (finalStylesArray[j - 1] !== undefined) {
-                    console.log("df");
-                    finalLine.push(
-                      <span>
-                        {text.substring(
-                          finalStylesArray[j - 1].content === "no-styles"
-                            ? 0
-                            : finalStylesArray[j - 1].originalStyles.offset +
-                                finalStylesArray[j - 1].originalStyles.length,
-                          finalStylesArray[j].originalStyles.offset
-                        )}
-                        <i>
-                          {text.substring(
-                            finalStylesArray[j].originalStyles.offset,
-                            finalStylesArray[j].originalStyles.offset +
-                              finalStylesArray[j].originalStyles.length
-                          )}
-                        </i>
-                      </span>
-                    );
-                    if (!finalStylesArray[j + 1]) {
-                      finalLine.push(
-                        <span>
-                          {text.substring(
-                            finalStylesArray[j - 1].originalStyles.offset +
-                              finalStylesArray[j - 1].originalStyles.length,
-                            text.length
-                          )}
-                        </span>
-                      );
-                    }
-                  }
-                }
-              } else if (finalStylesArray[j].count === 1) {
-                if (j === 0) {
-                  finalLine.push(
-                    <span>
-                      {text.substring(
-                        0,
-                        finalStylesArray[j].originalStyles.offset
-                      )}
-                      <strong>
-                        <i>
-                          {text.substring(
-                            finalStylesArray[j].originalStyles.offset,
-                            finalStylesArray[j].originalStyles.offset +
-                              finalStylesArray[j].originalStyles.length
-                          )}
-                        </i>
-                      </strong>
-                    </span>
-                  );
-                } else {
-                  finalLine.push(
-                    <span>
-                      {text.substring(
-                        finalStylesArray[j - 1].content === "no-styles"
-                          ? 0
-                          : finalStylesArray[j - 1].originalStyles.offset,
-                        finalStylesArray[j].originalStyles.offset
-                      )}
-                      <strong>
-                        <i>
-                          {text.substring(
-                            finalStylesArray[j].originalStyles.offset,
-                            finalStylesArray[j].originalStyles.offset +
-                              finalStylesArray[j].originalStyles.length
-                          )}
-                        </i>
-                      </strong>
-                    </span>
-                  );
-                }
-              }
-            }
-          }
-        }
-      } else {
-        finalContent.push(<span>{text}</span>);
-      }
-
-      finalContent.push(<span key={key}>{finalLine}</span>);
-    } else {
+    if (text.length === 0) {
       finalContent.push(
         <Fragment>
           <br />
           <br />
         </Fragment>
       );
+    } else {
+      let finalLine = [];
+      for (let j = 0; j < finalStylesArray.length; j++) {
+        if (finalStylesArray[j].lineNumber === i) {
+          if (finalStylesArray[i].content === "no-styles") {
+            finalLine.push(<span>{text}</span>);
+          } else {
+            console.log(finalStylesArray[j], j, i);
+            if (finalStylesArray[j].styleI === "BOLD") {
+              /**
+               **   IF
+               *
+               *  - this current line still got
+               *  - more style to be applied
+               *
+               **   ELSE IF
+               *
+               *  - there was a style before it
+               *  - so continue adding styles
+               *
+               **   ELSE
+               *
+               *  - This is the only style for this line
+               */
+              // console.log("bold");
+              if (
+                finalStylesArray[j + 1] &&
+                finalStylesArray[j + 1].lineNumber === i
+              ) {
+                // console.log("No after it", "b");
+              } else if (
+                finalStylesArray[j - 1] &&
+                finalStylesArray[j - 1].lineNumber === i
+              ) {
+                // console.log("yes was before it", "b");
+              } else {
+                // console.log("the only one", "b");
+              }
+            } else if (finalStylesArray[j].styleI === "ITALIC") {
+              // console.log("italic");
+              if (
+                finalStylesArray[j + 1] &&
+                finalStylesArray[j + 1].lineNumber === i
+              ) {
+                // console.log("No after it", "i");
+              } else if (
+                finalStylesArray[j - 1] &&
+                finalStylesArray[j - 1].lineNumber === i
+              ) {
+                // console.log("yes was before it", "i");
+              } else {
+                // console.log("the only one", "i");
+              }
+            } else {
+              // console.log("bold+italic");
+              if (
+                finalStylesArray[j + 1] &&
+                finalStylesArray[j + 1].lineNumber === i
+              ) {
+                // console.log("No after it", "bi");
+              } else if (
+                finalStylesArray[j - 1] &&
+                finalStylesArray[j - 1].lineNumber === i
+              ) {
+                // console.log("yes was before it", "bi");
+              } else {
+                // console.log("the only one", "bi");
+              }
+            }
+          }
+        }
+      }
+
+      finalContent.push(<span>{text}</span>);
     }
   }
 
