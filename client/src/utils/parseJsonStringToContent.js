@@ -81,8 +81,8 @@ export const parseJsonStringToContent = (contentString) => {
               /**
                **   IF
                *
-               *  - this current line still got
-               *  - more style to be applied
+               *  - there is no style
+               *  - after the current style
                *
                **   ELSE IF
                *
@@ -95,54 +95,238 @@ export const parseJsonStringToContent = (contentString) => {
                */
               // console.log("bold");
               if (
-                finalStylesArray[j + 1] &&
-                finalStylesArray[j + 1].lineNumber === i
-              ) {
-                // console.log("No after it", "b");
-              } else if (
                 finalStylesArray[j - 1] &&
                 finalStylesArray[j - 1].lineNumber === i
               ) {
                 // console.log("yes was before it", "b");
+                finalLine.push(
+                  <span>
+                    {text.substring(
+                      finalStylesArray[j - 1].originalStyles.offset +
+                        finalStylesArray[j - 1].originalStyles.length,
+                      finalStylesArray[j].originalStyles.offset
+                    )}
+                    <strong>
+                      {text.substring(
+                        finalStylesArray[j].originalStyles.offset,
+                        finalStylesArray[j].originalStyles.offset +
+                          finalStylesArray[j].originalStyles.length
+                      )}
+                    </strong>
+                  </span>
+                );
+
+                if (
+                  !(
+                    finalStylesArray[j + 1] &&
+                    finalStylesArray[j + 1].lineNumber === i
+                  )
+                ) {
+                  finalLine.push(
+                    <span>
+                      {text.substring(
+                        finalStylesArray[j].originalStyles.offset +
+                          finalStylesArray[j].originalStyles.length,
+                        text.length
+                      )}
+                    </span>
+                  );
+                }
               } else {
                 // console.log("the only one", "b");
+                finalLine.push(
+                  <span>
+                    {text.substring(
+                      0,
+                      finalStylesArray[j].originalStyles.offset
+                    )}
+                    <strong>
+                      {text.substring(
+                        finalStylesArray[j].originalStyles.offset,
+                        finalStylesArray[j].originalStyles.offset +
+                          finalStylesArray[j].originalStyles.length
+                      )}
+                    </strong>
+                  </span>
+                );
+
+                if (
+                  !(
+                    finalStylesArray[j + 1] &&
+                    finalStylesArray[j + 1].lineNumber === i
+                  )
+                ) {
+                  finalLine.push(
+                    <span>
+                      {text.substring(
+                        finalStylesArray[j].originalStyles.offset +
+                          finalStylesArray[j].originalStyles.length,
+                        text.length
+                      )}
+                    </span>
+                  );
+                }
               }
             } else if (finalStylesArray[j].styleI === "ITALIC") {
               // console.log("italic");
               if (
-                finalStylesArray[j + 1] &&
-                finalStylesArray[j + 1].lineNumber === i
-              ) {
-                // console.log("No after it", "i");
-              } else if (
                 finalStylesArray[j - 1] &&
                 finalStylesArray[j - 1].lineNumber === i
               ) {
                 // console.log("yes was before it", "i");
+                finalLine.push(
+                  <span>
+                    {text.substring(
+                      finalStylesArray[j - 1].originalStyles.offset +
+                        finalStylesArray[j - 1].originalStyles.length,
+                      finalStylesArray[j].originalStyles.offset
+                    )}
+                    <i>
+                      {text.substring(
+                        finalStylesArray[j].originalStyles.offset,
+                        finalStylesArray[j].originalStyles.offset +
+                          finalStylesArray[j].originalStyles.length
+                      )}
+                    </i>
+                  </span>
+                );
+
+                if (
+                  !(
+                    finalStylesArray[j + 1] &&
+                    finalStylesArray[j + 1].lineNumber === i
+                  )
+                ) {
+                  finalLine.push(
+                    <span>
+                      {text.substring(
+                        finalStylesArray[j].originalStyles.offset +
+                          finalStylesArray[j].originalStyles.length,
+                        text.length
+                      )}
+                    </span>
+                  );
+                }
               } else {
                 // console.log("the only one", "i");
+                finalLine.push(
+                  <span>
+                    {text.substring(
+                      0,
+                      finalStylesArray[j].originalStyles.offset
+                    )}
+                    <i>
+                      {text.substring(
+                        finalStylesArray[j].originalStyles.offset,
+                        finalStylesArray[j].originalStyles.offset +
+                          finalStylesArray[j].originalStyles.length
+                      )}
+                    </i>
+                  </span>
+                );
+
+                if (
+                  !(
+                    finalStylesArray[j + 1] &&
+                    finalStylesArray[j + 1].lineNumber === i
+                  )
+                ) {
+                  finalLine.push(
+                    <span>
+                      {text.substring(
+                        finalStylesArray[j].originalStyles.offset +
+                          finalStylesArray[j].originalStyles.length,
+                        text.length
+                      )}
+                    </span>
+                  );
+                }
               }
             } else {
               // console.log("bold+italic");
               if (
-                finalStylesArray[j + 1] &&
-                finalStylesArray[j + 1].lineNumber === i
-              ) {
-                // console.log("No after it", "bi");
-              } else if (
                 finalStylesArray[j - 1] &&
                 finalStylesArray[j - 1].lineNumber === i
               ) {
                 // console.log("yes was before it", "bi");
+                finalLine.push(
+                  <span>
+                    {text.substring(
+                      finalStylesArray[j - 1].originalStyles.offset +
+                        finalStylesArray[j - 1].originalStyles.length,
+                      finalStylesArray[j].originalStyles.offset
+                    )}
+                    <strong>
+                      <i>
+                        {text.substring(
+                          finalStylesArray[j].originalStyles.offset,
+                          finalStylesArray[j].originalStyles.offset +
+                            finalStylesArray[j].originalStyles.length
+                        )}
+                      </i>
+                    </strong>
+                  </span>
+                );
+
+                if (
+                  !(
+                    finalStylesArray[j + 1] &&
+                    finalStylesArray[j + 1].lineNumber === i
+                  )
+                ) {
+                  finalLine.push(
+                    <span>
+                      {text.substring(
+                        finalStylesArray[j].originalStyles.offset +
+                          finalStylesArray[j].originalStyles.length,
+                        text.length
+                      )}
+                    </span>
+                  );
+                }
               } else {
                 // console.log("the only one", "bi");
+                finalLine.push(
+                  <span>
+                    {text.substring(
+                      0,
+                      finalStylesArray[j].originalStyles.offset
+                    )}
+                    <strong>
+                      <i>
+                        {text.substring(
+                          finalStylesArray[j].originalStyles.offset,
+                          finalStylesArray[j].originalStyles.offset +
+                            finalStylesArray[j].originalStyles.length
+                        )}
+                      </i>
+                    </strong>
+                  </span>
+                );
+
+                if (
+                  !(
+                    finalStylesArray[j + 1] &&
+                    finalStylesArray[j + 1].lineNumber === i
+                  )
+                ) {
+                  finalLine.push(
+                    <span>
+                      {text.substring(
+                        finalStylesArray[j].originalStyles.offset +
+                          finalStylesArray[j].originalStyles.length,
+                        text.length
+                      )}
+                    </span>
+                  );
+                }
               }
             }
           }
         }
       }
 
-      finalContent.push(<span>{text}</span>);
+      finalContent.push(<span>{finalLine}</span>);
     }
   }
 
