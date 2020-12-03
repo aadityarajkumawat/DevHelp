@@ -87,8 +87,8 @@ export const getUserPosts = (user_id) => async (dispatch) => {
 export const deletePost = (post_id) => async (dispatch) => {
   try {
     if (post_id !== undefined) {
-      await axios.delete(`/api/post/${post_id}`);
-      dispatch({ type: DELETE_POST });
+      const res = await axios.delete(`/api/post/${post_id}`);
+      dispatch({ type: DELETE_POST, payload: res.data });
     }
   } catch (err) {
     console.log(err);

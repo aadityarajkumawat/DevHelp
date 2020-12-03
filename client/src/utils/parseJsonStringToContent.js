@@ -196,7 +196,6 @@ export const parseJsonStringToContent = (contentString) => {
           }
         }
       }
-
       finalContent.push(<span key={uid()}>{finalLine}</span>);
     }
   }
