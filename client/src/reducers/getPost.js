@@ -14,6 +14,7 @@ import {
   SET_LOADING_POST_TRUE,
   RESET_IMAGE_UPLOAD,
   CLEAN_POST_ACTION,
+  DELETE_POST,
 } from "../actions/types";
 
 const initialState = {
@@ -30,10 +31,16 @@ const initialState = {
   postID: "",
   imageUploaded: false,
   arePosts: true, //check weather are there some posts
+  deletedStatus: "",
 };
 
 const postReducer = (state = initialState, action) => {
   switch (action.type) {
+    case DELETE_POST:
+      return {
+        ...state,
+        deletedStatus: action.payload,
+      };
     case RESET_IMAGE_UPLOAD:
       return {
         ...state,

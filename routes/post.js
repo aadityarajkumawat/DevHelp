@@ -186,6 +186,7 @@ router.get("/:user/:post_id", auth, async (req, res) => {
 router.delete("/:post_id", auth, async (req, res) => {
   try {
     const post = await Post.findById(req.params.post_id);
+    let postID = post._id;
 
     if (!post) {
       return res.status(404).json({ errors: [{ msg: "No post found" }] });
@@ -196,8 +197,7 @@ router.delete("/:post_id", auth, async (req, res) => {
     }
 
     await post.remove();
-
-    res.status(200).send("Deleted");
+    res.status(200).send("Deleted" + postID);
   } catch (err) {
     console.error(err.message);
     res.send("Server Error!");

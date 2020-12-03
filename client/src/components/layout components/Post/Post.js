@@ -8,6 +8,7 @@ import {
 import { showNav } from "../../../actions/navAction";
 import PostHolder from "./Post-Placeholder/PostHolder";
 import { parseJsonStringToContent } from "../../../utils/parseJsonStringToContent";
+import { getEstimatedTime } from "../../../utils/estimateTime";
 
 const Post = ({
   post: { currentPost, openedPost, loadingPost, likedStatus, likedPost },
@@ -23,6 +24,7 @@ const Post = ({
 
   useEffect(() => {
     showNav();
+
     // eslint-disable-next-line
   }, []);
 
@@ -31,16 +33,12 @@ const Post = ({
       if (currentPost === "") {
         getPost(sessionStorage.getItem("postID"));
       } else {
-        console.log("is it so");
-        console.log("trying this", sessionStorage.getItem("postID"));
-
         getPost(currentPost);
       }
     }
     if (isEmpty(post)) {
       setPost(openedPost);
     }
-
     // eslint-disable-next-line
   }, [currentPost, openedPost]);
 
@@ -102,7 +100,7 @@ const Post = ({
         <div className="user-p d-flex align-items-center">
           <span>{post.name}</span>
           <div className="dot-i"></div>
-          <span>6 min</span>
+          <span>{post.content && getEstimatedTime(post.content)}</span>
           <i
             onClick={likeThisPost}
             className={`fa${likedBtn() ? "s" : "r"} fa-heart`}
@@ -110,10 +108,7 @@ const Post = ({
           ></i>
         </div>
         <div className="img-post-container">
-          <img
-            src={post !== undefined ? `${post.image}` : null}
-            alt="post"
-          />
+          <img src={post !== undefined ? `${post.image}` : null} alt="post" />
         </div>
         <div className="nn-new">
           {post.content && parseJsonStringToContent(post.content.toString())}
