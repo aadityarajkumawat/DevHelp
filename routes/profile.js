@@ -55,4 +55,21 @@ router.get("/", auth, async (req, res) => {
   }
 });
 
+// @REQ    GET api/profile/user_id
+// @DESC   get user profile by id
+// @ACCESS Public
+router.get("/:id", async (req, res) => {
+  const user = req.params.id;
+  try {
+    const thatUser = await Profile.findOne({ user });
+    if (thatUser) {
+      res.status(200).json(thatUser);
+    } else {
+      res.status(400).json("Not Found");
+    }
+  } catch (error) {
+    res.status(404).json("Server Error!");
+  }
+});
+
 module.exports = router;

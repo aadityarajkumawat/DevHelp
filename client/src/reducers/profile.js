@@ -6,6 +6,7 @@ import {
   EDIT_PROFILE,
   CLEAN_PROFILE_ACTION,
   SET_SAVING_STATUS,
+  GET_THAT_PROFILE,
 } from "../actions/types";
 
 const initialState = {
@@ -17,6 +18,7 @@ const initialState = {
     color: "#000",
     cursor: "pointer",
   },
+  thatProfile: null,
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -61,6 +63,11 @@ const profileReducer = (state = initialState, action) => {
       return {
         ...state,
         savedStatus: { color: "#828282", cursor: "no-drop" },
+      };
+    case GET_THAT_PROFILE:
+      return {
+        ...state,
+        thatProfile: action.payload,
       };
     default:
       return state;
