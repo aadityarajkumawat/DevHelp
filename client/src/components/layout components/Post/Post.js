@@ -7,8 +7,9 @@ import {
 } from "../../../actions/getPostAction";
 import { showNav } from "../../../actions/navAction";
 import PostHolder from "./Post-Placeholder/PostHolder";
-import { parseJsonStringToContent } from "../../../utils/parseJsonStringToContent";
 import { getEstimatedTime } from "../../../utils/estimateTime";
+import { ParsedData } from "draftjs-raw-parser";
+import { getThatProfileE } from "../../../actions/profileAction";
 
 const Post = ({
   post: { currentPost, openedPost, loadingPost, likedStatus, likedPost },
@@ -18,13 +19,13 @@ const Post = ({
   auth,
   showNav,
   history,
+  getThatProfileE,
 }) => {
   const [lik, setLik] = useState([]);
   const [post, setPost] = useState({});
 
   useEffect(() => {
     showNav();
-
     // eslint-disable-next-line
   }, []);
 
@@ -92,13 +93,26 @@ const Post = ({
 
   const loadingStyles = loadingPost ? { display: "none" } : {};
 
+  const getThatP = () => {
+    getThatProfileE(openedPost.user);
+    history.push("/that-user");
+  };
+
+  // useEffect(() => {
+  //   console.log(openedPost);
+  // }, [JSON.stringify(openedPost)]);
+
   return (
     <React.Fragment>
       {loadingPost && <PostHolder />}
       <div className="post-container-one" style={loadingStyles}>
         <h1 className="post-heading">{post.heading}</h1>
         <div className="user-p d-flex align-items-center">
-          <span>{post.name}</span>
+          {openedPost.user ? (
+            <span onClick={getThatP}>{post.name}</span>
+          ) : (
+            <span>No id</span>
+          )}
           <div className="dot-i"></div>
           <span>{post.content && getEstimatedTime(post.content)}</span>
           <i
@@ -111,7 +125,9 @@ const Post = ({
           <img src={post !== undefined ? `${post.image}` : null} alt="post" />
         </div>
         <div className="nn-new">
-          {post.content && parseJsonStringToContent(post.content.toString())}
+          {post.content && (
+            <ParsedData draftJSRawData={post.content.toString()} />
+          )}
         </div>
       </div>
     </React.Fragment>
@@ -130,4 +146,5 @@ export default connect(mapStateToProps, {
   showNav,
   likePost,
   getLikedPosts,
+  getThatProfileE,
 })(Post);

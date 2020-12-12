@@ -6,6 +6,7 @@ import {
   EDIT_PROFILE,
   CLEAN_PROFILE_ACTION,
   SET_SAVING_STATUS,
+  GET_THAT_PROFILE,
 } from "./types";
 import Axios from "axios";
 
@@ -21,6 +22,7 @@ export const uploadProfilePhoto = (formData) => async (dispatch) => {
 
 export const loadProfile = () => async (dispatch) => {
   try {
+    console.log(typeof dispatch);
     if (localStorage.getItem("token")) {
       const res = await Axios.get("/api/profile");
       dispatch({ type: GET_PROFILE, payload: res.data });
@@ -41,6 +43,15 @@ export const editProfile = (fData) => async (dispatch) => {
     dispatch({ type: EDIT_PROFILE, payload: res.data });
   } catch (err) {
     console.log(err);
+  }
+};
+
+export const getThatProfileE = (userId) => async (dispatch) => {
+  try {
+    const res = await Axios.get(`/api/profile/${userId}`);
+    dispatch({ type: GET_THAT_PROFILE, payload: res.data });
+  } catch (err) {
+    console.log(err.message);
   }
 };
 

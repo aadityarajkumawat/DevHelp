@@ -16,6 +16,7 @@ const UserPost = ({
     if (!isEmpty(auth.user)) {
       getUserPosts(auth.user._id);
     }
+
     if (post.userPosts.length >= 1) {
       setPosts(post.userPosts);
     }

@@ -165,7 +165,6 @@ router.get("/:user/:post_id", auth, async (req, res) => {
       });
 
       if (post) {
-        console.log("gotsdgf");
         const liked = post.likes;
         return res.json(liked);
       } else {

@@ -1,0 +1,35 @@
+.profile-container-main {
+  width: 100vw;
+  height: calc(100vh - 80px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .profile-container {
+    width: 60%;
+    height: 100%;
+    background-color: #eeeeee60;
+
+    .profile-ksi {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      margin-top: 30px;
+      flex-direction: column;
+
+      img {
+        width: 120px;
+        height: 120px;
+        border-radius: 100%;
+      }
+
+      .that-user-data {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+    }
+  }
+}

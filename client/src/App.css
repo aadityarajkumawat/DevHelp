@@ -1269,6 +1269,64 @@ pre * {
   left: 0;
 }
 
+.profile-container-main {
+  width: 100vw;
+  height: calc(100vh - 80px);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.profile-container-main .profile-container {
+  width: 60%;
+  height: 100%;
+  background-color: #eeeeee60;
+}
+
+.profile-container-main .profile-container .profile-ksi {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 30px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.profile-container-main .profile-container .profile-ksi img {
+  width: 120px;
+  height: 120px;
+  border-radius: 100%;
+}
+
+.profile-container-main .profile-container .profile-ksi .that-user-data {
+  margin-top: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
 .container-fluid {
   display: -webkit-box;
   display: -ms-flexbox;
