@@ -11,7 +11,7 @@ npm install
 ```
 
 and this will install all the backend dependencies like express, mongoose, bcryptJS, config etc.., to setup the client side navigate to client folder and run the following command,
-
+<!-- some chages -->
  ```
  npm install
  ```
