@@ -15,6 +15,7 @@ import {
   RESET_IMAGE_UPLOAD,
   CLEAN_POST_ACTION,
   DELETE_POST,
+  REALLY_GET_ALL_POSTS,
 } from "../actions/types";
 
 const initialState = {
@@ -28,6 +29,7 @@ const initialState = {
   status: "",
   likedStatus: "",
   likedPost: [], //this will get liked posts from backend
+  reallyAllPosts: [],
   postID: "",
   imageUploaded: false,
   arePosts: true, //check weather are there some posts
@@ -36,6 +38,11 @@ const initialState = {
 
 const postReducer = (state = initialState, action) => {
   switch (action.type) {
+    case REALLY_GET_ALL_POSTS:
+      return {
+        ...state,
+        reallyAllPosts: action.payload,
+      };
     case DELETE_POST:
       return {
         ...state,

@@ -58,6 +58,27 @@ router.get("/all/:user_id", async (req, res) => {
   }
 });
 
+// @REQ     GET api/post/:user_id/:number
+// @DESC    get all my posts
+// @ACCESS  Public
+router.get("/real-all/:user_id", async (req, res) => {
+  const user_id = req.params.user_id;
+  try {
+    // console.log(user_id);
+    const user = await User.findOne({ _id: req.params.user_id });
+    if (user) {
+      posts = await Post.find({ user: user_id });
+      // console.log(posts);
+      return res.status(200).json(posts);
+    } else {
+      res.status(404).json({ errors: [{ msg: "No user Found" }] });
+    }
+  } catch (err) {
+    console.error(err.message);
+    res.send("Server Error!");
+  }
+});
+
 // @REQ     GET api/post/:post_id
 // @DESC    Get a post by id
 // @ACCESS  Public

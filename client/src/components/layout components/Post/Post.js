@@ -10,6 +10,7 @@ import PostHolder from "./Post-Placeholder/PostHolder";
 import { getEstimatedTime } from "../../../utils/estimateTime";
 import { ParsedData } from "draftjs-raw-parser";
 import { getThatProfileE } from "../../../actions/profileAction";
+import { reallyGetAllPosts } from "../../../actions/getPostAction";
 
 const Post = ({
   post: { currentPost, openedPost, loadingPost, likedStatus, likedPost },
@@ -20,6 +21,7 @@ const Post = ({
   showNav,
   history,
   getThatProfileE,
+  reallyGetAllPosts,
 }) => {
   const [lik, setLik] = useState([]);
   const [post, setPost] = useState({});
@@ -95,6 +97,7 @@ const Post = ({
 
   const getThatP = () => {
     getThatProfileE(openedPost.user);
+    reallyGetAllPosts(openedPost.user);
     history.push("/that-user");
   };
 
@@ -147,4 +150,5 @@ export default connect(mapStateToProps, {
   likePost,
   getLikedPosts,
   getThatProfileE,
+  reallyGetAllPosts,
 })(Post);

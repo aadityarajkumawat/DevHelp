@@ -14,6 +14,7 @@ import {
   SET_LOADING_POST_TRUE,
   RESET_IMAGE_UPLOAD,
   CLEAN_POST_ACTION,
+  REALLY_GET_ALL_POSTS,
 } from "../actions/types";
 import axios from "axios";
 import { loadUser } from "./authAction";
@@ -135,6 +136,17 @@ export const getLikedPosts = (user, post_id) => async (dispatch) => {
     }
   } catch (err) {
     console.log(err);
+  }
+};
+
+export const reallyGetAllPosts = (userId) => async (dispatch) => {
+  try {
+    // console.log(userId, "this");
+    const res = await axios.get(`/api/post/real-all/${userId}`);
+    console.log("data", res.data);
+    dispatch({ type: REALLY_GET_ALL_POSTS, payload: res.data });
+  } catch (error) {
+    console.log(error.message);
   }
 };
 

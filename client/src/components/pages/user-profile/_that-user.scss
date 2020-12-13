@@ -29,6 +29,50 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
+
+        .user-posts-hh {
+          margin-top: 20px;
+          font-weight: 600;
+          font-size: 30px;
+          margin-bottom: 20px;
+        }
+
+        .posts-ii-list {
+          .post-ii {
+            width: 300px;
+            height: 220px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            flex-direction: column;
+            background-color: #eeeeee;
+
+            .post-ii-img {
+              width: 100%;
+              height: 150px;
+              img {
+                width: 100%;
+                height: 100%;
+                border-radius: 0;
+              }
+            }
+
+            .post-ii-heading {
+              font-size: 25px;
+              padding: 5px 3px 0 3px;
+            }
+
+            .post-ii-info {
+              width: 100%;
+              height: 50px;
+              display: flex;
+              justify-content: space-between;
+              padding: 0 3px 0 3px;
+              border-bottom-left-radius: 10px;
+              border-bottom-right-radius: 10px;
+            }
+          }
+        }
       }
     }
   }
