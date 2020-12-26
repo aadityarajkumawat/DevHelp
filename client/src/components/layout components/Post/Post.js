@@ -101,10 +101,6 @@ const Post = ({
     history.push("/that-user");
   };
 
-  // useEffect(() => {
-  //   console.log(openedPost);
-  // }, [JSON.stringify(openedPost)]);
-
   return (
     <React.Fragment>
       {loadingPost && <PostHolder />}
@@ -132,6 +128,8 @@ const Post = ({
             <ParsedData draftJSRawData={post.content.toString()} />
           )}
         </div>
+        <div class="post-comment-seperator"></div>
+        <div className='comment-tag'>Comments</div>
       </div>
     </React.Fragment>
   );

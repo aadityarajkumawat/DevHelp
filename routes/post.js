@@ -177,13 +177,17 @@ router.put("/like/:post_id", auth, async (req, res) => {
 // @REQ     PUT api/post/comment/:post_id
 // @DESC    comment on this post
 // @ACCESS  Private
-router.put("/comment/:post_id", auth, async (req, res) => {
+router.put("/comment/:user_id/:post_id", auth, async (req, res) => {
   try {
     const post = await Post.findOne({ _id: req.params.post_id });
+    const user = await User.findOne({ _id: req.params.user_id });
+    const profile = await Profile.findOne({ user: req.user.id });
     if (post) {
       post.comment.push({
         user: req.user.id,
         comment_msg: req.body.comment_msg,
+        nameOfUser: user.name,
+        imgOfUser: profile.image,
       });
       await post.save();
       res.status(200).send("Commented" + req.params.post_id);
