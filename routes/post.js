@@ -29,6 +29,7 @@ router.post(
       post.name = user.name;
       post.heading = heading;
       post.content = content;
+      post.comment = [];
       await post.save();
       return res.status(200).json(post);
     } catch (err) {
@@ -169,6 +170,45 @@ router.put("/like/:post_id", auth, async (req, res) => {
     }
   } catch (err) {
     console.error(err.message);
+    res.send("Server Error!");
+  }
+});
+
+// @REQ     PUT api/post/comment/:post_id
+// @DESC    comment on this post
+// @ACCESS  Private
+router.put("/comment/:post_id", auth, async (req, res) => {
+  try {
+    const post = await Post.findOne({ _id: req.params.post_id });
+    if (post) {
+      post.comment.push({
+        user: req.user.id,
+        comment_msg: req.body.comment_msg,
+      });
+      await post.save();
+      res.status(200).send("Commented" + req.params.post_id);
+    } else {
+      res.status(201).send("post not found");
+    }
+  } catch (err) {
+    console.log(err.message);
+    res.send("Server Error!");
+  }
+});
+
+// @REQ     PUT api/post/comment/:post_id
+// @DESC    comment on this post
+// @ACCESS  Private
+router.get("/comment/all/:post_id", async (req, res) => {
+  try {
+    const post = await Post.findOne({ _id: req.params.post_id });
+    if (post) {
+      const comments = post.comment;
+      res.status(200).send(comments);
+    } else {
+      res.status(201).send("post not found");
+    }
+  } catch (err) {
     res.send("Server Error!");
   }
 });

@@ -24,6 +24,12 @@ const postSchema = new Schema({
       user: { type: Schema.Types.ObjectId, ref: "user" },
     },
   ],
+  comment: [
+    {
+      user: { type: Schema.Types.ObjectId, ref: "user" },
+      comment_msg: String,
+    },
+  ],
   postImage: {
     type: String,
   },
