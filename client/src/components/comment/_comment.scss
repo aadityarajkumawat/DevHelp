@@ -2,8 +2,8 @@
   width: 40%;
   height: 80px;
   display: flex;
-  // justify-content: center;
   align-items: center;
+  border-bottom: 1px solid;
 
   .user-img {
     img {
@@ -12,9 +12,13 @@
   }
 
   .cmt-right {
+    margin-left: 20px;
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
+
+    .cmt-user {
+      font-weight: bold;
+      color: #00000080;
+    }
   }
 }

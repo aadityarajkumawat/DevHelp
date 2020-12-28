@@ -7,8 +7,8 @@ const CommentItem = ({ username, src, comment_msg }) => {
         <img style={{ height: "30px" }} src={src} />
       </div>
       <div className='cmt-right'>
-        <div>{username}</div>
-        <div>{comment_msg}</div>
+        <div className='cmt-user'>{username}</div>
+        <div className='cmt-msg'>{comment_msg}</div>
       </div>
     </div>
   );
