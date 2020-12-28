@@ -1,0 +1,20 @@
+.comment-item {
+  width: 40%;
+  height: 80px;
+  display: flex;
+  // justify-content: center;
+  align-items: center;
+
+  .user-img {
+    img {
+      border-radius: 100%;
+    }
+  }
+
+  .cmt-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+}

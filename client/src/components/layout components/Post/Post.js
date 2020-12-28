@@ -4,6 +4,7 @@ import {
   getPost,
   likePost,
   getLikedPosts,
+  setCurrentPost,
 } from "../../../actions/getPostAction";
 import { showNav } from "../../../actions/navAction";
 import PostHolder from "./Post-Placeholder/PostHolder";
@@ -11,6 +12,10 @@ import { getEstimatedTime } from "../../../utils/estimateTime";
 import { ParsedData } from "draftjs-raw-parser";
 import { getThatProfileE } from "../../../actions/profileAction";
 import { reallyGetAllPosts } from "../../../actions/getPostAction";
+import CommentInput from "../../comment/CommentInput";
+import { postComment } from "../../../actions/commentAction";
+import CommentItem from "../../comment/CommentItem";
+import Comment from "../../comment/Comment";
 
 const Post = ({
   post: { currentPost, openedPost, loadingPost, likedStatus, likedPost },
@@ -22,6 +27,9 @@ const Post = ({
   history,
   getThatProfileE,
   reallyGetAllPosts,
+  postComment,
+  comment: { commenting },
+  setCurrentPost,
 }) => {
   const [lik, setLik] = useState([]);
   const [post, setPost] = useState({});
@@ -34,6 +42,7 @@ const Post = ({
   useEffect(() => {
     if (isEmpty(openedPost)) {
       if (currentPost === "") {
+        setCurrentPost(sessionStorage.getItem("postID"));
         getPost(sessionStorage.getItem("postID"));
       } else {
         getPost(currentPost);
@@ -129,7 +138,28 @@ const Post = ({
           )}
         </div>
         <div class="post-comment-seperator"></div>
-        <div className='comment-tag'>Comments</div>
+        <div className="comment-tag">Comments</div>
+        <Comment auth={auth} post_id={currentPost} />
+        {/* {auth.isAuthenticated && (
+          <CommentInput
+            addComment={postComment}
+            user_id={auth.user._id}
+            post_id={openedPost._id}
+            status={commenting}
+          />
+        )}
+        <div>All Comment</div>
+        {openedPost.comment && (
+          <div>
+            {openedPost.comment.map((cmt) => (
+              <CommentItem
+                username={cmt.nameOfUser}
+                src={cmt.imgOfUser}
+                comment_msg={cmt.comment_msg}
+              />
+            ))}
+          </div>
+        )} */}
       </div>
     </React.Fragment>
   );
@@ -139,6 +169,7 @@ const mapStateToProps = (state) => {
   return {
     post: state.post,
     auth: state.auth,
+    comment: state.comment,
   };
 };
 
@@ -149,4 +180,6 @@ export default connect(mapStateToProps, {
   getLikedPosts,
   getThatProfileE,
   reallyGetAllPosts,
+  postComment,
+  setCurrentPost,
 })(Post);

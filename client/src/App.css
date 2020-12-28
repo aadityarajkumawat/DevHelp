@@ -574,6 +574,27 @@ i:hover {
   margin: 30px 0;
 }
 
+.comm input {
+  width: 40%;
+  border-radius: 0;
+  border: none;
+  background-color: #cccccc55;
+  padding: 10px 15px;
+}
+
+.comm .comm-btn {
+  width: 100px;
+  height: 42px;
+  margin-left: 30px;
+  border: none;
+  background-color: #000;
+  color: #fff;
+}
+
+.comm .comm-btn:hover {
+  background-color: #00000099;
+}
+
 pre {
   background-color: #e3e3e3;
   min-width: 600px;
@@ -1394,6 +1415,37 @@ pre * {
   padding: 0 3px 0 3px;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
+}
+
+.comment-item {
+  width: 40%;
+  height: 80px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.comment-item .user-img img {
+  border-radius: 100%;
+}
+
+.comment-item .cmt-right {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .container-fluid {

@@ -98,6 +98,29 @@
   margin: 30px 0;
 }
 
+.comm {
+  input {
+    width: 40%;
+    border-radius: 0;
+    border: none;
+    background-color: #cccccc55;
+    padding: 10px 15px;
+  }
+
+  .comm-btn {
+    width: 100px;
+    height: 42px;
+    margin-left: 30px;
+    border: none;
+    background-color: #000;
+    color: #fff;
+
+    &:hover {
+      background-color: #00000099;
+    }
+  }
+}
+
 pre {
   background-color: #e3e3e3;
   min-width: 600px;

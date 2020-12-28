@@ -8,6 +8,7 @@ import adminPrivilagesReducer from "./adminPrivilage";
 import slideMenuReducer from "./slideMenu";
 import profileReducer from "./profile";
 import framerAnimationReducer from "./framerAnimation";
+import commentReducer from "./comment";
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   slideMenu: slideMenuReducer,
   profile: profileReducer,
   framerAnim: framerAnimationReducer,
+  comment: commentReducer,
 });
 
 export default rootReducer;
