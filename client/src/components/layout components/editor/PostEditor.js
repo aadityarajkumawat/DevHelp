@@ -6,6 +6,7 @@ import {
   clearPostID,
 } from "../../../actions/getPostAction";
 import { convertToRaw, Editor, EditorState, RichUtils } from "draft-js";
+import { dispatchPopup } from "../../../actions/popupAction";
 
 const PostEditor = ({
   uploadPost,
@@ -14,6 +15,7 @@ const PostEditor = ({
   history,
   uploadImage,
   clearPostID,
+  dispatchPopup,
 }) => {
   const [heading, setHeading] = useState("");
   const [upload, setUpload] = useState("");
@@ -27,6 +29,12 @@ const PostEditor = ({
       setUpload("Uploaded!");
     }
   }, [post.imageUploaded]);
+
+  useEffect(() => {
+    if (upload === "Uploaded!") {
+      dispatchPopup("Post Image", "Post image has been uploaded successfully!");
+    }
+  }, [upload]);
 
   const handleSave = async () => {
     if (isAuthenticated) {
@@ -43,7 +51,6 @@ const PostEditor = ({
       }
       clearPostID();
       history.push("/");
-      console.log(JSON.stringify(postRawContent));
     }
   };
 
@@ -61,12 +68,10 @@ const PostEditor = ({
 
   const handleKeyCommand = (command, editorState) => {
     const newState = RichUtils.handleKeyCommand(editorState, command);
-
     if (newState) {
       setEditorState(newState);
       return "handled";
     }
-
     return "not-handled";
   };
 
@@ -121,4 +126,5 @@ export default connect(mapStateToProps, {
   uploadPost,
   uploadImage,
   clearPostID,
+  dispatchPopup,
 })(PostEditor);

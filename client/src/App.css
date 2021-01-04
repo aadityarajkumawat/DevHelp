@@ -1456,6 +1456,65 @@ pre * {
   color: #00000080;
 }
 
+.popup-modal-container {
+  width: 600px;
+  background-color: white;
+  border: 1px solid #272727;
+  -webkit-box-shadow: 4px 4px 4px 0px #dddddd, -4px 0px 4px 0px #dddddd;
+          box-shadow: 4px 4px 4px 0px #dddddd, -4px 0px 4px 0px #dddddd;
+  position: absolute;
+  top: 0px;
+  left: 50%;
+  z-index: 1000;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  padding: 15px 30px;
+  padding-bottom: 20px;
+}
+
+.popup-modal-container h4,
+.popup-modal-container .popup-msg {
+  color: #000;
+}
+
+.popup-modal-container .popup-msg {
+  margin: 6px 0;
+}
+
+.popup-modal-container .confirm-act {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.popup-modal-container .confirm-act button {
+  border: none;
+  background: -webkit-gradient(linear, left top, left bottom, from(#408dff), to(#0066ff));
+  background: linear-gradient(#408dff, #0066ff);
+  color: #fff;
+  border-radius: 4px;
+  height: 25px !important;
+  width: 90px;
+  cursor: pointer;
+}
+
+.popup-modal-container .confirm-act button:active {
+  outline: none;
+}
+
+.popup-modal-container .confirm-act button:focus {
+  outline: none;
+}
+
 .container-fluid {
   display: -webkit-box;
   display: -ms-flexbox;

@@ -9,6 +9,7 @@ import slideMenuReducer from "./slideMenu";
 import profileReducer from "./profile";
 import framerAnimationReducer from "./framerAnimation";
 import commentReducer from "./comment";
+import popupReducer from "./popup";
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   profile: profileReducer,
   framerAnim: framerAnimationReducer,
   comment: commentReducer,
+  popup: popupReducer,
 });
 
 export default rootReducer;

@@ -1,6 +1,5 @@
 @import "./components/auth/auth";
 @import "./components/navbar/navbar";
-// @import "./components/pages/Home";
 @import "./components/layout components/Trending/trending";
 @import "./components/layout components/Trending/TrendingItem/trendingitem";
 @import "./components/layout components/Post/post";
@@ -11,6 +10,7 @@
 @import "./components/pages/profile/profile";
 @import "./components/pages/user-profile/that-user";
 @import "./components/comment/comment";
+@import "./components/popup-modal/popup-modal";
 
 .container-fluid {
   display: flex;

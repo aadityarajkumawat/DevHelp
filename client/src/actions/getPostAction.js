@@ -67,7 +67,6 @@ export const uploadImage = (fData) => async (dispatch) => {
   try {
     dispatch({ type: RESET_IMAGE_UPLOAD });
     const res = await axios.post("/api/upload", fData);
-    console.log("Working... ... ...");
     dispatch({ type: GET_POST_ID, payload: res.data._id });
   } catch (err) {
     console.log("Upload ERR: ->>", err);

@@ -1,0 +1,50 @@
+.popup-modal-container {
+  width: 600px;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid rgb(39, 39, 39);
+  box-shadow: 4px 4px 4px 0px rgb(221, 221, 221),
+    -4px 0px 4px 0px rgb(221, 221, 221);
+  position: absolute;
+  top: 0px;
+  left: 50%;
+  z-index: 1000;
+  transform: translateX(-50%);
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  padding: 15px 30px;
+  padding-bottom: 20px;
+
+  h4,
+  .popup-msg {
+    color: #000;
+  }
+
+  .popup-msg {
+    margin: 6px 0;
+  }
+
+  .confirm-act {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    button {
+      border: none;
+      background: linear-gradient(#408dff, #0066ff);
+      color: #fff;
+      border-radius: 4px;
+      height: 25px !important;
+      width: 90px;
+      cursor: pointer;
+
+      &:active {
+        outline: none;
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}
