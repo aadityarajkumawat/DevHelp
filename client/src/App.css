@@ -619,10 +619,25 @@ pre * {
   padding: 0 130px;
 }
 
-.editor-container-compose .custom-file-input {
-  width: 100px;
-  border: none;
-  opacity: 1 !important;
+.editor-container-compose .img-upload {
+  position: relative;
+  width: 200px;
+}
+
+.editor-container-compose .img-upload .custom-upload {
+  position: absolute;
+  top: 0;
+  background-color: #0066ff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 200px;
 }
 
 .editor-container-compose .upload-btn {
@@ -654,7 +669,7 @@ pre * {
 .editor-container-compose .compose-heading input {
   width: 100%;
   height: 50px;
-  font-family: 'Playfair';
+  font-family: "Playfair";
   font-size: 30px;
   font-weight: 600;
   padding: 5px 10px;
@@ -669,68 +684,18 @@ pre * {
   outline: none;
 }
 
-.codex-editor__redactor {
-  padding-bottom: 300px !important;
-  max-width: 650px;
-  min-width: 100%;
-  margin: auto;
+.editor-container-compose .post-post-btn {
+  border: none;
+  background: -webkit-gradient(linear, left top, left bottom, from(#408dff), to(#0066ff));
+  background: linear-gradient(#408dff, #0066ff);
+  color: #fff;
+  border-radius: 4px;
+  height: 35px !important;
+  cursor: pointer;
 }
 
-.codex-editor__redactor .ce-block .ce-block__content {
-  min-width: 100%;
-}
-
-.codex-editor__redactor .ce-block .ce-block__content .cdx-block {
-  padding: 0 10px;
-}
-
-.codex-editor__redactor .ce-block .ce-block__content .ce-code {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  min-width: 70%;
-}
-
-.codex-editor__redactor .ce-block .ce-block__content .ce-code textarea {
-  width: 700px;
-  font-family: 'Cutive Mono';
-  font-size: 20px;
-}
-
-.ce-toolbar .ce-toolbar__content .ce-toolbar__actions {
-  right: -200px !important;
-  top: 10px !important;
-}
-
-.ce-toolbar .ce-toolbar__plus {
-  -webkit-transform: translate3d(-235px, calc(19px - 50%), 0px) !important;
-          transform: translate3d(-235px, calc(19px - 50%), 0px) !important;
-  border: 2px solid #ccc;
-  -webkit-transition: all 0.4s ease;
-  transition: all 0.4s ease;
-  -webkit-transform: translateX(-5px);
-          transform: translateX(-5px);
-  padding: 1px;
-  -webkit-box-sizing: content-box !important;
-          box-sizing: content-box !important;
-  margin-right: 5px;
-  left: -39px !important;
-}
-
-.ce-toolbar .ce-toolbox {
-  -webkit-transform: translate3d(-220px, calc(19px - 50%), 0px) !important;
-          transform: translate3d(-220px, calc(19px - 50%), 0px) !important;
-}
-
-.ce-inline-toolbar .ce-inline-toolbar__buttons .ce-inline-tool--bold,
-.ce-inline-toolbar .ce-inline-toolbar__buttons .ce-inline-tool--italic,
-.ce-inline-toolbar .ce-inline-toolbar__buttons .ce-inline-tool--link,
-.ce-inline-toolbar .ce-inline-toolbar__buttons .ce-inline-tool--last {
-  width: 40px;
-  margin: 10px 0;
+.editor-container-compose .DraftEditor-root {
+  padding-bottom: 200px;
 }
 
 .dashboard-container {

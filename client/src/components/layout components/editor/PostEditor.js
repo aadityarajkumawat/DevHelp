@@ -1,18 +1,11 @@
-import React from "react";
-import parseJSON from "../../../utils/parseJSON";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import {
   uploadPost,
   uploadImage,
   clearPostID,
 } from "../../../actions/getPostAction";
-import {
-  ContentState,
-  convertToRaw,
-  Editor,
-  EditorState,
-  RichUtils,
-} from "draft-js";
+import { convertToRaw, Editor, EditorState, RichUtils } from "draft-js";
 
 const PostEditor = ({
   uploadPost,
@@ -22,14 +15,13 @@ const PostEditor = ({
   uploadImage,
   clearPostID,
 }) => {
-  const instanceRef = React.useRef(null);
-  const [heading, setHeading] = React.useState("");
-  const [upload, setUpload] = React.useState("");
-  const [editorState, setEditorState] = React.useState(() =>
+  const [heading, setHeading] = useState("");
+  const [upload, setUpload] = useState("");
+  const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
   );
 
-  React.useEffect(() => {
+  useEffect(() => {
     setUpload("");
     if (post.imageUploaded) {
       setUpload("Uploaded!");
@@ -83,13 +75,17 @@ const PostEditor = ({
 
   return (
     <div className="d-flex flex-column editor-container-compose">
-      <input
-        type="file"
-        name="file"
-        id="file"
-        className="custom-file-input"
-        onChange={addFile}
-      />
+      <div className="img-upload">
+        <input
+          type="file"
+          name="file"
+          id="file"
+          className="custom-file-input"
+          onChange={addFile}
+        />
+        <div className="custom-upload post-post-btn">Upload Image</div>
+        {/* <div cla></div> */}
+      </div>
       <span style={uploadingStyles}>{upload}</span>
       <div className="d-flex justify-content-center compose-heading">
         <input
@@ -105,14 +101,9 @@ const PostEditor = ({
         editorState={editorState}
         onChange={setEditorState}
         handleKeyCommand={handleKeyCommand}
+        className="the-main-editor"
       />
-      <button className="" onClick={handleSave}>
-        {post.uploadedStatus && (
-          <span
-            className="spinner-border spinner-border-sm"
-            aria-hidden="true"
-          ></span>
-        )}
+      <button className="post-post-btn" onClick={handleSave}>
         <span>{post.uploadedStatus ? "" : "Post"}</span>
       </button>
     </div>
