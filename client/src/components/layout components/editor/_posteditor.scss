@@ -1,5 +1,18 @@
 @import "../../../mixins";
 
+:root {
+  --col: rgb(126, 204, 255);
+}
+
+@keyframes moveLeft {
+  0% {
+    left: -200px;
+  }
+  100% {
+    left: 0;
+  }
+}
+
 .editor-container-compose {
   width: 100%;
   padding: 0 130px;
@@ -7,6 +20,7 @@
   .img-upload {
     position: relative;
     width: 200px;
+    cursor: pointer;
 
     .custom-upload {
       position: absolute;
@@ -16,6 +30,31 @@
       justify-content: center;
       align-items: center;
       width: 200px;
+    }
+
+    .img-loader {
+      width: 200px;
+      height: 4px;
+      border-radius: 4px;
+      position: relative;
+      overflow-x: hidden;
+
+      .the-moving-grad {
+        background: linear-gradient(
+          to right,
+          #0066ff,
+          var(--col),
+          #0066ff,
+          var(--col),
+          #0066ff,
+          var(--col)
+        );
+        height: 100%;
+        right: 0px;
+        width: 200%;
+        position: absolute;
+        animation: moveLeft 0.5s ease infinite;
+      }
     }
   }
 

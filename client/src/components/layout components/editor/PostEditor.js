@@ -59,9 +59,6 @@ const PostEditor = ({
     setUpload("Uploading...");
   };
 
-  const uploadingStyles =
-    upload === "Uploading..." ? { color: "orange" } : { color: "green" };
-
   const handleKeyCommand = (command, editorState) => {
     const newState = RichUtils.handleKeyCommand(editorState, command);
 
@@ -84,9 +81,12 @@ const PostEditor = ({
           onChange={addFile}
         />
         <div className="custom-upload post-post-btn">Upload Image</div>
-        {/* <div cla></div> */}
+        {upload === "Uploading..." && (
+          <div className="img-loader">
+            <div className="the-moving-grad"></div>
+          </div>
+        )}
       </div>
-      <span style={uploadingStyles}>{upload}</span>
       <div className="d-flex justify-content-center compose-heading">
         <input
           type="text"
