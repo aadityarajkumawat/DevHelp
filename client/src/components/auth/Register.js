@@ -1,5 +1,4 @@
 import React, { useState, useEffect, Fragment } from "react";
-import "../../App.css";
 import { connect } from "react-redux";
 import { register } from "../../actions/authAction";
 import { removeNav } from "../../actions/navAction";

@@ -1,12 +1,13 @@
-import React from 'react';
+import { Flex, Heading, Text } from "@chakra-ui/react";
+import React from "react";
 
 const PopularPosts = () => {
-    return (
-        <div className='popular-posts'>
-            <h1>Popular Posts</h1>
-            <div className='posts-list'>No posts available</div>
-        </div>
-    );
+  return (
+    <Flex flexDirection='column' px='100px' mt='3rem'>
+      <Heading as="h1">Popular Posts</Heading>
+      <Text>No posts available</Text>
+    </Flex>
+  );
 };
 
 export default PopularPosts;

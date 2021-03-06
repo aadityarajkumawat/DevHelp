@@ -1,6 +1,4 @@
 import React, { useEffect } from "react";
-import "./App.css";
-
 // Router
 import { BrowserRouter as Router, Switch } from "react-router-dom";
 

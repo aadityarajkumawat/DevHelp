@@ -35,7 +35,7 @@ const Trending = ({
   }, [trendingPosts.length, post.uploadedStatus]);
 
   return (
-    <Flex>
+    <Flex justifyContent='center' mt='0rem'>
       {posts.length > 0 ? (
         posts.map((post) => (
           <TrendingItem

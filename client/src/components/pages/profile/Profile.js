@@ -10,6 +10,7 @@ import {
   initEditProfileAnimation,
   resetEditProfileAnim,
 } from "../../../actions/framerAction";
+import { Flex, Image } from "@chakra-ui/react";
 
 const Profile = ({
   auth,
@@ -64,16 +65,13 @@ const Profile = ({
   return (
     <React.Fragment>
       <EditProfile sta={profile.backdrop} />
-      <div className="profile d-flex justify-content-center flex-column">
-        <div className="img-container">
-          <img
-            src={
-              profile.profile.image !== undefined
-                ? `${profile.profile.image}`
-                : ""
-            }
-            className="profile-img"
-            alt=""
+      <Flex bg="red">
+        <Flex>
+          <Image
+            src={profile.profile !== undefined && `${profile.profile.image}`}
+            fallbackSrc="https://i.ibb.co/RBT25fY/default-fallback-image.png"
+            style={{ width: "150px", height: "150px", borderRadius: "100%" }}
+            alt="user"
           />
           <span className="change-profile-photo d-flex justify-content-center align-items-center">
             <i className="fas fa-pen"></i>
@@ -84,7 +82,7 @@ const Profile = ({
               onChange={addProfile}
             />
           </span>
-        </div>
+        </Flex>
         <span style={{ color: uploadStyles }}>{uploaded}</span>
         <div className="info">
           <div className="in-same-line d-flex">
@@ -106,7 +104,7 @@ const Profile = ({
             </p>
           </div>
         </div>
-      </div>
+      </Flex>
     </React.Fragment>
   );
 };

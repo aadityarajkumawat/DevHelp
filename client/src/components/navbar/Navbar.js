@@ -12,11 +12,14 @@ import {
   Box,
   Button,
   Flex,
-  HStack,
   Image,
   ListItem,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  Portal,
   Text,
-  UnorderedList,
 } from "@chakra-ui/react";
 
 const Navbar = ({
@@ -28,30 +31,12 @@ const Navbar = ({
   cleanAdminPrivilages,
   cleanGetPostAction,
   cleanProfile,
-  initDropAnim,
-  resetDropAnim,
-  framerAnim,
 }) => {
-  const dropDown = useRef(null);
-  const dropCloser = useRef(null);
-
   useEffect(() => {
     if (!isEmpty(profile)) {
       loadProfile();
     }
   }, [profile.profile.image]);
-
-  const openDropDown = () => {
-    initDropAnim();
-    dropDown.current.classList.toggle("toggle-drop-down");
-    dropCloser.current.style.display = "block";
-  };
-
-  const closeDrop = () => {
-    resetDropAnim();
-    dropCloser.current.style.display = "none";
-    dropDown.current.classList.remove("toggle-drop-down");
-  };
 
   const logMeOut = () => {
     logout();
@@ -63,10 +48,9 @@ const Navbar = ({
 
   return navbar ? (
     <Flex height="80px" alignItems="center" px="50px">
-      <Box ref={dropCloser} onClick={closeDrop}></Box>
       <Flex w="100vw" justifyContent="space-between" alignItems="center">
         <Link to="/">
-          <Text fontSize="18px">DevHelp</Text>
+          <Text fontSize="20px">DevHelp</Text>
         </Link>
         <Flex justifyContent="center" alignItems="center">
           <Flex justifyContent="center" alignItems="center">
@@ -82,31 +66,40 @@ const Navbar = ({
               Upgrade
             </Button>
           </Box>
-          <Box onClick={openDropDown} ml="20px">
-            <Box>
-              {profile.profile.image && (
-                <Image
-                  boxSize="40px"
-                  borderRadius="100%"
-                  src={profile.profile.image ? profile.profile.image : ""}
-                  alt="User profile image"
-                />
-              )}
-            </Box>
-            <UnorderedList ref={dropDown} listStyleType="none" display="none">
-              <ListItem>
-                {!isAuthenticated && <Link to="/login">Login</Link>}
-              </ListItem>
-              <ListItem>
-                <Link to="/dashboard/home">Dashboard</Link>
-              </ListItem>
-              <ListItem>
-                <Link to="/compose-post">Compose Post</Link>
-              </ListItem>
-              <ListItem onClick={logMeOut}>
-                <Link to="/">Logout</Link>
-              </ListItem>
-            </UnorderedList>
+          <Box ml="20px">
+            <Menu>
+              <MenuButton className="nn">
+                <Box>
+                  <Image
+                    boxSize="40px"
+                    borderRadius="100%"
+                    src={profile.profile.image ? profile.profile.image : ""}
+                    alt="User profile image"
+                    fallbackSrc="https://i.ibb.co/cTWq2Mm/depositphotos-171453724-stock-illustration-default-avatar-profile-icon-grey.jpg"
+                  />
+                </Box>
+              </MenuButton>
+              <Portal>
+                <MenuList>
+                  {!isAuthenticated && (
+                    <MenuItem>
+                      <Link to="/login">Login</Link>
+                    </MenuItem>
+                  )}
+                  <MenuItem>
+                    <Link to="/dashboard/home">Dashboard</Link>
+                  </MenuItem>
+                  <MenuItem>
+                    <Link to="/compose-post">Compose Post</Link>
+                  </MenuItem>
+                  {isAuthenticated && (
+                    <MenuItem onClick={logMeOut}>
+                      <Link to="/">Logout</Link>
+                    </MenuItem>
+                  )}
+                </MenuList>
+              </Portal>
+            </Menu>
           </Box>
         </Flex>
       </Flex>

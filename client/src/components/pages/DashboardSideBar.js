@@ -8,6 +8,8 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { cleanAdminPrivilages } from "../../actions/adminPrivilagesAction";
 import { cleanGetPostAction } from "../../actions/getPostAction";
 import { cleanProfile } from "../../actions/profileAction";
+import * as S from "@chakra-ui/react";
+import { Text } from "@chakra-ui/react";
 
 const DashboardSideBar = ({
   logout,
@@ -49,40 +51,43 @@ const DashboardSideBar = ({
     }
   };
 
+  const { isOpen, onOpen, onClose } = S.useDisclosure();
+
   return (
     <Fragment>
-      <div
-        ref={toggleMenu}
-        className="options-bar flex-column align-items-center"
-      >
-        <Link to="/" onClick={removeMenu}>
-          <div className="div-icon">
+      <div ref={toggleMenu}>
+        <Link to="/">
+          <div>
             <img src={Logo} alt="" />
           </div>
         </Link>
-        <Link to="/dashboard/home" onClick={removeMenu}>
-          Home
-        </Link>
-        <Link to="/dashboard/saved" onClick={removeMenu}>
-          Saved Posts
-        </Link>
-        <a href="!#" onClick={removeMenu}>
-          Posts
-        </a>
-        <a href="!#" onClick={removeMenu}>
-          Stats
-        </a>
-        <a href="!#" onClick={removeMenu}>
-          Plans
-        </a>
-        <a href="!#" onClick={removeMenu}>
-          Help
-        </a>
-        <Link to="/" onClick={logoutUser}>
-          Logout
-        </Link>
+        <Link to="/dashboard/home">Home</Link>
+        <Link to="/dashboard/saved">Saved Posts</Link>
+        <a href="!#">Posts</a>
+        <a href="!#">Stats</a>
+        <a href="!#">Plans</a>
+        <a href="!#">Help</a>
+        <Link to="/">Logout</Link>
       </div>
       <div ref={backdrop} className="backdrop" onClick={removeMenu}></div>
+
+      <S.Button colorScheme="blue" onClick={onOpen}>
+        Open
+      </S.Button>
+      <S.Drawer placement={"left"} onClose={onClose} isOpen={isOpen}>
+        <S.DrawerOverlay>
+          <S.DrawerContent>
+            <S.DrawerHeader borderBottomWidth="1px">
+              Basic Drawer
+            </S.DrawerHeader>
+            <S.DrawerBody>
+              <Text>Some contents...</Text>
+              <Text>Some contents...</Text>
+              <Text>Some contents...</Text>
+            </S.DrawerBody>
+          </S.DrawerContent>
+        </S.DrawerOverlay>
+      </S.Drawer>
     </Fragment>
   );
 };

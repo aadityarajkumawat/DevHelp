@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment, useRef } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import { connect } from "react-redux";
 import {
   setCurrentPost,
@@ -8,6 +8,7 @@ import {
 import PostPlaceHolder from "../../PostPlaceHolder";
 import { getAdminPrivilages } from "../../../../actions/adminPrivilagesAction";
 import OptionsMenu from "../../OptionsMenu";
+import { Box, Flex, Image, Text } from "@chakra-ui/react";
 
 const TrendingItem = ({
   post,
@@ -21,15 +22,11 @@ const TrendingItem = ({
   savePost,
   auth,
   getSavedPosts,
-  forComp,
 }) => {
   const [loadingUNI, setLoadingUNI] = useState(true);
   const [openOptions, setOpenOptions] = useState(false);
   const [styleForHeading, setStyleForHeading] = useState({});
 
-  /**
-   * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-   */
   useEffect(() => {
     if (status === "" && auth.isAuthenticated) {
       getSavedPosts();
@@ -41,9 +38,6 @@ const TrendingItem = ({
     // eslint-disable-next-line
   }, []);
 
-  /**
-   * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-   */
   useEffect(() => {
     if (status !== "" && auth.isAuthenticated) {
       getSavedPosts();
@@ -61,8 +55,6 @@ const TrendingItem = ({
       );
     }
   };
-
-  const exitOptionsRef = useRef(null);
 
   const openPost = () => {
     if (post !== undefined && routing !== undefined) {
@@ -103,69 +95,76 @@ const TrendingItem = ({
   };
 
   return (
-    <div
-      className={
-        forComp !== "home-trend"
-          ? "trending-item user-trending"
-          : "trending-item"
-      }
-    >
-      <div
-        className="img-container"
-        onClick={post !== undefined ? openPost : null}
-      >
-        <img src={post !== undefined ? `${post.image}` : null} alt="" />
-      </div>
+    <Flex flexDirection="column" mx="30px" cursor="pointer">
+      <Flex onClick={post !== undefined ? openPost : null}>
+        <Image
+          src={post && post.image}
+          fallbackSrc="https://i.ibb.co/RBT25fY/default-fallback-image.png"
+          w="300px"
+          h="170px"
+          alt="post"
+          borderTopLeftRadius="5px"
+          borderTopRightRadius="5px"
+        />
+      </Flex>
       {loadingUNI && <PostPlaceHolder />}
       {post !== undefined && (
-        <div className="d-flex bottom-section" style={styleForHeading}>
-          <div className="post-info--ss">
-            <h3 onClick={openPost}>
+        <Flex
+          style={styleForHeading}
+          justifyContent="space-between"
+          bg="#eee"
+          borderBottomLeftRadius="5px"
+          borderBottomRightRadius="5px"
+          px="10px"
+          py="5px"
+        >
+          <Flex flexDir="column">
+            <Text onClick={openPost} fontSize="18px">
               {post.heading.length > 47
                 ? post.heading.substr(0, 47) + "..."
                 : post.heading}
-            </h3>
-            <div className="user d-flex align-items-center justify-content-start">
-              <p>{post.name}</p>
-              <span className="dot"></span>
-              <p>null min</p>
-            </div>
-          </div>
-          <div className="d-flex flex-column-reverse justify-content-between post-options--s">
+            </Text>
+            <Flex alignItems="center" mt="10px">
+              <Text color="#696969">{post.name}</Text>
+              <span
+                style={{
+                  width: "5px",
+                  height: "5px",
+                  borderRadius: "100%",
+                  backgroundColor: "#454545",
+                  margin: "0 4px 0 4px",
+                }}
+              ></span>
+              <Text color="#696969">7 min</Text>
+            </Flex>
+          </Flex>
+          <Box>
             <i
               onClick={saveThisPost}
-              className={`fa${
-                checkSavedStatus() ? "s" : "r"
-              } fa-bookmark save--post`}
+              className={`fa${checkSavedStatus() ? "s" : "r"} fa-bookmark`}
             ></i>
             {adminPrivilages.postAccessibility && (
               <Fragment>
-                <div
-                  className="admin-options"
-                  onClick={openOptionsMenu}
-                  style={{ position: "relative" }}
-                >
+                <Box onClick={openOptionsMenu} style={{ position: "relative" }}>
                   <i className={`fas fa-ellipsis-v options--post`}></i>
                   <OptionsMenu
                     displayStatus={openOptions}
                     postID={post._id}
                     userID={post.user}
                   />
-                </div>
-                <div
-                  ref={exitOptionsRef}
-                  className="exit-option-mode"
+                </Box>
+                <Box
                   onClick={_exitOptionMode_}
                   style={{
                     display: openOptions ? "block" : "none",
                   }}
-                ></div>
+                ></Box>
               </Fragment>
             )}
-          </div>
-        </div>
+          </Box>
+        </Flex>
       )}
-    </div>
+    </Flex>
   );
 };
 
