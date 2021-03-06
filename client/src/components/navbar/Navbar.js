@@ -7,8 +7,17 @@ import { cleanProfile } from "../../actions/profileAction";
 import { logout } from "../../actions/authAction";
 import { loadProfile } from "../../actions/profileAction";
 import isEmpty from "../../utils/isEmpty";
-import { motion } from "framer-motion";
 import { initDropAnim, resetDropAnim } from "../../actions/framerAction";
+import {
+  Box,
+  Button,
+  Flex,
+  HStack,
+  Image,
+  ListItem,
+  Text,
+  UnorderedList,
+} from "@chakra-ui/react";
 
 const Navbar = ({
   navbar,
@@ -53,57 +62,55 @@ const Navbar = ({
   };
 
   return navbar ? (
-    <div className="container nav-container">
-      <div ref={dropCloser} className="drop-closer" onClick={closeDrop}></div>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light bd-navbar d-flex justify-content-between">
-        <Link className="navbar-brand" to="/">
-          DevHelp
+    <Flex height="80px" alignItems="center" px="50px">
+      <Box ref={dropCloser} onClick={closeDrop}></Box>
+      <Flex w="100vw" justifyContent="space-between" alignItems="center">
+        <Link to="/">
+          <Text fontSize="18px">DevHelp</Text>
         </Link>
-        <div className="utils d-flex align-items-center">
-          <div className="icons">
-            <span>
+        <Flex justifyContent="center" alignItems="center">
+          <Flex justifyContent="center" alignItems="center">
+            <Box ml="20px">
               <i className="fas fa-search"></i>
-            </span>
-            <span>
+            </Box>
+            <Box ml="20px">
               <i className="far fa-bookmark"></i>
-            </span>
-          </div>
-          <div className="upgrade">
-            <button className="btn btn-outline-secondary">Upgrade</button>
-          </div>
-          <div className="user-icon" onClick={openDropDown}>
-            <div className="img">
+            </Box>
+          </Flex>
+          <Box ml="20px">
+            <Button variant="outline" h="30px">
+              Upgrade
+            </Button>
+          </Box>
+          <Box onClick={openDropDown} ml="20px">
+            <Box>
               {profile.profile.image && (
-                <img
+                <Image
+                  boxSize="40px"
+                  borderRadius="100%"
                   src={profile.profile.image ? profile.profile.image : ""}
                   alt="User profile image"
                 />
               )}
-            </div>
-            <motion.ul
-              animate={{ scale: framerAnim.dropDown.scale }}
-              transition={{
-                duration: framerAnim.dropDown.duration,
-                ease: "easeIn",
-              }}
-              ref={dropDown}
-              className="drop-down-container flex-column text-center"
-            >
-              <li>{!isAuthenticated && <Link to="/login">Login</Link>}</li>
-              <li>
+            </Box>
+            <UnorderedList ref={dropDown} listStyleType="none" display="none">
+              <ListItem>
+                {!isAuthenticated && <Link to="/login">Login</Link>}
+              </ListItem>
+              <ListItem>
                 <Link to="/dashboard/home">Dashboard</Link>
-              </li>
-              <li>
+              </ListItem>
+              <ListItem>
                 <Link to="/compose-post">Compose Post</Link>
-              </li>
-              <li onClick={logMeOut}>
+              </ListItem>
+              <ListItem onClick={logMeOut}>
                 <Link to="/">Logout</Link>
-              </li>
-            </motion.ul>
-          </div>
-        </div>
-      </nav>
-    </div>
+              </ListItem>
+            </UnorderedList>
+          </Box>
+        </Flex>
+      </Flex>
+    </Flex>
   ) : (
     <div></div>
   );

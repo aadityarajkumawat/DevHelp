@@ -1,3 +1,4 @@
+import { Flex } from "@chakra-ui/react";
 import React, { useState, useEffect, Fragment } from "react";
 import { connect } from "react-redux";
 import { getTrendingPosts } from "../../../actions/trendingAction";
@@ -34,7 +35,7 @@ const Trending = ({
   }, [trendingPosts.length, post.uploadedStatus]);
 
   return (
-    <div className="container trending d-flex justify-content-around">
+    <Flex>
       {posts.length > 0 ? (
         posts.map((post) => (
           <TrendingItem
@@ -53,7 +54,7 @@ const Trending = ({
           <TrendingItem />
         </Fragment>
       )}
-    </div>
+    </Flex>
   );
 };
 
