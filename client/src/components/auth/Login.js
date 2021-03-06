@@ -70,11 +70,11 @@ const Login = ({
       <Box w="calc(100% - 700px)">
         <Flex alignItems="center" flexDirection="column" pt="2.5rem">
           <Heading as="h1">Welcome to DevHelp</Heading>
-          <Text color='#00000080'>
+          <Text color="#00000080">
             DevHelp has a pool of highly experienced developers in their
             respective tech stacks
           </Text>
-          <Heading as="h2" fontSize="25px" py="20px" mt='100px'>
+          <Heading as="h2" fontSize="25px" py="20px" mt="100px">
             Login
           </Heading>
         </Flex>
@@ -115,10 +115,12 @@ const Login = ({
             Login
           </Button>
         </Flex>
-        <Flex justifyContent="center" className="wrong-pg">
+        <Flex justifyContent="center">
           New user?{"  "}
           <Link to="sign-up">
-            <Text ml='5px' color="#0066ff">Sign Up</Text>
+            <Text ml="5px" color="#0066ff">
+              Sign Up
+            </Text>
           </Link>
         </Flex>
       </Box>

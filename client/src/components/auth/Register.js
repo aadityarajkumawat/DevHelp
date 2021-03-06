@@ -9,6 +9,16 @@ import Alert from "../alerts/Alert";
 
 // Assets import
 import auth from "../../assets/auth.jpg";
+import {
+  Box,
+  Flex,
+  Heading,
+  Image,
+  Text,
+  Input,
+  HStack,
+  Button,
+} from "@chakra-ui/react";
 
 const Register = ({
   auth: { isAuthenticated },
@@ -60,78 +70,84 @@ const Register = ({
 
   return (
     <Fragment>
-      <div className="d-flex flex-column align-items-center justify-content-start left">
-        <div className="top text-center">
-          <h1>Welcome to DevHelp</h1>
-          <p>
+      <Box w="calc(100% - 700px)">
+        <Flex alignItems="center" flexDirection="column" pt="2.5rem">
+          <Heading as="h1">Welcome to DevHelp</Heading>
+          <Text>
             DevHelp has a pool of highly experienced developers in their
             respective tech stacks
-          </p>
-          <h2>Sign Up</h2>
-        </div>
+          </Text>
+          <Heading as="h2" fontSize="25px" py="20px" mt="100px">
+            Sign Up
+          </Heading>
+        </Flex>
         <Alert />
-        <form
-          className="d-flex flex-column align-items-center justify-content-start sign-up-form"
-          onSubmit={onSubmit}
-        >
-          <div className="d-flex flex-row name-inp">
-            <span className="d-flex justify-content-center align-items-center user-cont">
+        <Flex flexDirection="column" alignItems="center">
+          <HStack mb="1rem" w="450px">
+            <Box>
               <i className="fas fa-user"></i>
-            </span>
-            <input
+            </Box>
+            <Input
               type="text"
-              className="name-inp-cls"
               name="name"
               placeholder="Name"
               value={name}
               onChange={onChange}
             />
-          </div>
-          <div className="d-flex flex-row name-inp">
-            <span className="d-flex justify-content-center align-items-center user-cont">
+          </HStack>
+          <HStack mb="1rem" w="450px">
+            <Box>
               <i className="fas fa-envelope"></i>
-            </span>
-            <input
+            </Box>
+            <Input
               type="text"
-              className="name-inp-cls"
               name="email"
               placeholder="Email"
               value={email}
               onChange={onChange}
             />
-          </div>
-          <div className="d-flex flex-row name-inp">
-            <span className="d-flex justify-content-center align-items-center user-cont">
+          </HStack>
+          <HStack mb="1rem" w="450px">
+            <Box>
               <i className="fas fa-lock"></i>
-            </span>
-            <input
+            </Box>
+            <Input
               type="password"
-              className="name-inp-cls"
               name="password"
               placeholder="Password"
               value={password}
               onChange={onChange}
             />
-          </div>
-          <button className="btn btn-dark" type="submit">
-            {loading && alert.length === 0 && (
-              <span
-                className="spinner-border spinner-border-sm"
-                aria-hidden="true"
-              ></span>
-            )}
-
-            <span>{loading && alert.length === 0 ? "" : "Sign Up"}</span>
-          </button>
-        </form>
-        <p className="wrong-pg">
+          </HStack>
+          <Button
+            isLoading={loading}
+            loadingText="Logging In"
+            colorScheme="blackAlpha"
+            w="450px"
+            type="submit"
+            onClick={onSubmit}
+          >
+            Sign Up
+          </Button>
+        </Flex>
+        <Flex justifyContent="center">
           Already a user?{"  "}
-          <Link to="/login">Login</Link>
-        </p>
-      </div>
-      <div className="right">
-        <img src={auth} alt="" />
-      </div>
+          <Link to="login">
+            <Text ml="5px" color="#0066ff">
+              Login
+            </Text>
+          </Link>
+        </Flex>
+      </Box>
+      <Box>
+        <Image
+          src={auth}
+          alt="random"
+          width="700px"
+          height="100vh"
+          maxWidth="700px"
+        />
+      </Box>
     </Fragment>
   );
 };
