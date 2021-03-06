@@ -17,6 +17,8 @@ import { loadUser } from "./actions/authAction";
 import Navbar from "./components/navbar/Navbar";
 import PopupModal from "./components/popup-modal/PopupModal";
 
+import { Flex } from "@chakra-ui/react";
+
 if (localStorage.getItem("token")) {
   setAuthToken(localStorage.getItem("token"));
 }
@@ -30,11 +32,11 @@ function App() {
       <Router>
         <Navbar />
         <PopupModal />
-        <div className="d-flex justify-content-center container-fluid">
+        <Flex justifyContent="space-between" alignItems="flex-start">
           <Switch>
             <Routes />
           </Switch>
-        </div>
+        </Flex>
       </Router>
     </Provider>
   );
