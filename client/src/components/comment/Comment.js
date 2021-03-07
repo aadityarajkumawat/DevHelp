@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { getComments, postComment } from "../../actions/commentAction";
 import CommentInput from "./CommentInput";
 import CommentItem from "./CommentItem";
+import * as S from "@chakra-ui/react";
 
 const Comment = ({
   getComments,
@@ -12,13 +13,24 @@ const Comment = ({
   postComment,
   post,
 }) => {
+  const [comments, setComments] = useState([]);
   useEffect(() => {
-    getComments(post_id);
+    if (post_id) {
+      getComments(post_id);
+    }
   }, [commenting, post.currentPost]);
 
+  useEffect(() => {
+    sessionStorage.setItem(post_id, JSON.stringify(cmts));
+
+    if (cmts) {
+      setComments(cmts);
+    }
+  }, [cmts.length]);
+
   return (
-    <div>
-      <div>
+    <S.Flex flexDir="column">
+      <S.Flex>
         {auth.isAuthenticated && (
           <CommentInput
             addComment={postComment}
@@ -27,21 +39,21 @@ const Comment = ({
             status={commenting}
           />
         )}
-      </div>
-      {cmts.length > 0 ? (
-        <div>
-          {cmts.map((cmt) => (
+      </S.Flex>
+      {comments.length > 0 ? (
+        <S.Box mt="40px">
+          {comments.map((cmt) => (
             <CommentItem
               username={cmt.nameOfUser}
               src={cmt.imgOfUser}
               comment_msg={cmt.comment_msg}
             />
           ))}
-        </div>
+        </S.Box>
       ) : (
         <div></div>
       )}
-    </div>
+    </S.Flex>
   );
 };
 

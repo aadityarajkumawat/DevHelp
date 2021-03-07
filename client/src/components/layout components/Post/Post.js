@@ -7,15 +7,17 @@ import {
   setCurrentPost,
 } from "../../../actions/getPostAction";
 import { showNav } from "../../../actions/navAction";
-import PostHolder from "./Post-Placeholder/PostHolder";
 import { ParsedData } from "draftjs-raw-parser";
 import { getThatProfileE } from "../../../actions/profileAction";
 import { reallyGetAllPosts } from "../../../actions/getPostAction";
 import { postComment } from "../../../actions/commentAction";
 import Comment from "../../comment/Comment";
+import * as S from "@chakra-ui/react";
+import styled from "styled-components";
+import { useToast } from "@chakra-ui/react";
 
 const Post = ({
-  post: { currentPost, openedPost, loadingPost, likedStatus, likedPost },
+  post: { currentPost, openedPost, likedStatus, likedPost },
   getPost,
   likePost,
   getLikedPosts,
@@ -25,9 +27,11 @@ const Post = ({
   getThatProfileE,
   reallyGetAllPosts,
   setCurrentPost,
+  comment,
 }) => {
   const [lik, setLik] = useState([]);
   const [post, setPost] = useState({});
+  const toast = useToast();
 
   useEffect(() => {
     showNav();
@@ -69,6 +73,19 @@ const Post = ({
     // eslint-disable-next-line
   }, [likedStatus, post._id, likedPost.length]);
 
+  useEffect(() => {
+    if (comment.commentToast) {
+      toast({
+        position: "bottom-left",
+        title: "Comment Posted",
+        description: "Your comment has been posted",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
+    }
+  }, [comment.commentToast]);
+
   /*
      * This onClick Function, request the backend to
      * register the like by user and save it to DB
@@ -97,8 +114,6 @@ const Post = ({
     );
   };
 
-  const loadingStyles = loadingPost ? { display: "none" } : {};
-
   const getThatP = () => {
     getThatProfileE(openedPost.user);
     reallyGetAllPosts(openedPost.user);
@@ -107,38 +122,78 @@ const Post = ({
 
   return (
     <React.Fragment>
-      {loadingPost && <PostHolder />}
-      <div className="post-container-one" style={loadingStyles}>
-        <h1 className="post-heading">{post.heading}</h1>
-        <div className="user-p d-flex align-items-center">
+      <S.Flex flexDir="column" px="400px">
+        <S.Heading fontSize="80" color="gray.900">
+          {post.heading}
+        </S.Heading>
+        <S.Flex flexDir="column">
           {openedPost.user ? (
-            <span onClick={getThatP}>{post.name}</span>
+            <S.Box
+              onClick={getThatP}
+              fontSize="23px"
+              color="gray.700"
+              mb="10px"
+            >
+              {post.name}
+            </S.Box>
           ) : (
             <span>No id</span>
           )}
-          <div className="dot-i"></div>
-          <span>{"7min"}</span>
-          <i
-            onClick={likeThisPost}
-            className={`fa${likedBtn() ? "s" : "r"} fa-heart`}
-            style={likedBtn() ? { color: "rgb(255, 0, 106)" } : {}}
-          ></i>
-        </div>
-        <div className="img-post-container">
-          <img src={post !== undefined ? `${post.image}` : null} alt="post" />
-        </div>
-        <div className="nn-new">
+          <S.Flex alignItems="center" mb="10px">
+            <S.Text fontSize="18">{"7min"}</S.Text>
+            <span
+              style={{
+                width: "5px",
+                height: "5px",
+                borderRadius: "100%",
+                backgroundColor: "#454545",
+                margin: "0 10px 0 10px",
+              }}
+            ></span>
+            <i
+              onClick={likeThisPost}
+              className={`fa${likedBtn() ? "s" : "r"} fa-heart`}
+              style={
+                likedBtn()
+                  ? { color: "rgb(255, 0, 106)", fontSize: "25px" }
+                  : { fontSize: "25px" }
+              }
+            ></i>
+          </S.Flex>
+        </S.Flex>
+        <S.Flex>
+          <S.Image
+            src={post && `${post.image}`}
+            fallbackSrc="https://i.ibb.co/RBT25fY/default-fallback-image.png"
+            alt="post"
+            style={{ width: "100%", height: "600px" }}
+          />
+        </S.Flex>
+        <S.Flex mt="30px">
           {post.content && (
-            <ParsedData draftJSRawData={post.content.toString()} />
+            <TurnIn>
+              <ParsedData draftJSRawData={post.content.toString()} />
+            </TurnIn>
           )}
-        </div>
-        <div class="post-comment-seperator"></div>
-        <div className="comment-tag">Comments</div>
+        </S.Flex>
+        <S.Divider my="60px" />
+        <S.Box fontSize="24px" fontWeight="600" mb="15px">
+          Comments
+        </S.Box>
         <Comment auth={auth} post_id={currentPost} />
-      </div>
+        <S.Box h="100px"></S.Box>
+      </S.Flex>
     </React.Fragment>
   );
 };
+
+const TurnIn = styled.div`
+  div {
+    span {
+      font-size: 25px;
+    }
+  }
+`;
 
 const mapStateToProps = (state) => {
   return {

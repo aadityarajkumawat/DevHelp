@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import {
   uploadProfilePhoto,
@@ -7,26 +7,16 @@ import {
   editProfile,
   cleanProfile,
 } from "../../../actions/profileAction";
-import {
-  Button,
-  Flex,
-  FormControl,
-  FormLabel,
-  Image,
-  Input,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
-  Skeleton,
-  Text,
-  useDisclosure,
-  useToast,
-} from "@chakra-ui/react";
+import * as S from "@chakra-ui/react";
 import isEmpty from "../../../utils/isEmpty";
+import {
+  onFieldChange,
+  saveProfileBtn,
+  addProfile,
+  useLoadProfile,
+  useSetProfileInSettings,
+  useShowToastOnSuccessfulUpdating,
+} from "./profile-functions";
 
 const Profile = ({
   profile,
@@ -35,9 +25,8 @@ const Profile = ({
   editProfile,
   cleanProfile,
 }) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const toast = useToast();
-
+  const { isOpen, onOpen, onClose } = S.useDisclosure();
+  const toast = S.useToast();
   const [profileValues, setProfileValues] = useState({
     country: "",
     bio: "",
@@ -46,94 +35,51 @@ const Profile = ({
   const initialRef = React.useRef();
   const finalRef = React.useRef();
 
-  useEffect(() => {
-    loadProfile();
-    // eslint-disable-next-line
-  }, []);
-
-  useEffect(() => {
-    if (profile.profile) {
-      setProfileValues((prev) => ({
-        ...prev,
-        bio: profile.profile.bio,
-        country: profile.profile.country,
-      }));
-    }
-  }, [profile]);
-
-  useEffect(() => {
-    if (profile.editProfileRes) {
-      toast({
-        position: "bottom-left",
-        title: "Profile Updated!",
-        description: "Your profile has been successfully updated",
-        status: "success",
-        duration: 5000,
-        isClosable: true,
-      });
-      onClose();
-      cleanProfile();
-    }
-  }, [profile.editProfileRes]);
-
-  const addProfile = (e) => {
-    const fd = new FormData();
-    fd.append("profile", e.target.files[0]);
-    uploadProfilePhoto(fd);
-  };
-
-  const onFieldChange = (e) => {
-    let val = e.target.value;
-    let name = e.target.name;
-
-    setProfileValues((prev) => ({ ...prev, [name]: val }));
-  };
-
-  const saveProfileBtn = () => {
-    editProfile(profileValues);
-  };
+  useLoadProfile(loadProfile);
+  useSetProfileInSettings(profile, setProfileValues);
+  useShowToastOnSuccessfulUpdating(profile, onClose, cleanProfile, toast);
 
   return (
     <React.Fragment>
-      <Flex py="2rem">
-        <Flex>
-          <Image
+      <S.Flex py="2rem">
+        <S.Flex>
+          <S.Image
             src={profile.profile && `${profile.profile.image}`}
             fallbackSrc="https://i.ibb.co/RBT25fY/default-fallback-image.png"
             style={{ width: "150px", height: "150px", borderRadius: "100%" }}
             alt="user"
           />
-        </Flex>
-        <Flex mx="3rem" flexDir="column" py="2rem">
-          <Flex>
-            <Text>
+        </S.Flex>
+        <S.Flex mx="3rem" flexDir="column" py="2rem">
+          <S.Flex>
+            <S.Text>
               {profile.profile.user ? (
                 <strong>
-                  <Text>{profile.profile.user.name}</Text>
+                  <S.Text>{profile.profile.user.name}</S.Text>
                 </strong>
               ) : (
-                <Skeleton height="20px" w="220px" my="5px"></Skeleton>
+                <S.Skeleton height="20px" w="220px" my="5px"></S.Skeleton>
               )}
-            </Text>
-          </Flex>
-          <Flex flexDir="column">
-            <Text>
+            </S.Text>
+          </S.Flex>
+          <S.Flex flexDir="column">
+            <S.Text>
               {!isEmpty(profile.profile) ? (
                 profile.profile.bio
               ) : (
-                <Skeleton height="20px" w="180px" mb="5px"></Skeleton>
+                <S.Skeleton height="20px" w="180px" mb="5px"></S.Skeleton>
               )}
-            </Text>
-            <Text>
+            </S.Text>
+            <S.Text>
               {!isEmpty(profile.profile) ? (
                 profile.profile.country
               ) : (
-                <Skeleton height="20px" w="180px"></Skeleton>
+                <S.Skeleton height="20px" w="180px"></S.Skeleton>
               )}
-            </Text>
-          </Flex>
-          <Flex>
-            <Button
+            </S.Text>
+          </S.Flex>
+          <S.Flex>
+            <S.Button
               h="30px"
               onClick={onOpen}
               my="5px"
@@ -141,22 +87,22 @@ const Profile = ({
               colorScheme="blackAlpha"
             >
               Edit Profile
-            </Button>
-          </Flex>
-        </Flex>
-        <Modal
+            </S.Button>
+          </S.Flex>
+        </S.Flex>
+        <S.Modal
           initialFocusRef={initialRef}
           finalFocusRef={finalRef}
           isOpen={isOpen}
           onClose={onClose}
         >
-          <ModalOverlay />
-          <ModalContent>
-            <ModalHeader>Edit Profile</ModalHeader>
-            <ModalCloseButton />
-            <ModalBody pb={6}>
-              <FormControl>
-                <Image
+          <S.ModalOverlay />
+          <S.ModalContent>
+            <S.ModalHeader>Edit Profile</S.ModalHeader>
+            <S.ModalCloseButton />
+            <S.ModalBody pb={6}>
+              <S.FormControl>
+                <S.Image
                   src={profile.profile && `${profile.profile.image}`}
                   fallbackSrc="https://i.ibb.co/RBT25fY/default-fallback-image.png"
                   style={{
@@ -167,45 +113,49 @@ const Profile = ({
                   mb="5px"
                   alt="user"
                 />
-                <FormLabel>Profile Image</FormLabel>
-                <Input
+                <S.FormLabel>Profile Image</S.FormLabel>
+                <S.Input
                   ref={initialRef}
                   type="file"
                   style={{ height: "100%" }}
-                  onChange={addProfile}
+                  onChange={(e) => addProfile(e, uploadProfilePhoto)}
                 />
-              </FormControl>
-              <FormControl>
-                <FormLabel>Bio</FormLabel>
-                <Input
+              </S.FormControl>
+              <S.FormControl>
+                <S.FormLabel>Bio</S.FormLabel>
+                <S.Input
                   ref={initialRef}
                   placeholder="Bio"
-                  onChange={onFieldChange}
+                  onChange={(e) => onFieldChange(e, setProfileValues)}
                   name="bio"
                   value={profileValues.bio}
                 />
-              </FormControl>
+              </S.FormControl>
 
-              <FormControl mt={4}>
-                <FormLabel>Country</FormLabel>
-                <Input
+              <S.FormControl mt={4}>
+                <S.FormLabel>Country</S.FormLabel>
+                <S.Input
                   placeholder="Country"
-                  onChange={onFieldChange}
+                  onChange={(e) => onFieldChange(e, setProfileValues)}
                   name="country"
                   value={profileValues.country}
                 />
-              </FormControl>
-            </ModalBody>
+              </S.FormControl>
+            </S.ModalBody>
 
-            <ModalFooter>
-              <Button colorScheme="blue" mr={3} onClick={saveProfileBtn}>
+            <S.ModalFooter>
+              <S.Button
+                colorScheme="blue"
+                mr={3}
+                onClick={() => saveProfileBtn(editProfile, profileValues)}
+              >
                 Save
-              </Button>
-              <Button onClick={onClose}>Cancel</Button>
-            </ModalFooter>
-          </ModalContent>
-        </Modal>
-      </Flex>
+              </S.Button>
+              <S.Button onClick={onClose}>Cancel</S.Button>
+            </S.ModalFooter>
+          </S.ModalContent>
+        </S.Modal>
+      </S.Flex>
     </React.Fragment>
   );
 };

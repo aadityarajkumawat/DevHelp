@@ -1,29 +1,37 @@
 import React, { useState } from "react";
+import * as S from "@chakra-ui/react";
+import { useToast } from "@chakra-ui/react";
 
 const CommentInput = ({ addComment, user_id, post_id, status }) => {
   const [comment, setComment] = useState("");
+  const toast = useToast();
 
   const handleChange = (e) => {
     setComment(e.target.value);
   };
 
+  const addCommentBtn = () => {
+    addComment(comment, user_id, post_id);
+  };
+
   return (
-    <div className="comm">
-      <input
+    <S.Flex>
+      <S.Input
         type="text"
         className="comment-input"
         placeholder="Add a comment..."
         onChange={handleChange}
+        w="450px"
       />
-      <button
+      <S.Button
         className="comm-btn"
         type="submit"
         disabled={status}
-        onClick={() => addComment(comment, user_id, post_id)}
+        onClick={addCommentBtn}
       >
         Comment
-      </button>
-    </div>
+      </S.Button>
+    </S.Flex>
   );
 };
 
