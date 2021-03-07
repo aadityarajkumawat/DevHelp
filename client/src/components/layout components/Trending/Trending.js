@@ -24,8 +24,6 @@ const Trending = ({
     // eslint-disable-next-line
   }, []);
 
-  console.log("cool");
-
   useEffect(() => {
     if (trendingPosts.length === 0) {
       getTrendingPosts();
@@ -36,6 +34,7 @@ const Trending = ({
 
     // eslint-disable-next-line
   }, [trendingPosts.length, post.uploadedStatus]);
+
   useEffect(() => {
     if (post.savedToast) {
       toast({

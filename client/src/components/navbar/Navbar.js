@@ -87,7 +87,9 @@ const Navbar = ({
                     </MenuItem>
                   )}
                   <MenuItem>
-                    <Link to="/dashboard/home">Dashboard</Link>
+                    <Link to={`/dashboard/home/user/${profile.profile._id}`}>
+                      Dashboard
+                    </Link>
                   </MenuItem>
                   <MenuItem>
                     <Link to="/compose-post">Compose Post</Link>

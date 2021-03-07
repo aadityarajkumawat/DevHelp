@@ -41,8 +41,10 @@ const UserPost = ({
     return true;
   };
   return (
-    <Flex flexDir='column'>
-      <Heading as="h2" fontSize='23' mb='1rem' mt='2rem'>Your Recent Posts</Heading>
+    <Flex flexDir="column">
+      <Heading as="h2" fontSize="23" mb="1rem" mt="2rem">
+        Your Recent Posts
+      </Heading>
       <Flex>
         {posts.length > 0 ? (
           posts.map((post) => (

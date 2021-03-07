@@ -19,7 +19,11 @@ const Routes = () => {
       <Route exact path="/post" component={Post} />
       <Route exact path="/that-user" component={UserProfile} />
       <PrivateRoute exact path="/compose-post" component={PostEditor} />
-      <PrivateRoute exact path="/dashboard/home" component={Dashboard} />
+      <PrivateRoute
+        exact
+        path="/dashboard/home/:name/:id"
+        component={Dashboard}
+      />
       <PrivateRoute exact path="/dashboard/saved" component={SavedPost} />
     </Fragment>
   );

@@ -97,9 +97,9 @@ const Post = ({
   };
 
   const getThatP = () => {
-    getThatProfileE(openedPost.user);
-    reallyGetAllPosts(openedPost.user);
-    history.push("/that-user");
+    // getThatProfileE(openedPost.user);
+    // reallyGetAllPosts(openedPost.user);
+    history.push(`/dashboard/home/${openedPost.name}/${openedPost.user}`);
   };
 
   return (

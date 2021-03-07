@@ -17,6 +17,8 @@ import {
   useSetProfileInSettings,
   useShowToastOnSuccessfulUpdating,
 } from "./profile-functions";
+import { reallyGetAllPosts } from "../../../actions/getPostAction";
+import { getThatProfileE } from "../../../actions/profileAction";
 
 const Profile = ({
   profile,
@@ -24,6 +26,10 @@ const Profile = ({
   loadProfile,
   editProfile,
   cleanProfile,
+  user,
+  post,
+  getThatProfileE,
+  reallyGetAllPosts,
 }) => {
   const { isOpen, onOpen, onClose } = S.useDisclosure();
   const toast = S.useToast();
@@ -35,16 +41,34 @@ const Profile = ({
   const initialRef = React.useRef();
   const finalRef = React.useRef();
 
-  useLoadProfile(loadProfile);
+  useLoadProfile(loadProfile, { getThatProfileE, reallyGetAllPosts }, user);
   useSetProfileInSettings(profile, setProfileValues);
   useShowToastOnSuccessfulUpdating(profile, onClose, cleanProfile, toast);
+
+  let imgURL = "";
+  let name = "";
+  let bio = "";
+  let country = "";
+  if (user.name === "user" && profile.profile.user) {
+    imgURL = profile.profile.image;
+    name = profile.profile.user.name;
+    if (!isEmpty(profile.profile)) {
+      bio = profile.profile.bio;
+      country = profile.profile.country;
+    }
+  } else if (user.name !== "user" && profile.thatProfile) {
+    imgURL = profile.thatProfile.image;
+    name = user.name;
+    bio = profile.thatProfile.bio;
+    country = profile.thatProfile.country;
+  }
 
   return (
     <React.Fragment>
       <S.Flex py="2rem">
         <S.Flex>
           <S.Image
-            src={profile.profile && `${profile.profile.image}`}
+            src={imgURL}
             fallbackSrc="https://i.ibb.co/RBT25fY/default-fallback-image.png"
             style={{ width: "150px", height: "150px", borderRadius: "100%" }}
             alt="user"
@@ -53,9 +77,9 @@ const Profile = ({
         <S.Flex mx="3rem" flexDir="column" py="2rem">
           <S.Flex>
             <S.Text>
-              {profile.profile.user ? (
+              {profile.profile.user || profile.thatProfile ? (
                 <strong>
-                  <S.Text>{profile.profile.user.name}</S.Text>
+                  <S.Text>{name}</S.Text>
                 </strong>
               ) : (
                 <S.Skeleton height="20px" w="220px" my="5px"></S.Skeleton>
@@ -64,30 +88,32 @@ const Profile = ({
           </S.Flex>
           <S.Flex flexDir="column">
             <S.Text>
-              {!isEmpty(profile.profile) ? (
-                profile.profile.bio
+              {!isEmpty(profile.profile) || profile.thatProfile ? (
+                <S.Text>{bio}</S.Text>
               ) : (
                 <S.Skeleton height="20px" w="180px" mb="5px"></S.Skeleton>
               )}
             </S.Text>
             <S.Text>
-              {!isEmpty(profile.profile) ? (
-                profile.profile.country
+              {!isEmpty(profile.profile) || profile.thatProfile ? (
+                <S.Text>{country}</S.Text>
               ) : (
                 <S.Skeleton height="20px" w="180px"></S.Skeleton>
               )}
             </S.Text>
           </S.Flex>
           <S.Flex>
-            <S.Button
-              h="30px"
-              onClick={onOpen}
-              my="5px"
-              fontWeight="normal"
-              colorScheme="blackAlpha"
-            >
-              Edit Profile
-            </S.Button>
+            {user.name === "user" && (
+              <S.Button
+                h="30px"
+                onClick={onOpen}
+                my="5px"
+                fontWeight="normal"
+                colorScheme="blackAlpha"
+              >
+                Edit Profile
+              </S.Button>
+            )}
           </S.Flex>
         </S.Flex>
         <S.Modal
@@ -164,6 +190,7 @@ const mapStateToProps = (state) => {
   return {
     auth: state.auth,
     profile: state.profile,
+    post: state.post,
   };
 };
 
@@ -173,4 +200,6 @@ export default connect(mapStateToProps, {
   toggleBackdrop,
   editProfile,
   cleanProfile,
+  getThatProfileE,
+  reallyGetAllPosts,
 })(Profile);

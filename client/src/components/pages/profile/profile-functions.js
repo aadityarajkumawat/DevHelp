@@ -17,9 +17,13 @@ export const addProfile = (e, fn) => {
   fn(fd);
 };
 
-export const useLoadProfile = (fn) => {
+export const useLoadProfile = (fn, a, b) => {
   useEffect(() => {
-    fn();
+    if (b.name === "user") fn();
+    else {
+      a.getThatProfileE(b.id);
+      a.reallyGetAllPosts(b.id);
+    }
     // eslint-disable-next-line
   }, []);
 };

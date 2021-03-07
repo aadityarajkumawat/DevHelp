@@ -47,7 +47,6 @@ export const uploadPost = (post, post_id) => async (dispatch) => {
       "Content-Type": "application/json",
     },
   };
-  console.log(post);
   try {
     if (post_id !== undefined) {
       const res = await axios.post(
@@ -123,7 +122,6 @@ export const getSavedPosts = () => async (dispatch) => {
 export const likePost = (post_id) => async (dispatch) => {
   try {
     if (post_id !== undefined) {
-      console.log("the recieved post ID", post_id);
       const res = await axios.put(`/api/post/like/${post_id}`);
       dispatch({ type: LIKE_POST, payload: res.data });
     }
@@ -145,9 +143,7 @@ export const getLikedPosts = (user, post_id) => async (dispatch) => {
 
 export const reallyGetAllPosts = (userId) => async (dispatch) => {
   try {
-    // console.log(userId, "this");
     const res = await axios.get(`/api/post/real-all/${userId}`);
-    console.log("data", res.data);
     dispatch({ type: REALLY_GET_ALL_POSTS, payload: res.data });
   } catch (error) {
     console.log(error.message);

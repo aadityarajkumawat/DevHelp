@@ -1,42 +1,46 @@
 import React from "react";
 import { connect } from "react-redux";
+import * as S from "@chakra-ui/react";
 
 const UserProfile = ({ profile, post }) => {
   return (
-    <div className="profile-container-main">
-      <div className="profile-container">
-        <div className="profile-ksi">
-          <img
+    <S.Flex>
+      <S.Flex flexDir="column" alignItems="center">
+        <S.Flex flexDir="column" alignItems="center">
+          <S.Image
             src={profile.thatProfile ? profile.thatProfile.image : "#"}
-            alt=""
+            alt="user"
+            w="200px"
+            h="200px"
+            borderRadius="100%"
           />
-          <div className="that-user-data">
+          <S.Flex flexDirection="column" alignItems="center">
             <div className="that-user-name">
               <strong>{post.openedPost.name}</strong>
             </div>
             <div>{profile.thatProfile ? profile.thatProfile.bio : ""}</div>
             <div>{profile.thatProfile ? profile.thatProfile.country : ""}</div>
-            <div className="user-posts-hh">User Posts</div>
-            {post.reallyAllPosts && (
-              <div className="posts-ii-list">
-                {post.reallyAllPosts.map((post) => (
-                  <div className="post-ii">
-                    <div className="post-ii-img">
-                      <img src={post.image} />
-                    </div>
-                    <div className="post-ii-heading">{post.heading}</div>
-                    <div className="post-ii-info">
-                      <div>likes: {post.likes && post.likes.length}</div>
-                      <div>comment: 2</div>
-                    </div>
-                  </div>
-                ))}
+          </S.Flex>
+        </S.Flex>
+        <div className="user-posts-hh">User Posts</div>
+        {post.reallyAllPosts && (
+          <div className="posts-ii-list">
+            {post.reallyAllPosts.map((post) => (
+              <div className="post-ii">
+                <div className="post-ii-img">
+                  <img src={post.image} />
+                </div>
+                <div className="post-ii-heading">{post.heading}</div>
+                <div className="post-ii-info">
+                  <div>likes: {post.likes && post.likes.length}</div>
+                  <div>comment: 2</div>
+                </div>
               </div>
-            )}
+            ))}
           </div>
-        </div>
-      </div>
-    </div>
+        )}
+      </S.Flex>
+    </S.Flex>
   );
 };
 

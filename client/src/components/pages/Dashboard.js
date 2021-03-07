@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { removeNav } from "../../actions/navAction";
 import { clearPost } from "../../actions/getPostAction";
-import DashboardSideBar from "./DashboardSideBar";
 import DashboardHome from "./DashboardHome";
 import { Flex } from "@chakra-ui/react";
+import { useRouteMatch } from "react-router-dom";
 
 const Dashboard = ({ removeNav, clearPost, history }) => {
   useEffect(() => {
@@ -14,9 +14,12 @@ const Dashboard = ({ removeNav, clearPost, history }) => {
     // eslint-disable-next-line
   }, []);
 
+  const match = useRouteMatch();
+  console.log({ match });
+
   return (
     <Flex>
-      <DashboardHome routing={history} />
+      <DashboardHome routing={history} user={match} />
     </Flex>
   );
 };
