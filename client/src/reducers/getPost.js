@@ -16,6 +16,7 @@ import {
   CLEAN_POST_ACTION,
   DELETE_POST,
   REALLY_GET_ALL_POSTS,
+  SAVE_POST_TOAST,
 } from "../actions/types";
 
 const initialState = {
@@ -34,6 +35,7 @@ const initialState = {
   imageUploaded: false,
   arePosts: true, //check weather are there some posts
   deletedStatus: "",
+  savedToast: false,
 };
 
 const postReducer = (state = initialState, action) => {
@@ -141,6 +143,11 @@ const postReducer = (state = initialState, action) => {
         postID: "",
         imageUploaded: false,
         arePosts: true,
+      };
+    case SAVE_POST_TOAST:
+      return {
+        ...state,
+        savedToast: action.payload,
       };
     default:
       return state;

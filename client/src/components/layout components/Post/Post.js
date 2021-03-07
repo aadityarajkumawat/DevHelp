@@ -53,17 +53,6 @@ const Post = ({
     // eslint-disable-next-line
   }, [currentPost, openedPost]);
 
-  /*
-    * The effect will get the like info from backend upon
-    * any change in liked status when liked: -- Likes47658936478563,
-    * else Unliked834658946873, and also when the postID is recieved,
-    * the postID is required to make the req to the backend
-    ! Both dependencies are important and completly tested
-    ? The [likedPost.length] is required bcoz ->> this handels the
-    ? setLik when we actually get the filled array, else the array
-    ? is empty tough the request id already been made, the liked post
-    ? array the [lik] was still empty ;) 
-    */
   useEffect(() => {
     if (auth !== undefined && auth.user !== null) {
       getLikedPosts(auth.user._id, post._id);
@@ -86,13 +75,6 @@ const Post = ({
     }
   }, [comment.commentToast]);
 
-  /*
-     * This onClick Function, request the backend to
-     * register the like by user and save it to DB
-     ? I have used the if check on post just to be sure
-     ? whether we have got the post and handel preload
-     ? events
-  */
   const likeThisPost = () => {
     if (post && auth.isAuthenticated) {
       likePost(post._id);

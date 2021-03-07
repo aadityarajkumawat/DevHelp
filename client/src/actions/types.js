@@ -47,3 +47,4 @@ export const GET_COMMENTS = "GET_COMMENTS";
 export const DISPATCH_POPUP = "DISPATCH_POPUP";
 export const REMOVE_POPUP = "REMOVE_POPUP";
 export const COMMENT_TOAST = "COMMENT_TOAST";
+export const SAVE_POST_TOAST = "SAVE_POST_TOAST";

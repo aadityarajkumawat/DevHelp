@@ -7,6 +7,8 @@ import {
 } from "../../../actions/getPostAction";
 import { convertToRaw, Editor, EditorState, RichUtils } from "draft-js";
 import { dispatchPopup } from "../../../actions/popupAction";
+import * as S from "@chakra-ui/react";
+import styled from "styled-components";
 
 const PostEditor = ({
   uploadPost,
@@ -76,24 +78,20 @@ const PostEditor = ({
   };
 
   return (
-    <div className="d-flex flex-column editor-container-compose">
-      <div className="img-upload">
-        <input
+    <S.Flex flexDir="column" px="300px" w="100%">
+      <S.Flex>
+        <S.Input
           type="file"
           name="file"
           id="file"
           className="custom-file-input"
           onChange={addFile}
+          w="250px"
         />
-        <div className="custom-upload post-post-btn">Upload Image</div>
-        {upload === "Uploading..." && (
-          <div className="img-loader">
-            <div className="the-moving-grad"></div>
-          </div>
-        )}
-      </div>
-      <div className="d-flex justify-content-center compose-heading">
-        <input
+        {upload === "Uploading..." && <div>uploading...</div>}
+      </S.Flex>
+      <S.Flex mt="20px" w="100%">
+        <S.Input
           type="text"
           placeholder="Title"
           spellCheck="false"
@@ -101,19 +99,42 @@ const PostEditor = ({
           value={heading}
           onChange={handleHeadingChange}
         />
-      </div>
-      <Editor
-        editorState={editorState}
-        onChange={setEditorState}
-        handleKeyCommand={handleKeyCommand}
-        className="the-main-editor"
-      />
-      <button className="post-post-btn" onClick={handleSave}>
-        <span>{post.uploadedStatus ? "" : "Post"}</span>
-      </button>
-    </div>
+      </S.Flex>
+      <S.Box
+        boxShadow="base"
+        my="30px"
+        mt="15px"
+        rounded="md"
+        border="2px solid #00000020"
+      >
+        <EditorWrapper>
+          <Editor
+            editorState={editorState}
+            onChange={setEditorState}
+            handleKeyCommand={handleKeyCommand}
+            className="the-main-editor"
+          />
+        </EditorWrapper>
+      </S.Box>
+      <S.Button w="250px" onClick={handleSave}>
+        <S.Text>{post.uploadedStatus ? "" : "Post"}</S.Text>
+      </S.Button>
+    </S.Flex>
   );
 };
+
+const EditorWrapper = styled.div`
+  .DraftEditor-root {
+    .DraftEditor-editorContainer {
+      .public-DraftEditor-content div {
+        margin: 20px;
+        div {
+          margin: 0;
+        }
+      }
+    }
+  }
+`;
 
 const mapStateToProps = (state) => {
   return {

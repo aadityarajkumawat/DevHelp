@@ -8,7 +8,15 @@ import {
 import PostPlaceHolder from "../../PostPlaceHolder";
 import { getAdminPrivilages } from "../../../../actions/adminPrivilagesAction";
 import OptionsMenu from "../../OptionsMenu";
-import { Avatar, AvatarBadge, Box, Flex, Image, Text } from "@chakra-ui/react";
+import {
+  Avatar,
+  AvatarBadge,
+  Box,
+  Flex,
+  Image,
+  Text,
+  useToast,
+} from "@chakra-ui/react";
 
 const TrendingItem = ({
   post,
@@ -16,7 +24,7 @@ const TrendingItem = ({
   trending: { loading },
   routing,
   by,
-  postRedu: { loadingUserPosts, savedPosts, status },
+  postRedu: { loadingUserPosts, savedPosts, status, savedToast },
   getAdminPrivilages,
   adminPrivilages,
   savePost,
@@ -85,6 +93,7 @@ const TrendingItem = ({
 
     // eslint-disable-next-line
   }, [loadingUNI, loadingUserPosts, loading]);
+
 
   const openOptionsMenu = () => {
     setOpenOptions((prev) => !prev);

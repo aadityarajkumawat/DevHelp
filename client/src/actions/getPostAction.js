@@ -15,6 +15,7 @@ import {
   RESET_IMAGE_UPLOAD,
   CLEAN_POST_ACTION,
   REALLY_GET_ALL_POSTS,
+  SAVE_POST_TOAST,
 } from "../actions/types";
 import axios from "axios";
 import { loadUser } from "./authAction";
@@ -100,6 +101,10 @@ export const savePost = (post_id) => async (dispatch) => {
     if (post_id !== undefined) {
       const res = await axios.post(`/api/save/${post_id}`);
       dispatch({ type: TOGGLE_SAVE_POST, payload: res.data });
+      dispatch({ type: SAVE_POST_TOAST, payload: true });
+      setTimeout(() => {
+        dispatch({ type: SAVE_POST_TOAST, payload: false });
+      }, 5000);
     }
   } catch (err) {
     console.log(err);
