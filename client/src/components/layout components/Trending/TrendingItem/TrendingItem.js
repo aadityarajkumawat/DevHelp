@@ -8,7 +8,7 @@ import {
 import PostPlaceHolder from "../../PostPlaceHolder";
 import { getAdminPrivilages } from "../../../../actions/adminPrivilagesAction";
 import OptionsMenu from "../../OptionsMenu";
-import { Box, Flex, Image, Text } from "@chakra-ui/react";
+import { Avatar, AvatarBadge, Box, Flex, Image, Text } from "@chakra-ui/react";
 
 const TrendingItem = ({
   post,
@@ -95,7 +95,13 @@ const TrendingItem = ({
   };
 
   return (
-    <Flex flexDirection="column" mx="30px" cursor="pointer">
+    <Flex
+      flexDirection="column"
+      mr="60px"
+      cursor="pointer"
+      boxShadow="base"
+      rounded="md"
+    >
       <Flex onClick={post !== undefined ? openPost : null}>
         <Image
           src={post && post.image}
@@ -112,9 +118,6 @@ const TrendingItem = ({
         <Flex
           style={styleForHeading}
           justifyContent="space-between"
-          bg="#eee"
-          borderBottomLeftRadius="5px"
-          borderBottomRightRadius="5px"
           px="10px"
           py="5px"
         >

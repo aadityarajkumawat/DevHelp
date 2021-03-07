@@ -22,7 +22,6 @@ export const uploadProfilePhoto = (formData) => async (dispatch) => {
 
 export const loadProfile = () => async (dispatch) => {
   try {
-    console.log(typeof dispatch);
     if (localStorage.getItem("token")) {
       const res = await Axios.get("/api/profile");
       dispatch({ type: GET_PROFILE, payload: res.data });

@@ -54,9 +54,6 @@ const profileReducer = (state = initialState, action) => {
     case CLEAN_PROFILE_ACTION:
       return {
         ...state,
-        profile: {},
-        recievedProfile: false,
-        backdrop: false,
         editProfileRes: false,
       };
     case SET_SAVING_STATUS:

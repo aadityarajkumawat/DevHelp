@@ -1,15 +1,25 @@
 import React from "react";
 import UserPost from "./user-post/UserPost";
 import Profile from "./profile/Profile";
-import HamMenu from "./HamMenu";
+import { Flex, Box, Text } from "@chakra-ui/react";
+import DashboardSideBar from "./DashboardSideBar";
 
 const DashboardHome = ({ routing }) => {
   return (
-    <div className="d-flex flex-column user-data-dash">
-      <h2>Dashboard</h2>
+    <Flex flexDir="column" pt="2rem" px="6rem" w="100vw">
+      <Flex justifyContent='flex-start' alignItems='center'>
+        <Box>
+          <DashboardSideBar />
+        </Box>
+        <Box>
+          <Text fontSize="25px" fontWeight="600">
+            Dashboard
+          </Text>
+        </Box>
+      </Flex>
       <Profile />
       <UserPost routing={routing} />
-    </div>
+    </Flex>
   );
 };
 

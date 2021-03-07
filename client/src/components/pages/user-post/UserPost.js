@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import TrendingItem from "../../layout components/Trending/TrendingItem/TrendingItem";
 import { getUserPosts } from "../../../actions/getPostAction";
 import { getAdminPrivilages } from "../../../actions/adminPrivilagesAction";
+import { Flex, Heading } from "@chakra-ui/react";
 
 const UserPost = ({
   post,
@@ -24,12 +25,10 @@ const UserPost = ({
     // eslint-disable-next-line
   }, [auth.user, post.userPosts.length, auth.isAuthenticated]);
 
-  //* When a post is removed
   useEffect(() => {
     getUserPosts(auth.user._id);
   }, [post.deletedStatus]);
 
-  //* Get admin privilages
   useEffect(() => {
     getAdminPrivilages(true);
     // eslint-disable-next-line
@@ -42,10 +41,9 @@ const UserPost = ({
     return true;
   };
   return (
-    <div className="d-flex flex-column user-posts">
-      <h2>Your Recent Posts</h2>
-      {/* map the posts array over the TrendingItem component */}
-      <div className="d-flex postss">
+    <Flex flexDir='column'>
+      <Heading as="h2" fontSize='23' mb='1rem' mt='2rem'>Your Recent Posts</Heading>
+      <Flex>
         {posts.length > 0 ? (
           posts.map((post) => (
             <TrendingItem
@@ -65,8 +63,8 @@ const UserPost = ({
         ) : (
           <div>No Posts</div>
         )}
-      </div>
-    </div>
+      </Flex>
+    </Flex>
   );
 };
 
