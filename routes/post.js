@@ -4,6 +4,7 @@ const auth = require("../middleware/auth");
 const { check, validationResult } = require("express-validator");
 const Post = require("../models/Post");
 const User = require("../models/User");
+const mongoose = require("mongoose");
 
 // @REQ     POST api/post
 // @DESC    upload a post --> after image is uploaded
@@ -274,6 +275,16 @@ router.delete("/:post_id", auth, async (req, res) => {
 router.get("/", async (req, res) => {
   try {
     const posts = await Post.find({}).limit(4);
+    res.status(200).json(posts);
+  } catch (err) {
+    console.error(err.message);
+    res.send("Server Error!");
+  }
+});
+
+router.get("/5fc4c6a6cf07d202383aadcf", async (req, res) => {
+  try {
+    const posts = await Post.find({}).limit(5);
     res.status(200).json(posts);
   } catch (err) {
     console.error(err.message);

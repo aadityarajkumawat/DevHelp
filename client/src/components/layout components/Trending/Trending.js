@@ -1,8 +1,10 @@
 import React, { useState, useEffect, Fragment } from "react";
-import { Flex, useToast } from "@chakra-ui/react";
+import { Flex, useToast, Wrap, WrapItem } from "@chakra-ui/react";
 import { connect } from "react-redux";
 import { getTrendingPosts } from "../../../actions/trendingAction";
 import TrendingItem from "./TrendingItem/TrendingItem";
+import styled from "styled-components";
+import { useMediaQuery } from "@chakra-ui/react";
 
 const Trending = ({
   getTrendingPosts,
@@ -11,6 +13,7 @@ const Trending = ({
   post,
 }) => {
   const [posts, setPosts] = useState([]);
+  const [isLargerThan500] = useMediaQuery("(min-width: 500px)");
   const toast = useToast();
 
   useEffect(() => {
@@ -52,28 +55,46 @@ const Trending = ({
   }, [post.savedToast]);
 
   return (
-    <Flex justifyContent="center" mt="0rem">
-      {posts.length > 0 ? (
-        posts.map((post) => (
-          <TrendingItem
-            key={post._id}
-            post={post}
-            routing={routing}
-            by={"home"}
-            forComp="home-trend"
-          />
-        ))
-      ) : (
-        <Fragment>
-          <TrendingItem />
-          <TrendingItem />
-          <TrendingItem />
-          <TrendingItem />
-        </Fragment>
-      )}
-    </Flex>
+    <ItemWrapper>
+      <Wrap
+        mt={isLargerThan500 ? "0rem" : "1rem"}
+        px={isLargerThan500 ? "100px" : "0"}
+      >
+        {posts.length > 0 ? (
+          posts.map((post) => (
+            <WrapItem>
+              <TrendingItem
+                key={post._id}
+                post={post}
+                routing={routing}
+                by={"home"}
+                forComp="home-trend"
+              />
+            </WrapItem>
+          ))
+        ) : (
+          <Fragment>
+            <TrendingItem />
+            <TrendingItem />
+            <TrendingItem />
+            <TrendingItem />
+          </Fragment>
+        )}
+      </Wrap>
+    </ItemWrapper>
   );
 };
+
+const ItemWrapper = styled.div`
+  div {
+    ul {
+      margin: 0;
+      max-width: 1700px;
+      justify-content: space-between;
+      justify-content: center;
+    }
+  }
+`;
 
 const mapStateToProps = (state) => {
   return {

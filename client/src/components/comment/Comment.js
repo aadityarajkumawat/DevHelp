@@ -14,6 +14,8 @@ const Comment = ({
   post,
 }) => {
   const [comments, setComments] = useState([]);
+  const [i] = S.useMediaQuery("(min-width: 500px)");
+
   useEffect(() => {
     if (post_id) {
       getComments(post_id);
@@ -41,7 +43,7 @@ const Comment = ({
         )}
       </S.Flex>
       {comments.length > 0 ? (
-        <S.Box mt="40px">
+        <S.Box mt={i ? "40px" : ""}>
           {comments.map((cmt) => (
             <CommentItem
               username={cmt.nameOfUser}

@@ -13,8 +13,9 @@ import { reallyGetAllPosts } from "../../../actions/getPostAction";
 import { postComment } from "../../../actions/commentAction";
 import Comment from "../../comment/Comment";
 import * as S from "@chakra-ui/react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { useToast } from "@chakra-ui/react";
+import { useMediaQuery } from "@chakra-ui/react";
 
 const Post = ({
   post: { currentPost, openedPost, likedStatus, likedPost },
@@ -32,6 +33,7 @@ const Post = ({
   const [lik, setLik] = useState([]);
   const [post, setPost] = useState({});
   const toast = useToast();
+  const [isLargerThan500] = useMediaQuery("(min-width: 500px)");
 
   useEffect(() => {
     showNav();
@@ -104,15 +106,19 @@ const Post = ({
 
   return (
     <React.Fragment>
-      <S.Flex flexDir="column" px="400px">
-        <S.Heading fontSize="80" color="gray.900">
+      <S.Flex
+        flexDir="column"
+        px={isLargerThan500 ? "400px" : "50px"}
+        w="100vw"
+      >
+        <S.Heading fontSize={["35", "50", "80"]} color="gray.900">
           {post.heading}
         </S.Heading>
         <S.Flex flexDir="column">
           {openedPost.user ? (
             <S.Box
               onClick={getThatP}
-              fontSize="23px"
+              fontSize={["15px", "23px"]}
               color="gray.700"
               mb="10px"
             >
@@ -122,7 +128,7 @@ const Post = ({
             <span>No id</span>
           )}
           <S.Flex alignItems="center" mb="10px">
-            <S.Text fontSize="18">{"7min"}</S.Text>
+            <S.Text fontSize={["15", "18"]}>{"7min"}</S.Text>
             <span
               style={{
                 width: "5px",
@@ -138,7 +144,7 @@ const Post = ({
               style={
                 likedBtn()
                   ? { color: "rgb(255, 0, 106)", fontSize: "25px" }
-                  : { fontSize: "25px" }
+                  : { fontSize: isLargerThan500 ? "25px" : "" }
               }
             ></i>
           </S.Flex>
@@ -148,18 +154,25 @@ const Post = ({
             src={post && `${post.image}`}
             fallbackSrc="https://i.ibb.co/RBT25fY/default-fallback-image.png"
             alt="post"
-            style={{ width: "100%", height: "600px" }}
+            style={{
+              width: isLargerThan500 ? "100%" : "300px",
+              height: isLargerThan500 ? "600px" : "auto",
+            }}
           />
         </S.Flex>
         <S.Flex mt="30px">
           {post.content && (
-            <TurnIn>
+            <TurnIn isLargerThan500>
               <ParsedData draftJSRawData={post.content.toString()} />
             </TurnIn>
           )}
         </S.Flex>
-        <S.Divider my="60px" />
-        <S.Box fontSize="24px" fontWeight="600" mb="15px">
+        <S.Divider my={isLargerThan500 ? "60px" : "20px"} />
+        <S.Box
+          fontSize={isLargerThan500 ? "24px" : "18px"}
+          fontWeight="600"
+          mb="15px"
+        >
           Comments
         </S.Box>
         <Comment auth={auth} post_id={currentPost} />
@@ -175,6 +188,16 @@ const TurnIn = styled.div`
       font-size: 25px;
     }
   }
+
+  ${(props) =>
+    props.isLargerThan500 &&
+    css`
+      div {
+        span {
+          font-size: 16px;
+        }
+      }
+    `}
 `;
 
 const mapStateToProps = (state) => {

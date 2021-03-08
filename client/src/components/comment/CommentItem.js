@@ -2,8 +2,14 @@ import React from "react";
 import * as S from "@chakra-ui/react";
 
 const CommentItem = ({ username, src, comment_msg }) => {
+  const [i] = S.useMediaQuery("(min-width: 500px)");
   return (
-    <S.Flex flexDir="column" justifyContent="center" h="80px" w="500px">
+    <S.Flex
+      flexDir="column"
+      justifyContent="center"
+      h="80px"
+      w={i ? "500px" : ""}
+    >
       <S.Flex>
         <S.Flex justifyContent="center" alignItems="center">
           <S.Image src={src} borderRadius="100%" w="40px" h="40px" />

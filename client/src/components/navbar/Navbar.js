@@ -20,7 +20,9 @@ import {
   MenuList,
   Portal,
   Text,
+  useMediaQuery,
 } from "@chakra-ui/react";
+import { Fragment } from "react";
 
 const Navbar = ({
   navbar,
@@ -32,6 +34,7 @@ const Navbar = ({
   cleanGetPostAction,
   cleanProfile,
 }) => {
+  const [isLargerThan500] = useMediaQuery("(min-width: 500px)");
   useEffect(() => {
     if (!isEmpty(profile)) {
       loadProfile();
@@ -53,19 +56,23 @@ const Navbar = ({
           <Text fontSize="20px">DevHelp</Text>
         </Link>
         <Flex justifyContent="center" alignItems="center">
-          <Flex justifyContent="center" alignItems="center">
-            <Box ml="20px">
-              <i className="fas fa-search"></i>
-            </Box>
-            <Box ml="20px">
-              <i className="far fa-bookmark"></i>
-            </Box>
-          </Flex>
-          <Box ml="20px">
-            <Button variant="outline" h="30px">
-              Upgrade
-            </Button>
-          </Box>
+          {isLargerThan500 && (
+            <Fragment>
+              <Flex justifyContent="center" alignItems="center">
+                <Box ml="20px">
+                  <i className="fas fa-search"></i>
+                </Box>
+                <Box ml="20px">
+                  <i className="far fa-bookmark"></i>
+                </Box>
+              </Flex>
+              <Box ml="20px">
+                <Button variant="outline" h="30px">
+                  Upgrade
+                </Button>
+              </Box>
+            </Fragment>
+          )}
           <Box ml="20px">
             <Menu>
               <MenuButton className="nn">
@@ -86,14 +93,35 @@ const Navbar = ({
                       <Link to="/login">Login</Link>
                     </MenuItem>
                   )}
-                  <MenuItem>
-                    <Link to={`/dashboard/home/user/${profile.profile._id}`}>
-                      Dashboard
-                    </Link>
-                  </MenuItem>
-                  <MenuItem>
-                    <Link to="/compose-post">Compose Post</Link>
-                  </MenuItem>
+                  {isAuthenticated && (
+                    <Fragment>
+                      <MenuItem>
+                        <Link
+                          to={`/dashboard/home/user/${profile.profile._id}`}
+                        >
+                          Dashboard
+                        </Link>
+                      </MenuItem>
+                      <MenuItem>
+                        <Link to="/compose-post">Compose Post</Link>
+                      </MenuItem>
+                    </Fragment>
+                  )}
+                  {!isLargerThan500 && (
+                    <Fragment>
+                      <MenuItem>
+                        <Box>Search</Box>
+                      </MenuItem>
+                      {isAuthenticated && (
+                        <MenuItem>
+                          <Box>Bookmarks</Box>
+                        </MenuItem>
+                      )}
+                      <MenuItem>
+                        <Box>Upgrade</Box>
+                      </MenuItem>
+                    </Fragment>
+                  )}
                   {isAuthenticated && (
                     <MenuItem onClick={logMeOut}>
                       <Link to="/">Logout</Link>

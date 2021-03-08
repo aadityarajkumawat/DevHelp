@@ -4,6 +4,7 @@ import { login } from "../../actions/authAction";
 import { removeNav } from "../../actions/navAction";
 import { loadProfile } from "../../actions/profileAction";
 import { Link } from "react-router-dom";
+import i from "../../utils/mediaQ";
 
 // Assets import
 import auth from "../../assets/auth.jpg";
@@ -66,7 +67,7 @@ const Login = ({
 
   return (
     <Fragment>
-      <Box w="calc(100% - 700px)">
+      <Box w={i() ? "calc(100% - 700px)" : ""}>
         <Flex alignItems="center" flexDirection="column" pt="2.5rem">
           <Heading as="h1">Welcome to DevHelp</Heading>
           <Text color="#00000080">
@@ -79,7 +80,7 @@ const Login = ({
         </Flex>
         <Alert />
         <Flex flexDirection="column" alignItems="center">
-          <HStack mb="1rem" w="450px">
+          <HStack mb="1rem" w={i() ? "450px" : ""}>
             <Box>
               <i className="fas fa-envelope"></i>
             </Box>
@@ -123,15 +124,17 @@ const Login = ({
           </Link>
         </Flex>
       </Box>
-      <Box>
-        <Image
-          src={auth}
-          alt="random"
-          width="700px"
-          height="100vh"
-          maxWidth="700px"
-        />
-      </Box>
+      {i() && (
+        <Box>
+          <Image
+            src={auth}
+            alt="random"
+            width="700px"
+            height="100vh"
+            maxWidth="700px"
+          />
+        </Box>
+      )}
     </Fragment>
   );
 };

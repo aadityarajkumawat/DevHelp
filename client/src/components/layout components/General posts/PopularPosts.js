@@ -1,13 +1,28 @@
-import { Flex, Heading, Text } from "@chakra-ui/react";
-import React from "react";
+import { Flex, Heading, Text, useMediaQuery } from "@chakra-ui/react";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import { fetchPopularPosts } from "../../../actions/getPostAction";
 
-const PopularPosts = () => {
+const PopularPosts = ({ fetchPopularPosts }) => {
+  const [isLargerThan500] = useMediaQuery("(min-width: 500px)");
+
+  useEffect(() => {
+    fetchPopularPosts();
+  }, []);
+
   return (
-    <Flex flexDirection='column' px='100px' mt='3rem'>
+    <Flex
+      flexDirection={"column"}
+      px={isLargerThan500 ? "100px" : "50px"}
+      mt={isLargerThan500 ? "3rem" : ""}
+    >
       <Heading as="h1">Popular Posts</Heading>
-      <Text>No posts available</Text>
     </Flex>
   );
 };
 
-export default PopularPosts;
+const mapStateToProps = (states) => ({
+  posts: states.posts,
+});
+
+export default connect(mapStateToProps, { fetchPopularPosts })(PopularPosts);

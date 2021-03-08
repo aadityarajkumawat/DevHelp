@@ -106,7 +106,7 @@ const TrendingItem = ({
   return (
     <Flex
       flexDirection="column"
-      mr="60px"
+      mx="30px"
       cursor="pointer"
       boxShadow="base"
       rounded="md"

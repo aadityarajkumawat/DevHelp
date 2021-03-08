@@ -157,3 +157,13 @@ export const clearPostID = () => (dispatch) => {
 export const cleanGetPostAction = () => (dispatch) => {
   dispatch({ type: CLEAN_POST_ACTION });
 };
+
+export const fetchPopularPosts = () => async (dispatch) => {
+  try {
+    const res = await axios.get("/api/post/5fc4c6a6cf07d202383aadcf");
+    console.log(res.data);
+    // dispatch({ type: , payload: res.data });
+  } catch (err) {
+    console.log("Error Fetching All Articles");
+  }
+};
