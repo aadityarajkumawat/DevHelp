@@ -70,7 +70,12 @@ const Login = ({
       <Box w={i() ? "calc(100% - 700px)" : ""}>
         <Flex alignItems="center" flexDirection="column" pt="2.5rem">
           <Heading as="h1">Welcome to DevHelp</Heading>
-          <Text color="#00000080">
+          <Text
+            color="#00000080"
+            px={i() ? "" : "60px"}
+            fontSize={i() ? "" : "14px"}
+            textAlign="center"
+          >
             DevHelp has a pool of highly experienced developers in their
             respective tech stacks
           </Text>
@@ -80,7 +85,7 @@ const Login = ({
         </Flex>
         <Alert />
         <Flex flexDirection="column" alignItems="center">
-          <HStack mb="1rem" w={i() ? "450px" : ""}>
+          <HStack mb="1rem" w={i() ? "450px" : "280px"}>
             <Box>
               <i className="fas fa-envelope"></i>
             </Box>
@@ -92,7 +97,7 @@ const Login = ({
               onChange={onChange}
             />
           </HStack>
-          <HStack mb="1rem" w="450px">
+          <HStack mb="1rem" w={i() ? "450px" : "280px"}>
             <Box>
               <i className="fas fa-lock"></i>
             </Box>
@@ -108,7 +113,7 @@ const Login = ({
             isLoading={loading}
             loadingText="Logging In"
             colorScheme="blackAlpha"
-            w="450px"
+            w={i() ? "450px" : "280px"}
             type="submit"
             onClick={onSubmit}
           >
