@@ -1,8 +1,8 @@
 import {
   Alert as A,
+  AlertDescription,
   AlertIcon,
   AlertTitle,
-  AlertDescription,
 } from "@chakra-ui/react";
 import React from "react";
 import { connect } from "react-redux";
