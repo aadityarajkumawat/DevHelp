@@ -97,17 +97,20 @@ const TrendingItem = ({
   return (
     <Flex
       flexDirection="column"
-      mx="30px"
+      mr="30px"
       cursor="pointer"
       rounded="md"
       border="2px solid #a6a6a690"
+      w="100%"
+      maxWidth="300px"
     >
       <Flex onClick={post !== undefined ? openPost : null}>
         <Image
           src={post && post.image}
           fallbackSrc="https://i.ibb.co/RBT25fY/default-fallback-image.png"
-          w="300px"
+          w="100%"
           h="170px"
+          objectFit="cover"
           alt="post"
           borderTopLeftRadius="5px"
           borderTopRightRadius="5px"

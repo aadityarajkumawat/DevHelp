@@ -15,7 +15,6 @@ const PopularPosts = ({ fetchPopularPosts }) => {
       flexDirection={"column"}
       px={isLargerThan500 ? "100px" : "50px"}
       mt={isLargerThan500 ? "3rem" : ""}
-      ml="30px"
     >
       <Heading as="h1">Popular Posts</Heading>
     </Flex>

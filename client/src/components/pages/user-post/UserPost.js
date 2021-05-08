@@ -1,9 +1,9 @@
+import { Flex, Grid, Heading } from "@chakra-ui/react";
 import React, { Fragment, useEffect, useState } from "react";
 import { connect } from "react-redux";
-import TrendingItem from "../../layout components/Trending/TrendingItem/TrendingItem";
-import { getUserPosts } from "../../../actions/getPostAction";
 import { getAdminPrivilages } from "../../../actions/adminPrivilagesAction";
-import { Flex, Heading } from "@chakra-ui/react";
+import { getUserPosts } from "../../../actions/getPostAction";
+import TrendingItem from "../../layout components/Trending/TrendingItem/TrendingItem";
 
 const UserPost = ({
   post,
@@ -41,11 +41,11 @@ const UserPost = ({
     return true;
   };
   return (
-    <Flex flexDir="column">
+    <Flex flexDir="column" px="1rem">
       <Heading as="h2" fontSize="23" mb="1rem" mt="2rem">
         Your Recent Posts
       </Heading>
-      <Flex>
+      <Grid templateColumns="repeat(2, 1fr)" gap={6}>
         {posts.length > 0 ? (
           posts.map((post) => (
             <TrendingItem
@@ -65,7 +65,7 @@ const UserPost = ({
         ) : (
           <div>No Posts</div>
         )}
-      </Flex>
+      </Grid>
     </Flex>
   );
 };

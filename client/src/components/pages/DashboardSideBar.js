@@ -1,23 +1,22 @@
-import React, { Fragment } from "react";
 import * as S from "@chakra-ui/react";
-import { Link } from "react-router-dom";
-import { logout } from "../../actions/authAction";
+import React, { Fragment } from "react";
 import { connect } from "react-redux";
-import Logo from "../../assets/favicon.svg";
-import { toggleSlideMenu } from "../../actions/slideMenu";
+import { Link } from "react-router-dom";
 import { cleanAdminPrivilages } from "../../actions/adminPrivilagesAction";
+import { logout } from "../../actions/authAction";
 import { cleanGetPostAction } from "../../actions/getPostAction";
 import { cleanProfile } from "../../actions/profileAction";
-import { MdMenu } from "react-icons/md";
+import { toggleSlideMenu } from "../../actions/slideMenu";
+import Logo from "../../assets/favicon.svg";
 
 const DashboardSideBar = ({}) => {
   const { isOpen, onOpen, onClose } = S.useDisclosure();
 
   return (
     <Fragment>
-      <S.Box onClick={onOpen} mr="4">
+      {/* <S.Box onClick={onOpen} mr="4">
         <S.Icon as={MdMenu} fontSize="3xl" />
-      </S.Box>
+      </S.Box> */}
       <S.Drawer placement={"left"} onClose={onClose} isOpen={isOpen}>
         <S.DrawerOverlay>
           <S.DrawerContent>

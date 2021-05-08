@@ -1,7 +1,7 @@
 {
-    "mongoURI": "mongodb+srv://aaditya:aaditya@cluster0-y7xwy.mongodb.net/<dbname>?retryWrites=true&w=majority",
-    "jwt": "secret",
-    "cloudinaryApiKey": "349325875226191",
-    "cloudinaryApiSecret": "vFF7WZWOqo7G3Ohu45faGrUHNSE",
-    "cloudName": "devhelp"
+  "mongoURI": "mongodb+srv://aaditya:aaditya@cluster0-y7xwy.mongodb.net/<dbname>?retryWrites=true&w=majority",
+  "jwt": "secret",
+  "cloudinaryApiKey": "349325875226191",
+  "cloudinaryApiSecret": "vFF7WZWOqo7G3Ohu45faGrUHNSE",
+  "cloudName": "devhelp"
 }

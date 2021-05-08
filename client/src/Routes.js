@@ -1,14 +1,14 @@
 import React, { Fragment } from "react";
-import Register from "./components/auth/Register";
-import Login from "./components/auth/Login";
-import PrivateRoute from "./routes/PrivateRoute";
 import { Route } from "react-router-dom";
-import Home from "./components/pages/Home";
-import Post from "./components/layout components/Post/Post";
+import Login from "./components/auth/Login";
+import Register from "./components/auth/Register";
 import PostEditor from "./components/layout components/editor/PostEditor";
+import Post from "./components/layout components/Post/Post";
 import Dashboard from "./components/pages/Dashboard";
+import Home from "./components/pages/Home";
 import SavedPost from "./components/pages/SavedPosts/SavedPost";
 import UserProfile from "./components/pages/user-profile/UserProfile";
+import PrivateRoute from "./routes/PrivateRoute";
 
 const Routes = () => {
   return (

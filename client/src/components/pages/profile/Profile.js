@@ -66,7 +66,7 @@ const Profile = ({
 
   return (
     <React.Fragment>
-      <S.Flex py="2rem">
+      <S.Flex py="2rem" px="1rem" borderBottom="1px solid #a6a6a680">
         <S.Flex>
           <S.Image
             objectFit="cover"
