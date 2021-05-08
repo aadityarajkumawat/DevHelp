@@ -1,8 +1,8 @@
+import { Box, Flex, Text } from "@chakra-ui/react";
 import React from "react";
-import UserPost from "./user-post/UserPost";
-import Profile from "./profile/Profile";
-import { Flex, Box, Text } from "@chakra-ui/react";
 import DashboardSideBar from "./DashboardSideBar";
+import Profile from "./profile/Profile";
+import UserPost from "./user-post/UserPost";
 
 const DashboardHome = ({ routing, user }) => {
   return (

@@ -1,24 +1,24 @@
+import * as S from "@chakra-ui/react";
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import { reallyGetAllPosts } from "../../../actions/getPostAction";
 import {
-  uploadProfilePhoto,
+  cleanProfile,
+  editProfile,
+  getThatProfileE,
   loadProfile,
   toggleBackdrop,
-  editProfile,
-  cleanProfile,
+  uploadProfilePhoto,
 } from "../../../actions/profileAction";
-import * as S from "@chakra-ui/react";
 import isEmpty from "../../../utils/isEmpty";
 import {
+  addProfile,
   onFieldChange,
   saveProfileBtn,
-  addProfile,
   useLoadProfile,
   useSetProfileInSettings,
   useShowToastOnSuccessfulUpdating,
 } from "./profile-functions";
-import { reallyGetAllPosts } from "../../../actions/getPostAction";
-import { getThatProfileE } from "../../../actions/profileAction";
 
 const Profile = ({
   profile,
@@ -49,6 +49,7 @@ const Profile = ({
   let name = "";
   let bio = "";
   let country = "";
+
   if (user.name === "user" && profile.profile.user) {
     imgURL = profile.profile.image;
     name = profile.profile.user.name;
@@ -68,6 +69,7 @@ const Profile = ({
       <S.Flex py="2rem">
         <S.Flex>
           <S.Image
+            objectFit="cover"
             src={imgURL}
             fallbackSrc="https://i.ibb.co/RBT25fY/default-fallback-image.png"
             style={{ width: "150px", height: "150px", borderRadius: "100%" }}
@@ -104,13 +106,7 @@ const Profile = ({
           </S.Flex>
           <S.Flex>
             {user.name === "user" && (
-              <S.Button
-                h="30px"
-                onClick={onOpen}
-                my="5px"
-                fontWeight="normal"
-                colorScheme="blackAlpha"
-              >
+              <S.Button h="30px" onClick={onOpen} my="5px" fontWeight="normal">
                 Edit Profile
               </S.Button>
             )}
@@ -138,6 +134,7 @@ const Profile = ({
                   }}
                   mb="5px"
                   alt="user"
+                  objectFit="cover"
                 />
                 <S.FormLabel>Profile Image</S.FormLabel>
                 <S.Input
