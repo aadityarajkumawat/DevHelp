@@ -1,32 +1,29 @@
+import * as S from "@chakra-ui/react";
+import { Skeleton, useMediaQuery, useToast } from "@chakra-ui/react";
+import { ParsedData } from "draftjs-raw-parser";
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
+import styled, { css } from "styled-components";
+import { postComment } from "../../../actions/commentAction";
 import {
+  getLikedPosts,
   getPost,
   likePost,
-  getLikedPosts,
+  reallyGetAllPosts,
   setCurrentPost,
 } from "../../../actions/getPostAction";
 import { showNav } from "../../../actions/navAction";
-import { ParsedData } from "draftjs-raw-parser";
 import { getThatProfileE } from "../../../actions/profileAction";
-import { reallyGetAllPosts } from "../../../actions/getPostAction";
-import { postComment } from "../../../actions/commentAction";
 import Comment from "../../comment/Comment";
-import * as S from "@chakra-ui/react";
-import styled, { css } from "styled-components";
-import { useToast } from "@chakra-ui/react";
-import { useMediaQuery } from "@chakra-ui/react";
 
 const Post = ({
-  post: { currentPost, openedPost, likedStatus, likedPost },
+  post: { currentPost, openedPost, likedStatus, likedPost, loadingPost },
   getPost,
   likePost,
   getLikedPosts,
   auth,
   showNav,
   history,
-  getThatProfileE,
-  reallyGetAllPosts,
   setCurrentPost,
   comment,
 }) => {
@@ -99,10 +96,10 @@ const Post = ({
   };
 
   const getThatP = () => {
-    // getThatProfileE(openedPost.user);
-    // reallyGetAllPosts(openedPost.user);
     history.push(`/dashboard/home/${openedPost.name}/${openedPost.user}`);
   };
+
+  console.log(openedPost);
 
   return (
     <React.Fragment>
@@ -111,45 +108,53 @@ const Post = ({
         px={isLargerThan500 ? "400px" : "50px"}
         w="100vw"
       >
-        <S.Heading fontSize={["35", "50", "80"]} color="gray.900">
-          {post.heading}
-        </S.Heading>
+        {loadingPost ? (
+          <Skeleton h="80px" mt="30px"></Skeleton>
+        ) : (
+          <S.Heading mt="30px" color="#d6d6d6" fontSize="65px">
+            {post.heading}
+          </S.Heading>
+        )}
         <S.Flex flexDir="column">
           {openedPost.user ? (
             <S.Box
               onClick={getThatP}
               fontSize={["15px", "23px"]}
-              color="gray.700"
+              color="#d6d6d690"
               mb="10px"
             >
               {post.name}
             </S.Box>
           ) : (
-            <span>No id</span>
+            <Skeleton h="30px" w="300px" mt="0.5rem"></Skeleton>
           )}
-          <S.Flex alignItems="center" mb="10px">
-            <S.Text fontSize={["15", "18"]}>{"7min"}</S.Text>
-            <span
-              style={{
-                width: "5px",
-                height: "5px",
-                borderRadius: "100%",
-                backgroundColor: "#454545",
-                margin: "0 10px 0 10px",
-              }}
-            ></span>
-            <i
-              onClick={likeThisPost}
-              className={`fa${likedBtn() ? "s" : "r"} fa-heart`}
-              style={
-                likedBtn()
-                  ? { color: "rgb(255, 0, 106)", fontSize: "25px" }
-                  : { fontSize: isLargerThan500 ? "25px" : "" }
-              }
-            ></i>
-          </S.Flex>
+          {loadingPost ? (
+            <Skeleton h="30px" w="200px" my="0.5rem"></Skeleton>
+          ) : (
+            <S.Flex alignItems="center" mb="10px">
+              <S.Text fontSize={["15", "18"]}>{"7min"}</S.Text>
+              <span
+                style={{
+                  width: "5px",
+                  height: "5px",
+                  borderRadius: "100%",
+                  backgroundColor: "#454545",
+                  margin: "0 10px 0 10px",
+                }}
+              ></span>
+              <i
+                onClick={likeThisPost}
+                className={`fa${likedBtn() ? "s" : "r"} fa-heart`}
+                style={
+                  likedBtn()
+                    ? { color: "rgb(255, 0, 106)", fontSize: "25px" }
+                    : { fontSize: isLargerThan500 ? "25px" : "" }
+                }
+              ></i>
+            </S.Flex>
+          )}
         </S.Flex>
-        <S.Flex>
+        <S.Flex mt="0.5rem">
           <S.Image
             src={post && `${post.image}`}
             fallbackSrc="https://i.ibb.co/RBT25fY/default-fallback-image.png"

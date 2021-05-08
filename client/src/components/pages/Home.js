@@ -1,10 +1,10 @@
+import { Flex } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { showNav } from "../../actions/navAction";
 import { clearPost } from "../../actions/getPostAction";
-import Trending from "../layout components/Trending/Trending";
+import { showNav } from "../../actions/navAction";
 import PopularPosts from "../layout components/General posts/PopularPosts";
-import { Box, Flex } from "@chakra-ui/react";
+import Trending from "../layout components/Trending/Trending";
 
 const Home = ({ showNav, clearPost, history }) => {
   useEffect(() => {
@@ -13,7 +13,7 @@ const Home = ({ showNav, clearPost, history }) => {
     // eslint-disable-next-line
   }, []);
   return (
-    <Flex w="100vw" flexDirection="column">
+    <Flex w="100vw" flexDirection="column" mt="2rem">
       <Trending routing={history} />
       <PopularPosts />
     </Flex>

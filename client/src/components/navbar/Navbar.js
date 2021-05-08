@@ -1,19 +1,8 @@
-import React, { useRef, useEffect } from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { cleanAdminPrivilages } from "../../actions/adminPrivilagesAction";
-import { cleanGetPostAction } from "../../actions/getPostAction";
-import { cleanProfile } from "../../actions/profileAction";
-import { logout } from "../../actions/authAction";
-import { loadProfile } from "../../actions/profileAction";
-import isEmpty from "../../utils/isEmpty";
-import { initDropAnim, resetDropAnim } from "../../actions/framerAction";
 import {
   Box,
   Button,
   Flex,
   Image,
-  ListItem,
   Menu,
   MenuButton,
   MenuItem,
@@ -22,7 +11,15 @@ import {
   Text,
   useMediaQuery,
 } from "@chakra-ui/react";
-import { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { cleanAdminPrivilages } from "../../actions/adminPrivilagesAction";
+import { logout } from "../../actions/authAction";
+import { initDropAnim, resetDropAnim } from "../../actions/framerAction";
+import { cleanGetPostAction } from "../../actions/getPostAction";
+import { cleanProfile, loadProfile } from "../../actions/profileAction";
+import isEmpty from "../../utils/isEmpty";
 
 const Navbar = ({
   navbar,
@@ -50,7 +47,12 @@ const Navbar = ({
   };
 
   return navbar ? (
-    <Flex height="80px" alignItems="center" px="50px">
+    <Flex
+      height="60px"
+      alignItems="center"
+      px="50px"
+      borderBottom="1px solid #a6a6a690"
+    >
       <Flex w="100vw" justifyContent="space-between" alignItems="center">
         <Link to="/">
           <Text fontSize="20px">DevHelp</Text>

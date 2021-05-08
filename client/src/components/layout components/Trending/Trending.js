@@ -1,10 +1,9 @@
-import React, { useState, useEffect, Fragment } from "react";
-import { Flex, useToast, Wrap, WrapItem } from "@chakra-ui/react";
+import { useMediaQuery, useToast, Wrap, WrapItem } from "@chakra-ui/react";
+import React, { Fragment, useEffect, useState } from "react";
 import { connect } from "react-redux";
+import styled from "styled-components";
 import { getTrendingPosts } from "../../../actions/trendingAction";
 import TrendingItem from "./TrendingItem/TrendingItem";
-import styled from "styled-components";
-import { useMediaQuery } from "@chakra-ui/react";
 
 const Trending = ({
   getTrendingPosts,
@@ -90,8 +89,7 @@ const ItemWrapper = styled.div`
     ul {
       margin: 0;
       max-width: 1700px;
-      justify-content: space-between;
-      justify-content: center;
+      justify-content: flex-start;
     }
   }
 `;

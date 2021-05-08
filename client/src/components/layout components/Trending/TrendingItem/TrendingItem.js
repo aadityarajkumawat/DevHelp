@@ -1,22 +1,14 @@
-import React, { useState, useEffect, Fragment } from "react";
+import { Box, Flex, Image, Text } from "@chakra-ui/react";
+import React, { Fragment, useEffect, useState } from "react";
 import { connect } from "react-redux";
-import {
-  setCurrentPost,
-  savePost,
-  getSavedPosts,
-} from "../../../../actions/getPostAction";
-import PostPlaceHolder from "../../PostPlaceHolder";
 import { getAdminPrivilages } from "../../../../actions/adminPrivilagesAction";
-import OptionsMenu from "../../OptionsMenu";
 import {
-  Avatar,
-  AvatarBadge,
-  Box,
-  Flex,
-  Image,
-  Text,
-  useToast,
-} from "@chakra-ui/react";
+  getSavedPosts,
+  savePost,
+  setCurrentPost,
+} from "../../../../actions/getPostAction";
+import OptionsMenu from "../../OptionsMenu";
+import PostPlaceHolder from "../../PostPlaceHolder";
 
 const TrendingItem = ({
   post,
@@ -94,7 +86,6 @@ const TrendingItem = ({
     // eslint-disable-next-line
   }, [loadingUNI, loadingUserPosts, loading]);
 
-
   const openOptionsMenu = () => {
     setOpenOptions((prev) => !prev);
   };
@@ -108,8 +99,8 @@ const TrendingItem = ({
       flexDirection="column"
       mx="30px"
       cursor="pointer"
-      boxShadow="base"
       rounded="md"
+      border="2px solid #a6a6a690"
     >
       <Flex onClick={post !== undefined ? openPost : null}>
         <Image
@@ -129,6 +120,7 @@ const TrendingItem = ({
           justifyContent="space-between"
           px="10px"
           py="5px"
+          bg="#2a2c33"
         >
           <Flex flexDir="column">
             <Text onClick={openPost} fontSize="18px">
@@ -137,17 +129,17 @@ const TrendingItem = ({
                 : post.heading}
             </Text>
             <Flex alignItems="center" mt="10px">
-              <Text color="#696969">{post.name}</Text>
+              <Text>{post.name}</Text>
               <span
                 style={{
                   width: "5px",
                   height: "5px",
                   borderRadius: "100%",
-                  backgroundColor: "#454545",
+                  backgroundColor: "#eee",
                   margin: "0 4px 0 4px",
                 }}
               ></span>
-              <Text color="#696969">7 min</Text>
+              <Text>7 min</Text>
             </Flex>
           </Flex>
           <Box>

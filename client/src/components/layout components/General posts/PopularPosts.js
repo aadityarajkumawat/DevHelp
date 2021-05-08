@@ -1,4 +1,4 @@
-import { Flex, Heading, Text, useMediaQuery } from "@chakra-ui/react";
+import { Flex, Heading, useMediaQuery } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { fetchPopularPosts } from "../../../actions/getPostAction";
@@ -15,6 +15,7 @@ const PopularPosts = ({ fetchPopularPosts }) => {
       flexDirection={"column"}
       px={isLargerThan500 ? "100px" : "50px"}
       mt={isLargerThan500 ? "3rem" : ""}
+      ml="30px"
     >
       <Heading as="h1">Popular Posts</Heading>
     </Flex>

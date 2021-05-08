@@ -32,7 +32,13 @@ router.post(
       post.content = content;
       post.comment = [];
       await post.save();
-      return res.status(200).json(post);
+
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve(res.status(200).json(post));
+        }, 2000);
+      });
+      // return res.status(200).json(post);
     } catch (err) {
       console.error(err.message);
       res.send("Server Error!");
@@ -89,7 +95,11 @@ router.get("/:post_id", async (req, res) => {
   try {
     const post = await Post.findOne({ _id: post_id });
     if (post) {
-      return res.json(post);
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve(res.status(200).json(post));
+        }, 2000);
+      });
     } else {
       return res.json("No Post Found!");
     }
