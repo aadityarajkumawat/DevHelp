@@ -21,6 +21,7 @@ const PostEditor = ({
 }) => {
   const [heading, setHeading] = useState("");
   const [upload, setUpload] = useState("");
+  const [uploadingContent, setUploadingContent] = useState(false);
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
   );
@@ -33,6 +34,13 @@ const PostEditor = ({
   }, [post.imageUploaded]);
 
   useEffect(() => {
+    if (post.uploadedStatus) {
+      setUploadingContent(false);
+      history.push("/");
+    }
+  }, [post.uploadedStatus]);
+
+  useEffect(() => {
     if (upload === "Uploaded!") {
       dispatchPopup("Post Image", "Post image has been uploaded successfully!");
     }
@@ -43,6 +51,7 @@ const PostEditor = ({
       const postRawContent = convertToRaw(editorState.getCurrentContent())
         .blocks;
       if (heading !== "" && post.postID !== undefined) {
+        setUploadingContent(true);
         uploadPost(
           {
             heading: heading,
@@ -52,7 +61,6 @@ const PostEditor = ({
         );
       }
       clearPostID();
-      history.push("/");
     }
   };
 
@@ -119,8 +127,8 @@ const PostEditor = ({
           />
         </EditorWrapper>
       </S.Box>
-      <S.Button w="250px" onClick={handleSave}>
-        <S.Text>{post.uploadedStatus ? "" : "Post"}</S.Text>
+      <S.Button w="250px" onClick={handleSave} isLoading={uploadingContent}>
+        <S.Text>Post</S.Text>
       </S.Button>
     </S.Flex>
   );
