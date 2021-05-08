@@ -1,24 +1,23 @@
-import React, { useState, useEffect, Fragment } from "react";
+import {
+  Box,
+  Button,
+  Flex,
+  Heading,
+  HStack,
+  Image,
+  Input,
+  Text,
+} from "@chakra-ui/react";
+import React, { Fragment, useEffect, useState } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { login } from "../../actions/authAction";
 import { removeNav } from "../../actions/navAction";
 import { loadProfile } from "../../actions/profileAction";
-import { Link } from "react-router-dom";
-import i from "../../utils/mediaQ";
-
 // Assets import
 import auth from "../../assets/auth.jpg";
+import i from "../../utils/mediaQ";
 import Alert from "../alerts/Alert";
-import {
-  Box,
-  Flex,
-  Heading,
-  Image,
-  Text,
-  Input,
-  HStack,
-  Button,
-} from "@chakra-ui/react";
 
 const Login = ({
   auth: { isAuthenticated },
@@ -68,13 +67,14 @@ const Login = ({
   return (
     <Fragment>
       <Box w={i() ? "calc(100% - 700px)" : ""}>
-        <Flex alignItems="center" flexDirection="column" pt="2.5rem">
+        <Flex alignItems="center" flexDirection="column" pt="2.5rem" mt="3rem">
           <Heading as="h1">Welcome to DevHelp</Heading>
           <Text
-            color="#00000080"
             px={i() ? "" : "60px"}
             fontSize={i() ? "" : "14px"}
             textAlign="center"
+            mt="1rem"
+            fontSize="20px"
           >
             DevHelp has a pool of highly experienced developers in their
             respective tech stacks
@@ -112,7 +112,6 @@ const Login = ({
           <Button
             isLoading={loading}
             loadingText="Logging In"
-            colorScheme="blackAlpha"
             w={i() ? "450px" : "280px"}
             type="submit"
             onClick={onSubmit}
@@ -120,7 +119,7 @@ const Login = ({
             Login
           </Button>
         </Flex>
-        <Flex justifyContent="center">
+        <Flex justifyContent="center" mt="2rem">
           New user?{"  "}
           <Link to="sign-up">
             <Text ml="5px" color="#0066ff">

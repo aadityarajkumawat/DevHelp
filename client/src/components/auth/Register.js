@@ -1,23 +1,22 @@
-import React, { useState, useEffect, Fragment } from "react";
-import { connect } from "react-redux";
-import { register } from "../../actions/authAction";
-import { removeNav } from "../../actions/navAction";
-import { Link } from "react-router-dom";
-
-import Alert from "../alerts/Alert";
-
-// Assets import
-import auth from "../../assets/auth.jpg";
 import {
   Box,
+  Button,
   Flex,
   Heading,
-  Image,
-  Text,
-  Input,
   HStack,
-  Button,
+  Image,
+  Input,
+  Text,
 } from "@chakra-ui/react";
+import React, { Fragment, useEffect, useState } from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { register } from "../../actions/authAction";
+import { removeNav } from "../../actions/navAction";
+// Assets import
+import auth from "../../assets/auth.jpg";
+import i from "../../utils/mediaQ";
+import Alert from "../alerts/Alert";
 
 const Register = ({
   auth: { isAuthenticated },
@@ -70,9 +69,15 @@ const Register = ({
   return (
     <Fragment>
       <Box w="calc(100% - 700px)">
-        <Flex alignItems="center" flexDirection="column" pt="2.5rem">
+        <Flex alignItems="center" flexDirection="column" pt="2.5rem" mt="3rem">
           <Heading as="h1">Welcome to DevHelp</Heading>
-          <Text>
+          <Text
+            px={i() ? "" : "60px"}
+            fontSize={i() ? "" : "14px"}
+            textAlign="center"
+            mt="1rem"
+            fontSize="20px"
+          >
             DevHelp has a pool of highly experienced developers in their
             respective tech stacks
           </Text>
@@ -121,7 +126,6 @@ const Register = ({
           <Button
             isLoading={loading}
             loadingText="Logging In"
-            colorScheme="blackAlpha"
             w="450px"
             type="submit"
             onClick={onSubmit}
@@ -129,7 +133,7 @@ const Register = ({
             Sign Up
           </Button>
         </Flex>
-        <Flex justifyContent="center">
+        <Flex justifyContent="center" mt="2rem">
           Already a user?{"  "}
           <Link to="login">
             <Text ml="5px" color="#0066ff">
