@@ -1,10 +1,10 @@
+import { Flex } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { removeNav } from "../../actions/navAction";
-import { clearPost } from "../../actions/getPostAction";
-import DashboardHome from "./DashboardHome";
-import { Flex } from "@chakra-ui/react";
 import { useRouteMatch } from "react-router-dom";
+import { clearPost } from "../../actions/getPostAction";
+import { removeNav } from "../../actions/navAction";
+import DashboardHome from "./DashboardHome";
 
 const Dashboard = ({ removeNav, clearPost, history }) => {
   useEffect(() => {
@@ -15,7 +15,6 @@ const Dashboard = ({ removeNav, clearPost, history }) => {
   }, []);
 
   const match = useRouteMatch();
-  console.log({ match });
 
   return (
     <Flex>

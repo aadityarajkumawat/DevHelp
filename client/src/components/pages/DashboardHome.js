@@ -1,16 +1,16 @@
 import * as S from "@chakra-ui/react";
 import { Box, Flex, Text } from "@chakra-ui/react";
 import React from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import Logo from "../../assets/favicon.svg";
-import DashboardSideBar from "./DashboardSideBar";
 import Profile from "./profile/Profile";
 import UserPost from "./user-post/UserPost";
 
-const DashboardHome = ({ routing, user }) => {
+const DashboardHome = ({ routing, user, profile }) => {
   return (
     <Flex justifyContent="center" w="100vw">
-      <Flex w="calc(50vw - 350px)" h="100vh" justifyContent="flex-end">
+      <Flex w="calc(50vw - 400px)" h="100vh" justifyContent="flex-end">
         <Flex flexDir="column" w="15rem" pt="1rem">
           <S.Flex justifyContent="flex-start" alignItems="center">
             <Link to="/">
@@ -22,7 +22,9 @@ const DashboardHome = ({ routing, user }) => {
           </S.Flex>
           <S.Flex flexDirection="column" pt="5">
             <S.Box mb="1rem" fontSize="20">
-              <Link to="/dashboard/home">Home</Link>
+              <Link to={`/dashboard/home/user/${profile.profile._id}`}>
+                Home
+              </Link>
             </S.Box>
             <S.Box mb="1rem" fontSize="20">
               <Link to="/dashboard/saved">Saved Posts</Link>
@@ -50,7 +52,7 @@ const DashboardHome = ({ routing, user }) => {
         px="0rem"
         h="100vh"
         flexDir="column"
-        w="700px"
+        w="800px"
         pt="1rem"
       >
         <Flex
@@ -58,11 +60,6 @@ const DashboardHome = ({ routing, user }) => {
           alignItems="center"
           borderBottom="1px solid #a6a6a680"
         >
-          {user.params.name === "user" && (
-            <Box>
-              <DashboardSideBar />
-            </Box>
-          )}
           <Box>
             <Text ml="1rem" fontSize="25px" fontWeight="600" mb="1rem">
               {user.params.name === "user"
@@ -74,9 +71,15 @@ const DashboardHome = ({ routing, user }) => {
         <Profile user={user.params} />
         <UserPost routing={routing} />
       </Flex>
-      <Flex w="calc(50vw - 350px)" h="100vh"></Flex>
+      <Flex w="calc(50vw - 400px)" h="100vh"></Flex>
     </Flex>
   );
 };
 
-export default DashboardHome;
+const mapStateToProps = (state) => {
+  return {
+    profile: state.profile,
+  };
+};
+
+export default connect(mapStateToProps, {})(DashboardHome);

@@ -6,6 +6,7 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
+  Skeleton,
   Text,
 } from "@chakra-ui/react";
 import React, { Fragment, useEffect, useState } from "react";
@@ -32,9 +33,11 @@ const TrendingItem = ({
   savePost,
   auth,
   getSavedPosts,
+  forComp,
 }) => {
   const [loadingUNI, setLoadingUNI] = useState(true);
   const [styleForHeading, setStyleForHeading] = useState({});
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
     if (status === "" && auth.isAuthenticated) {
@@ -102,23 +105,38 @@ const TrendingItem = ({
       cursor="pointer"
       rounded="md"
       border="2px solid #a6a6a690"
-      w="100%"
+      w={forComp === "user-post" ? "100%" : "350px"}
       maxWidth="350px"
     >
-      <Flex onClick={post !== undefined ? openPost : null}>
+      <Flex
+        onClick={post !== undefined ? openPost : null}
+        w={forComp === "user-post" ? "100%" : "350px"}
+        h="170px"
+        maxWidth="350px"
+      >
+        {!imageLoaded && (
+          <Skeleton
+            w={forComp === "user-post" ? "100%" : "350px"}
+            h="170px"
+            maxW="346px"
+          ></Skeleton>
+        )}
         <Image
           src={post && post.image}
           fallbackSrc="https://i.ibb.co/RBT25fY/default-fallback-image.png"
-          w="100%"
+          w={forComp === "user-post" ? "100%" : "346px"}
           h="170px"
           objectFit="cover"
           alt="post"
           borderTopLeftRadius="5px"
           borderTopRightRadius="5px"
+          onLoad={() => setImageLoaded(true)}
+          display={imageLoaded ? "" : "none"}
+          maxWidth="346px"
         />
       </Flex>
       {loadingUNI && <PostPlaceHolder />}
-      {post !== undefined && (
+      {post !== undefined ? (
         <Flex
           style={styleForHeading}
           justifyContent="space-between"
@@ -134,16 +152,20 @@ const TrendingItem = ({
             </Text>
             <Flex alignItems="center" mt="10px">
               <Text>{post.name}</Text>
-              <span
-                style={{
-                  width: "5px",
-                  height: "5px",
-                  borderRadius: "100%",
-                  backgroundColor: "#eee",
-                  margin: "0 4px 0 4px",
-                }}
-              ></span>
-              <Text>7 min</Text>
+              {forComp !== "saved" && (
+                <Fragment>
+                  <span
+                    style={{
+                      width: "5px",
+                      height: "5px",
+                      borderRadius: "100%",
+                      backgroundColor: "#eee",
+                      margin: "0 4px 0 4px",
+                    }}
+                  ></span>
+                  <Text>7 min</Text>
+                </Fragment>
+              )}
             </Flex>
           </Flex>
           <Flex flexDir="column" alignItems="center" alignSelf="center">
@@ -154,7 +176,7 @@ const TrendingItem = ({
             {adminPrivilages.postAccessibility && (
               <Fragment>
                 <Flex mt="10px" className="admin-post-drop">
-                  <Menu>
+                  <Menu isLazy>
                     <MenuButton
                       as={Flex}
                       w="20px"
@@ -175,6 +197,18 @@ const TrendingItem = ({
               </Fragment>
             )}
           </Flex>
+        </Flex>
+      ) : (
+        <Flex
+          style={styleForHeading}
+          justifyContent="space-between"
+          px="10px"
+          py="5px"
+          bg="#2a2c33"
+          flexDir="column"
+        >
+          <Skeleton my="0.2rem" h="25px" w="240px"></Skeleton>
+          <Skeleton my="0.2rem" h="20px" w="100px"></Skeleton>
         </Flex>
       )}
     </Flex>

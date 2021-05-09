@@ -24,7 +24,7 @@ function App() {
     <Provider store={store}>
       <Router>
         <Navbar />
-        <Flex justifyContent="space-between" alignItems="flex-start">
+        <Flex justifyContent="space-between" alignItems="flex-start" h="100%">
           <Switch>
             <Routes />
           </Switch>

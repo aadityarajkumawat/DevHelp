@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import { Box, Flex, Grid } from "@chakra-ui/layout";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import {
   getSavedPosts,
   savePost,
-  setCurrentPost,
+  setCurrentPost
 } from "../../actions/getPostAction";
+import TrendingItem from "../layout components/Trending/TrendingItem/TrendingItem";
 
 const ActivityList = ({
   post,
@@ -31,38 +33,29 @@ const ActivityList = ({
 
   const openThisPost = (id) => {
     if (post !== undefined && routing !== undefined) {
-      console.log(id);
       setCurrentPost(id.toString());
       sessionStorage.setItem("postID", id.toString());
       routing.push("/post");
     }
   };
 
+  console.log(post);
+
   return (
-    <div className="activity-list">
-      <ul className="list-ul">
+    <Flex className="activity-list" px="1rem" w="100%" mt="2rem">
+      <Grid
+        templateColumns="repeat(2, 1fr)"
+        gap="calc(100% - 700px)"
+        className="list-ul"
+        width="100%"
+      >
         {postsSaved.map((post) => (
-          <li key={post._id}>
-            <div className="list-item-div d-flex justify-content-between align-items-center">
-              <div className="right">
-                <div className="post-img">
-                  <img src={post !== undefined ? `${post.image}` : ""} alt="" />
-                </div>
-                <h3 onClick={() => openThisPost(post.savedID)}>
-                  {post.heading}
-                </h3>
-              </div>
-              <div
-                className="options-manipulate"
-                onClick={() => removeThisSavedPost(post.savedID.toString())}
-              >
-                <i className="fas fa-trash-alt"></i>
-              </div>
-            </div>
-          </li>
+          <Box w="350px" onClick={openThisPost} mb="2rem">
+            <TrendingItem post={post} forComp="saved" />
+          </Box>
         ))}
-      </ul>
-    </div>
+      </Grid>
+    </Flex>
   );
 };
 

@@ -85,6 +85,7 @@ const Navbar = ({
                     src={profile.profile.image ? profile.profile.image : ""}
                     alt="User profile image"
                     fallbackSrc="https://i.ibb.co/cTWq2Mm/depositphotos-171453724-stock-illustration-default-avatar-profile-icon-grey.jpg"
+                    objectFit="cover"
                   />
                 </Box>
               </MenuButton>

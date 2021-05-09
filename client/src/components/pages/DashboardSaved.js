@@ -1,17 +1,18 @@
-import React from 'react';
-import ActivityList from './ActivityList';
-import HamMenu from './HamMenu';
+import { Flex, Text } from "@chakra-ui/layout";
+import React from "react";
+import ActivityList from "./ActivityList";
 
 const DashboardSaved = ({ routing }) => {
-    return (
-        <div className='d-flex flex-column user-data-dash saved-data'>
-            <div className='dashboard-heading'>
-                <h2>Saved Posts</h2>
-                <HamMenu />
-            </div>
-            <ActivityList routing={routing} />
-        </div>
-    );
+  return (
+    <Flex w="800px" flexDir="column" px="0" borderX="1px solid #a6a6a680">
+      <Flex p="1rem" borderBottom="1px solid #a6a6a680">
+        <Text fontSize="25px" fontWeight="600">
+          Saved Posts
+        </Text>
+      </Flex>
+      <ActivityList routing={routing} />
+    </Flex>
+  );
 };
 
 export default DashboardSaved;

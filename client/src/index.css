@@ -16,3 +16,7 @@ body {
   justify-content: center;
   align-items: center;
 }
+
+.admin-post-drop div {
+  border-radius: 5px;
+}
