@@ -1,3 +1,4 @@
+import { HamburgerIcon } from "@chakra-ui/icons";
 import {
   Flex,
   Image,
@@ -152,16 +153,18 @@ const TrendingItem = ({
             ></i>
             {adminPrivilages.postAccessibility && (
               <Fragment>
-                <Flex mt="10px">
+                <Flex mt="10px" className="admin-post-drop">
                   <Menu>
                     <MenuButton
                       as={Flex}
-                      w="15px"
+                      w="20px"
                       h="20px"
                       justifyContent="center"
                       alignItems="center"
                       _hover={{ bg: "#ffffff80" }}
-                    ></MenuButton>
+                    >
+                      <HamburgerIcon />
+                    </MenuButton>
                     <MenuList>
                       <MenuItem onClick={() => deletePost(post._id)}>
                         Delete

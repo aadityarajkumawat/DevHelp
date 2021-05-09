@@ -10,3 +10,9 @@ body {
   height: 100%;
   /* overflow-x: hidden; */
 }
+
+.admin-post-drop div span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
