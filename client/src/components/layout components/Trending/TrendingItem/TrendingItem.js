@@ -170,7 +170,7 @@ const TrendingItem = ({
             {adminPrivilages.postAccessibility && (
               <Fragment>
                 <Flex mt="10px" className="admin-post-drop">
-                  <Menu isLazy>
+                  <Menu>
                     <MenuButton
                       as={Flex}
                       w="20px"

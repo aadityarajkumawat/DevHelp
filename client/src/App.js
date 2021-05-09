@@ -1,9 +1,10 @@
 import { Flex } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 // Redux
-import { Provider } from "react-redux";
+import { connect } from "react-redux";
 // Router
 import { BrowserRouter as Router, Switch } from "react-router-dom";
+import { getAdminPrivilages } from "./actions/adminPrivilagesAction";
 import { loadUser } from "./actions/authAction";
 import Navbar from "./components/navbar/Navbar";
 // Import Routes
@@ -16,22 +17,32 @@ if (localStorage.getItem("token")) {
   setAuthToken(localStorage.getItem("token"));
 }
 
-function App() {
+function App({ auth, getAdminPrivilages }) {
   useEffect(() => {
     store.dispatch(loadUser());
+    getAdminPrivilages(true);
   }, []);
+
+  useEffect(() => {
+    getAdminPrivilages(true);
+  }, [auth.isAuthenticated]);
+
   return (
-    <Provider store={store}>
-      <Router>
-        <Navbar />
-        <Flex justifyContent="space-between" alignItems="flex-start" h="100%">
-          <Switch>
-            <Routes />
-          </Switch>
-        </Flex>
-      </Router>
-    </Provider>
+    <Router>
+      <Navbar />
+      <Flex justifyContent="space-between" alignItems="flex-start" h="100%">
+        <Switch>
+          <Routes />
+        </Switch>
+      </Flex>
+    </Router>
   );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    auth: state.auth,
+  };
+};
+
+export default connect(mapStateToProps, { getAdminPrivilages })(App);

@@ -27,17 +27,17 @@ const ActivityList = ({
     // eslint-disable-next-line
   }, [post.savedPosts.length]);
 
-  const removeThisSavedPost = (id) => {
-    savePost(id);
-  };
+  // const removeThisSavedPost = (id) => {
+  //   savePost(id);
+  // };
 
-  const openThisPost = (id) => {
-    if (post !== undefined && routing !== undefined) {
-      setCurrentPost(id.toString());
-      sessionStorage.setItem("postID", id.toString());
-      routing.push("/post");
-    }
-  };
+  // const openThisPost = (id) => {
+  //   if (post !== undefined && routing !== undefined) {
+  //     setCurrentPost(id.toString());
+  //     sessionStorage.setItem("postID", id.toString());
+  //     routing.push("/post");
+  //   }
+  // };
 
   return (
     <Flex className="activity-list" px="1rem" w="100%" mt="2rem">
@@ -48,7 +48,7 @@ const ActivityList = ({
         width="100%"
       >
         {postsSaved.map((post) => (
-          <Box w="350px" onClick={openThisPost} mb="2rem">
+          <Box w="350px" mb="2rem">
             <TrendingItem post={post} forComp="saved" />
           </Box>
         ))}

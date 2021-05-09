@@ -1,9 +1,9 @@
+import * as S from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { getComments, postComment } from "../../actions/commentAction";
 import CommentInput from "./CommentInput";
 import CommentItem from "./CommentItem";
-import * as S from "@chakra-ui/react";
 
 const Comment = ({
   getComments,
