@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import styled, { keyframes } from "styled-components";
 import { connect } from "react-redux";
+import styled, { keyframes } from "styled-components";
 import { deletePost, getUserPosts } from "../../actions/getPostAction";
 
 const OptionsMenu = ({

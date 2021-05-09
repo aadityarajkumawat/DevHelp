@@ -31,6 +31,7 @@ const Post = ({
   const [post, setPost] = useState({});
   const toast = useToast();
   const [isLargerThan500] = useMediaQuery("(min-width: 500px)");
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
     showNav();
@@ -99,8 +100,6 @@ const Post = ({
     history.push(`/dashboard/home/${openedPost.name}/${openedPost.user}`);
   };
 
-  console.log(openedPost);
-
   return (
     <React.Fragment>
       <S.Flex
@@ -155,6 +154,7 @@ const Post = ({
           )}
         </S.Flex>
         <S.Flex mt="0.5rem">
+          {!imageLoaded && <Skeleton h="600px" w="100%"></Skeleton>}
           <S.Image
             src={post && `${post.image}`}
             fallbackSrc="https://i.ibb.co/RBT25fY/default-fallback-image.png"
@@ -162,6 +162,10 @@ const Post = ({
             style={{
               width: isLargerThan500 ? "100%" : "300px",
               height: isLargerThan500 ? "600px" : "auto",
+              display: imageLoaded ? "" : "none",
+            }}
+            onLoad={() => {
+              setImageLoaded(true);
             }}
           />
         </S.Flex>

@@ -1,22 +1,31 @@
-import { Box, Flex, Image, Text } from "@chakra-ui/react";
+import {
+  Flex,
+  Image,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  Text,
+} from "@chakra-ui/react";
 import React, { Fragment, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { getAdminPrivilages } from "../../../../actions/adminPrivilagesAction";
 import {
+  deletePost,
   getSavedPosts,
   savePost,
   setCurrentPost,
 } from "../../../../actions/getPostAction";
-import OptionsMenu from "../../OptionsMenu";
 import PostPlaceHolder from "../../PostPlaceHolder";
 
 const TrendingItem = ({
+  deletePost,
   post,
   setCurrentPost,
   trending: { loading },
   routing,
   by,
-  postRedu: { loadingUserPosts, savedPosts, status, savedToast },
+  postRedu: { loadingUserPosts, savedPosts, status },
   getAdminPrivilages,
   adminPrivilages,
   savePost,
@@ -24,7 +33,6 @@ const TrendingItem = ({
   getSavedPosts,
 }) => {
   const [loadingUNI, setLoadingUNI] = useState(true);
-  const [openOptions, setOpenOptions] = useState(false);
   const [styleForHeading, setStyleForHeading] = useState({});
 
   useEffect(() => {
@@ -86,14 +94,6 @@ const TrendingItem = ({
     // eslint-disable-next-line
   }, [loadingUNI, loadingUserPosts, loading]);
 
-  const openOptionsMenu = () => {
-    setOpenOptions((prev) => !prev);
-  };
-
-  const _exitOptionMode_ = () => {
-    setOpenOptions((prev) => !prev);
-  };
-
   return (
     <Flex
       flexDirection="column"
@@ -102,7 +102,7 @@ const TrendingItem = ({
       rounded="md"
       border="2px solid #a6a6a690"
       w="100%"
-      maxWidth="300px"
+      maxWidth="350px"
     >
       <Flex onClick={post !== undefined ? openPost : null}>
         <Image
@@ -145,30 +145,33 @@ const TrendingItem = ({
               <Text>7 min</Text>
             </Flex>
           </Flex>
-          <Box>
+          <Flex flexDir="column" alignItems="center" alignSelf="center">
             <i
               onClick={saveThisPost}
               className={`fa${checkSavedStatus() ? "s" : "r"} fa-bookmark`}
             ></i>
             {adminPrivilages.postAccessibility && (
               <Fragment>
-                <Box onClick={openOptionsMenu} style={{ position: "relative" }}>
-                  <i className={`fas fa-ellipsis-v options--post`}></i>
-                  <OptionsMenu
-                    displayStatus={openOptions}
-                    postID={post._id}
-                    userID={post.user}
-                  />
-                </Box>
-                <Box
-                  onClick={_exitOptionMode_}
-                  style={{
-                    display: openOptions ? "block" : "none",
-                  }}
-                ></Box>
+                <Flex mt="10px">
+                  <Menu>
+                    <MenuButton
+                      as={Flex}
+                      w="15px"
+                      h="20px"
+                      justifyContent="center"
+                      alignItems="center"
+                      _hover={{ bg: "#ffffff80" }}
+                    ></MenuButton>
+                    <MenuList>
+                      <MenuItem onClick={() => deletePost(post._id)}>
+                        Delete
+                      </MenuItem>
+                    </MenuList>
+                  </Menu>
+                </Flex>
               </Fragment>
             )}
-          </Box>
+          </Flex>
         </Flex>
       )}
     </Flex>
@@ -189,4 +192,5 @@ export default connect(mapStateToProps, {
   getAdminPrivilages,
   savePost,
   getSavedPosts,
+  deletePost,
 })(TrendingItem);
