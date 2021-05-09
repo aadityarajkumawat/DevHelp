@@ -20,6 +20,8 @@ const Comment = ({
     if (post_id) {
       getComments(post_id);
     }
+
+    // eslint-disable-next-line
   }, [commenting, post.currentPost]);
 
   useEffect(() => {
@@ -28,6 +30,8 @@ const Comment = ({
     if (cmts) {
       setComments(cmts);
     }
+
+    // eslint-disable-next-line
   }, [cmts.length]);
 
   return (

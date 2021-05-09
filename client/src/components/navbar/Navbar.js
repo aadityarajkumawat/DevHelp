@@ -36,6 +36,8 @@ const Navbar = ({
     if (!isEmpty(profile)) {
       loadProfile();
     }
+
+    // eslint-disable-next-line
   }, [profile.profile.image]);
 
   const logMeOut = () => {

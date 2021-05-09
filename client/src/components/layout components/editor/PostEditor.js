@@ -38,12 +38,16 @@ const PostEditor = ({
       setUploadingContent(false);
       history.push("/");
     }
+
+    // eslint-disable-next-line
   }, [post.uploadedStatus]);
 
   useEffect(() => {
     if (upload === "Uploaded!") {
       dispatchPopup("Post Image", "Post image has been uploaded successfully!");
     }
+
+    // eslint-disable-next-line
   }, [upload]);
 
   const handleSave = async () => {

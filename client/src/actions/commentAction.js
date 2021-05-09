@@ -1,5 +1,6 @@
-import { COMMENT_TOAST, GET_COMMENTS, POST_COMMENT } from "./types";
 import Axios from "axios";
+import { API } from "..";
+import { COMMENT_TOAST, GET_COMMENTS, POST_COMMENT } from "./types";
 
 export const postComment = (msg, user_id, post_id) => async (dispatch) => {
   const config = {
@@ -10,7 +11,7 @@ export const postComment = (msg, user_id, post_id) => async (dispatch) => {
   try {
     dispatch({ type: POST_COMMENT, payload: true });
     await Axios.put(
-      `/api/post/comment/${user_id}/${post_id}`,
+      `${API}/api/post/comment/${user_id}/${post_id}`,
       { comment_msg: msg },
       config
     );
@@ -19,14 +20,12 @@ export const postComment = (msg, user_id, post_id) => async (dispatch) => {
     setTimeout(() => {
       dispatch({ type: COMMENT_TOAST, payload: false });
     }, 5000);
-  } catch (err) {
-  }
+  } catch (err) {}
 };
 
 export const getComments = (post_id) => async (dispatch) => {
   try {
-    const res = await Axios.get(`/api/post/comment/all/${post_id}`);
+    const res = await Axios.get(`${API}/api/post/comment/all/${post_id}`);
     dispatch({ type: GET_COMMENTS, payload: res.data });
-  } catch (err) {
-  }
+  } catch (err) {}
 };

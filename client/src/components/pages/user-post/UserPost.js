@@ -27,6 +27,8 @@ const UserPost = ({
 
   useEffect(() => {
     getUserPosts(auth.user._id);
+
+    // eslint-disable-next-line
   }, [post.deletedStatus]);
 
   useEffect(() => {

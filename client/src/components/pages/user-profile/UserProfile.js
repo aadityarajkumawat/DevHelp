@@ -1,6 +1,6 @@
+import * as S from "@chakra-ui/react";
 import React from "react";
 import { connect } from "react-redux";
-import * as S from "@chakra-ui/react";
 
 const UserProfile = ({ profile, post }) => {
   return (
@@ -28,7 +28,7 @@ const UserProfile = ({ profile, post }) => {
             {post.reallyAllPosts.map((post) => (
               <div className="post-ii">
                 <div className="post-ii-img">
-                  <img src={post.image} />
+                  <img src={post.image} alt="user" />
                 </div>
                 <div className="post-ii-heading">{post.heading}</div>
                 <div className="post-ii-info">

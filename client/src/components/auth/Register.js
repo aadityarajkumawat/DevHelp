@@ -73,7 +73,6 @@ const Register = ({
           <Heading as="h1">Welcome to DevHelp</Heading>
           <Text
             px={i() ? "" : "60px"}
-            fontSize={i() ? "" : "14px"}
             textAlign="center"
             mt="1rem"
             fontSize="20px"

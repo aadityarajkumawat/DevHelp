@@ -37,6 +37,8 @@ export const useSetProfileInSettings = (p, fn) => {
         country: p.profile.country,
       }));
     }
+
+    // eslint-disable-next-line
   }, [p]);
 };
 
@@ -54,5 +56,7 @@ export const useShowToastOnSuccessfulUpdating = (p, cls, cln, tst) => {
       cls();
       cln();
     }
+
+    // eslint-disable-next-line
   }, [p.editProfileRes]);
 };

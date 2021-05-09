@@ -8,6 +8,8 @@ const PopularPosts = ({ fetchPopularPosts }) => {
 
   useEffect(() => {
     fetchPopularPosts();
+
+    // eslint-disable-next-line
   }, []);
 
   return (

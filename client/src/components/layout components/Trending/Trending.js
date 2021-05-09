@@ -43,7 +43,7 @@ const Trending = ({
         position: "bottom-left",
         title: post.status[2] === "s" ? "Saved Post" : "Unsaved Post",
         description:
-          post.status[2] == "s"
+          post.status[2] === "s"
             ? "Post has been saved"
             : "Post has been removed from saved collection",
         status: "success",
@@ -51,6 +51,8 @@ const Trending = ({
         isClosable: true,
       });
     }
+
+    // eslint-disable-next-line
   }, [post.savedToast]);
 
   return (

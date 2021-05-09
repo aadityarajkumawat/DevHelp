@@ -73,6 +73,8 @@ const Post = ({
         isClosable: true,
       });
     }
+
+    // eslint-disable-next-line
   }, [comment.commentToast]);
 
   const likeThisPost = () => {

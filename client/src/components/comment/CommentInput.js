@@ -1,10 +1,8 @@
-import React, { useState } from "react";
 import * as S from "@chakra-ui/react";
-import { useToast } from "@chakra-ui/react";
+import React, { useState } from "react";
 
 const CommentInput = ({ addComment, user_id, post_id, status }) => {
   const [comment, setComment] = useState("");
-  const toast = useToast();
 
   const handleChange = (e) => {
     setComment(e.target.value);

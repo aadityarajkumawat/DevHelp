@@ -21,10 +21,14 @@ function App({ auth, getAdminPrivilages }) {
   useEffect(() => {
     store.dispatch(loadUser());
     getAdminPrivilages(true);
+
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
     getAdminPrivilages(true);
+
+    // eslint-disable-next-line
   }, [auth.isAuthenticated]);
 
   return (
