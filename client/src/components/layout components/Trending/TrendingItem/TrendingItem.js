@@ -105,26 +105,20 @@ const TrendingItem = ({
       cursor="pointer"
       rounded="md"
       border="2px solid #a6a6a690"
-      w={forComp === "user-post" ? "100%" : "350px"}
+      w="350px"
       maxWidth="350px"
     >
       <Flex
         onClick={post !== undefined ? openPost : null}
-        w={forComp === "user-post" ? "100%" : "350px"}
+        w="350px"
         h="170px"
         maxWidth="350px"
       >
-        {!imageLoaded && (
-          <Skeleton
-            w={forComp === "user-post" ? "100%" : "350px"}
-            h="170px"
-            maxW="346px"
-          ></Skeleton>
-        )}
+        {!imageLoaded && <Skeleton w="350px" h="170px" maxW="346px"></Skeleton>}
         <Image
           src={post && post.image}
           fallbackSrc="https://i.ibb.co/RBT25fY/default-fallback-image.png"
-          w={forComp === "user-post" ? "100%" : "346px"}
+          w="346px"
           h="170px"
           objectFit="cover"
           alt="post"

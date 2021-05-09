@@ -14,9 +14,7 @@ router.post("/:post_id", auth, async (req, res) => {
     let saved = await Saved.findOne({ user: req.user.id });
     const post = await Post.findOne({ _id: post_id });
 
-    // Checking posts
     if (post) {
-      // Checking the saved object
       if (!saved) {
         saved = new Saved({
           user: req.user.id,
@@ -68,23 +66,31 @@ router.post("/:post_id", auth, async (req, res) => {
   }
 });
 
-/*
- * Deprecated Method
- ! this is a red comment
- TODO: Add more UX features
- ? Will this be a API method
- */
-
 // @REQ     GET api/save
 // @DESC    Get the posts saved by user
 // @ACCESS  Private
 router.get("/", auth, async (req, res) => {
   try {
     let saved = await Saved.findOne({ user: req.user.id });
-    let savedPosts = null;
+    let savedPostsR = [];
     if (saved) {
-      savedPosts = saved.savedPosts;
-      res.json(savedPosts);
+      savedPostsR = saved.savedPosts;
+      let myPP = [];
+
+      for (let i = 0; i < saved.savedPosts.length; i++) {
+        const post = await Post.findOne({ _id: saved.savedPosts[i].savedID });
+        let uu = { name: post.name };
+
+        uu._id = savedPostsR[i]._id;
+        uu.savedID = savedPostsR[i].savedID;
+        uu.heading = savedPostsR[i].heading;
+        uu.content = savedPostsR[i].content;
+        uu.image = savedPostsR[i].image;
+
+        myPP.push(uu);
+      }
+
+      res.json(myPP);
     } else {
       saved = new Saved({
         user: req.user.id,

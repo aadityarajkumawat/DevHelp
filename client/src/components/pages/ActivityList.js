@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import {
   getSavedPosts,
   savePost,
-  setCurrentPost
+  setCurrentPost,
 } from "../../actions/getPostAction";
 import TrendingItem from "../layout components/Trending/TrendingItem/TrendingItem";
 
@@ -38,8 +38,6 @@ const ActivityList = ({
       routing.push("/post");
     }
   };
-
-  console.log(post);
 
   return (
     <Flex className="activity-list" px="1rem" w="100%" mt="2rem">
