@@ -16,7 +16,6 @@ export const uploadProfilePhoto = (formData) => async (dispatch) => {
     const res = await Axios.post("/api/upload/profile", formData);
     dispatch({ type: PROFILE_PHOTO, payload: res.data });
   } catch (err) {
-    console.log(err);
   }
 };
 
@@ -27,7 +26,6 @@ export const loadProfile = () => async (dispatch) => {
       dispatch({ type: GET_PROFILE, payload: res.data });
     }
   } catch (err) {
-    console.log(err);
   }
 };
 
@@ -41,7 +39,6 @@ export const editProfile = (fData) => async (dispatch) => {
 
     dispatch({ type: EDIT_PROFILE, payload: res.data });
   } catch (err) {
-    console.log(err);
   }
 };
 
@@ -50,7 +47,6 @@ export const getThatProfileE = (userId) => async (dispatch) => {
     const res = await Axios.get(`/api/profile/${userId}`);
     dispatch({ type: GET_THAT_PROFILE, payload: res.data });
   } catch (err) {
-    console.log(err.message);
   }
 };
 

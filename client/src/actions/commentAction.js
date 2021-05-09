@@ -20,7 +20,6 @@ export const postComment = (msg, user_id, post_id) => async (dispatch) => {
       dispatch({ type: COMMENT_TOAST, payload: false });
     }, 5000);
   } catch (err) {
-    console.log(err.message);
   }
 };
 
@@ -29,6 +28,5 @@ export const getComments = (post_id) => async (dispatch) => {
     const res = await Axios.get(`/api/post/comment/all/${post_id}`);
     dispatch({ type: GET_COMMENTS, payload: res.data });
   } catch (err) {
-    console.log(err.message);
   }
 };

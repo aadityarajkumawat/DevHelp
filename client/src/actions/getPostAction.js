@@ -29,7 +29,6 @@ export const getPost = (post_id) => async (dispatch) => {
       dispatch({ type: GET_POST, payload: res.data }); // * this will fetch a single post given the post id
     }
   } catch (err) {
-    console.log(err.message);
   }
 };
 
@@ -58,7 +57,6 @@ export const uploadPost = (post, post_id) => async (dispatch) => {
       dispatch(loadUser());
     }
   } catch (err) {
-    console.log(err);
   }
 };
 
@@ -69,7 +67,6 @@ export const uploadImage = (fData) => async (dispatch) => {
     const res = await axios.post("/api/upload", fData);
     dispatch({ type: GET_POST_ID, payload: res.data._id });
   } catch (err) {
-    console.log("Upload ERR: ->>", err);
   }
 };
 
@@ -80,7 +77,6 @@ export const getUserPosts = (user_id) => async (dispatch) => {
       dispatch({ type: GET_USER_POSTS, payload: res.data });
     }
   } catch (err) {
-    console.log(err);
   }
 };
 
@@ -91,7 +87,6 @@ export const deletePost = (post_id) => async (dispatch) => {
       dispatch({ type: DELETE_POST, payload: res.data });
     }
   } catch (err) {
-    console.log(err);
   }
 };
 
@@ -106,7 +101,6 @@ export const savePost = (post_id) => async (dispatch) => {
       }, 5000);
     }
   } catch (err) {
-    console.log(err);
   }
 };
 
@@ -115,7 +109,6 @@ export const getSavedPosts = () => async (dispatch) => {
     const res = await axios.get("/api/save");
     dispatch({ type: GET_SAVED_POST, payload: res.data });
   } catch (err) {
-    console.log(err);
   }
 };
 
@@ -126,7 +119,6 @@ export const likePost = (post_id) => async (dispatch) => {
       dispatch({ type: LIKE_POST, payload: res.data });
     }
   } catch (err) {
-    console.log(err);
   }
 };
 
@@ -137,7 +129,6 @@ export const getLikedPosts = (user, post_id) => async (dispatch) => {
       dispatch({ type: GET_LIKED_POST, payload: res.data });
     }
   } catch (err) {
-    console.log(err);
   }
 };
 
@@ -146,7 +137,6 @@ export const reallyGetAllPosts = (userId) => async (dispatch) => {
     const res = await axios.get(`/api/post/real-all/${userId}`);
     dispatch({ type: REALLY_GET_ALL_POSTS, payload: res.data });
   } catch (error) {
-    console.log(error.message);
   }
 };
 
@@ -161,9 +151,7 @@ export const cleanGetPostAction = () => (dispatch) => {
 export const fetchPopularPosts = () => async (dispatch) => {
   try {
     const res = await axios.get("/api/post/5fc4c6a6cf07d202383aadcf");
-    console.log(res.data);
     // dispatch({ type: , payload: res.data });
   } catch (err) {
-    console.log("Error Fetching All Articles");
   }
 };
