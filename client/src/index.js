@@ -6,7 +6,7 @@ import App from "./App";
 import "./index.css";
 import store from "./store";
 
-export const API = "http://157.245.111.58";
+export const API = "http://localhost:5000";
 
 ReactDOM.render(
   <React.StrictMode>
