@@ -11,10 +11,8 @@ const connectDB = async () => {
       useFindAndModify: true,
     });
 
-    console.log("MongoDB Connected...");
   } catch (err) {
     console.error(err.message);
-    console.log("Server Error!");
   }
 };
 

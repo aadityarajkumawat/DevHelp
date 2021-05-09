@@ -61,7 +61,6 @@ router.post("/:post_id", auth, async (req, res) => {
       res.send("No post found");
     }
   } catch (err) {
-    console.log(err.message);
     res.send("Server Error!");
   }
 });
@@ -101,7 +100,6 @@ router.get("/", auth, async (req, res) => {
       res.json(toS);
     }
   } catch (err) {
-    console.log(err.message);
     res.send("Server Error!");
   }
 });

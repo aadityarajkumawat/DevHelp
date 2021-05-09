@@ -72,11 +72,9 @@ router.get("/all/:user_id", async (req, res) => {
 router.get("/real-all/:user_id", async (req, res) => {
   const user_id = req.params.user_id;
   try {
-    // console.log(user_id);
     const user = await User.findOne({ _id: req.params.user_id });
     if (user) {
       posts = await Post.find({ user: user_id });
-      // console.log(posts);
       return res.status(200).json(posts);
     } else {
       res.status(404).json({ errors: [{ msg: "No user Found" }] });
@@ -206,7 +204,6 @@ router.put("/comment/:user_id/:post_id", auth, async (req, res) => {
       res.status(201).send("post not found");
     }
   } catch (err) {
-    console.log(err.message);
     res.send("Server Error!");
   }
 });
@@ -244,10 +241,8 @@ router.get("/:user/:post_id", auth, async (req, res) => {
         const liked = post.likes;
         return res.json(liked);
       } else {
-        console.log("Nope!!");
       }
     } else {
-      console.log("User not Found!!");
     }
   } catch (err) {
     console.error(err.message);

@@ -36,7 +36,6 @@ const upload = multer({
 // @DESC    upload post img
 // @ACCESS  Private
 router.post("/", [auth, upload.single("file")], (req, res) => {
-  console.log(req.file);
   cloudinary.v2.uploader.upload(
     req.file.path,
     {
@@ -46,7 +45,6 @@ router.post("/", [auth, upload.single("file")], (req, res) => {
     async (err, result) => {
       if (err) {
         res.json(err);
-        console.log("First ERR ->>", err);
       } else {
         try {
           let post = new Post({
@@ -72,7 +70,6 @@ router.post("/", [auth, upload.single("file")], (req, res) => {
 // @DESC    upload profile picture
 // @ACCESS  Private
 router.post("/profile", [auth, upload.single("profile")], (req, res) => {
-  console.log(req.file);
   cloudinary.v2.uploader.upload(
     req.file.path,
     {
@@ -82,7 +79,6 @@ router.post("/profile", [auth, upload.single("profile")], (req, res) => {
     async (err, result) => {
       if (err) {
         res.json(err);
-        console.log(err);
       } else {
         let profile;
         try {
@@ -108,7 +104,6 @@ router.post("/profile", [auth, upload.single("profile")], (req, res) => {
             res.json(profile);
           }
         } catch (err) {
-          console.log(err.message);
           res.send("Server Error!");
         }
       }
