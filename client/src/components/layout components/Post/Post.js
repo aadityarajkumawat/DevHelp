@@ -3,7 +3,7 @@ import { Skeleton, useMediaQuery, useToast } from "@chakra-ui/react";
 import { ParsedData } from "draftjs-raw-parser";
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { postComment } from "../../../actions/commentAction";
 import {
   getLikedPosts,
@@ -163,7 +163,7 @@ const Post = ({
             alt="post"
             style={{
               width: isLargerThan500 ? "100%" : "300px",
-              height: isLargerThan500 ? "600px" : "auto",
+              height: "auto",
               display: imageLoaded ? "" : "none",
             }}
             onLoad={() => {
@@ -174,7 +174,7 @@ const Post = ({
         <S.Flex mt="30px">
           {post.content && (
             <TurnIn isLargerThan500>
-              <ParsedData draftJSRawData={post.content.toString()} />
+              <ParsedData fontSize={23} rawContent={post.content.toString()} />
             </TurnIn>
           )}
         </S.Flex>
@@ -195,20 +195,11 @@ const Post = ({
 
 const TurnIn = styled.div`
   div {
+    text-align: justify;
     span {
       font-size: 25px;
     }
   }
-
-  ${(props) =>
-    props.isLargerThan500 &&
-    css`
-      div {
-        span {
-          font-size: 16px;
-        }
-      }
-    `}
 `;
 
 const mapStateToProps = (state) => {

@@ -9,7 +9,7 @@ import UserPost from "./user-post/UserPost";
 
 const DashboardHome = ({ routing, user, profile }) => {
   return (
-    <Flex justifyContent="center" w="100vw">
+    <Flex justifyContent="center" w="100%">
       <Flex w="calc(50vw - 400px)" h="100vh" justifyContent="flex-end">
         <Flex flexDir="column" w="15rem" pt="1rem">
           <S.Flex justifyContent="flex-start" alignItems="center">
@@ -50,7 +50,7 @@ const DashboardHome = ({ routing, user, profile }) => {
       <Flex
         borderX="1px solid #a6a6a680"
         px="0rem"
-        h="100vh"
+        h="100%"
         flexDir="column"
         w="800px"
         pt="1rem"

@@ -137,8 +137,9 @@ const TrendingItem = ({
           px="10px"
           py="5px"
           bg="#2a2c33"
+          h="98px"
         >
-          <Flex flexDir="column">
+          <Flex flexDir="column" justifyContent="inherit">
             <Text onClick={openPost} fontSize="18px">
               {post.heading.length > 47
                 ? post.heading.substr(0, 47) + "..."
@@ -167,7 +168,7 @@ const TrendingItem = ({
               onClick={saveThisPost}
               className={`fa${checkSavedStatus() ? "s" : "r"} fa-bookmark`}
             ></i>
-            {adminPrivilages.postAccessibility && (
+            {adminPrivilages.postAccessibility && forComp !== "home-trend" && (
               <Fragment>
                 <Flex mt="10px" className="admin-post-drop">
                   <Menu>
