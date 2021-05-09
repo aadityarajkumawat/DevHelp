@@ -3,6 +3,7 @@ const router = express.Router();
 const auth = require("../middleware/auth");
 const Saved = require("../models/Saved");
 const Post = require("../models/Post");
+const User = require("../models/User");
 
 // @REQ     POST api/save/:post_id
 // @DESC    Save a post to saved collection
